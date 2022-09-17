@@ -6,16 +6,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.agendaapp.R
 import com.example.agendaapp.contactRecyclerView.ContactsAdapter
 import com.example.agendaapp.databinding.FragmentAgendaBinding
+import com.example.agendaapp.interfaces.OnContactClickedListener
 import com.example.agendaapp.objects.Contact
 
 
-class AgendaFragment : Fragment() {
+class AgendaFragment : Fragment(), OnContactClickedListener {
 
     private var binding: FragmentAgendaBinding? = null
 
@@ -45,9 +49,10 @@ class AgendaFragment : Fragment() {
         initializeRecyclerView()
     }
 
-    private fun initializeRecyclerView(){
+    private fun initializeRecyclerView() {
         binding?.apply {
-            recyclerView.adapter = ContactsAdapter(sharedViewModel.contactsList.value as ArrayList<Contact>)
+            recyclerView.adapter =
+                ContactsAdapter(sharedViewModel.contactsList.value as ArrayList<Contact>, this@AgendaFragment)
         }
     }
 
@@ -72,6 +77,14 @@ class AgendaFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun contactClicked(contact: Contact) {
+        val bundle = Bundle().apply {
+            putSerializable("CONTACT", contact)
+        }
+        findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment, bundle)
+      //  findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment)
     }
 
 }
