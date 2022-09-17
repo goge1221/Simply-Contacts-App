@@ -9,6 +9,7 @@ class ContactsViewHolder(
 ): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(contact: Contact){
-
+        binding.letterInsideCircle.text = contact.name.take(1)
+        binding.callerName.text = contact.name
     }
 }
