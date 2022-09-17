@@ -1,4 +1,4 @@
-package com.example.agendaapp.fragments
+package com.example.agendaapp.objects
 
 data class Contact(
     private val phoneNumber: String,
