@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailCallBinding
 import com.example.agendaapp.objects.Contact
 
@@ -20,7 +22,7 @@ class DetailCallFragment : Fragment() {
 
     private val sharedViewModel: AgendaViewModel by activityViewModels()
 
-    var contact: Contact? = null
+    private var contact: Contact? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,7 @@ class DetailCallFragment : Fragment() {
     fun initiateCall() {
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact?.phoneNumber))
         startActivity(intent)
+        findNavController().navigate(R.id.action_detailCallFragment_to_agendaFragment)
     }
 
 }

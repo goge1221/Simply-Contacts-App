@@ -1,13 +1,10 @@
 package com.example.agendaapp.fragments
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +13,7 @@ import com.example.agendaapp.contactRecyclerView.ContactsAdapter
 import com.example.agendaapp.databinding.FragmentAgendaBinding
 import com.example.agendaapp.interfaces.OnContactClickedListener
 import com.example.agendaapp.objects.Contact
+import com.example.agendaapp.utils.PermissionHandler
 
 
 class AgendaFragment : Fragment(), OnContactClickedListener {
@@ -28,6 +26,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {}
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +43,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        checkPermissionToReadContacts()
         initializeRecyclerView()
+        PermissionHandler(requestPermissionLauncher, binding?.root?.context!!).askPermissions()
     }
 
     private fun initializeRecyclerView() {
@@ -56,24 +55,6 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
                     this@AgendaFragment
                 )
         }
-    }
-
-    private fun checkPermissionToReadContacts() {
-        if (!userHasPermission())
-            requestPermission()
-    }
-
-    private fun userHasPermission(): Boolean {
-        return (ActivityCompat.checkSelfPermission(
-            binding?.root?.context!!,
-            Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED)
-    }
-
-    private fun requestPermission() {
-        requestPermissionLauncher.launch(
-            Manifest.permission.READ_CONTACTS
-        )
     }
 
     override fun onDestroy() {

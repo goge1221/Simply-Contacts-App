@@ -22,5 +22,8 @@
         <argument
             android:name="bundle"
             app:argType="com.example.agendaapp.objects.Contact" />
+        <action
+            android:id="@+id/action_detailCallFragment_to_agendaFragment"
+            app:destination="@id/agendaFragment" />
     </fragment>
 </navigation>
