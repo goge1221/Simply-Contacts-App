@@ -44,6 +44,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:onClickListener="@{() -> fragmentView.initiateCall()}"
             android:backgroundTint="@color/green"
             app:cardCornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="parent"

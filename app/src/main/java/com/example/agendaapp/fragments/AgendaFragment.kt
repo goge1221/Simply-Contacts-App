@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -52,7 +51,10 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     private fun initializeRecyclerView() {
         binding?.apply {
             recyclerView.adapter =
-                ContactsAdapter(sharedViewModel.contactsList.value as ArrayList<Contact>, this@AgendaFragment)
+                ContactsAdapter(
+                    sharedViewModel.contactsList.value as ArrayList<Contact>,
+                    this@AgendaFragment
+                )
         }
     }
 
@@ -80,13 +82,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     }
 
     override fun contactClicked(contact: Contact) {
-        val bundle = Bundle().apply {
-            putSerializable("CONTACT", contact)
-        }
-
-
-        findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment, bundle)
-      //  findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment)
+        sharedViewModel.setSingleContact(contact)
+        findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment)
     }
 
 }

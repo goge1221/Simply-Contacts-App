@@ -18,9 +18,16 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
     val contactsList: LiveData<ArrayList<Contact>> = _contactsList
 
 
+    private var _singleContact = MutableLiveData<Contact>()
+    val singleContact: LiveData<Contact> = _singleContact
 
     init {
         getContacts()
+    }
+
+
+    fun setSingleContact(contact: Contact){
+        _singleContact.value = contact
     }
 
     @SuppressLint("Range")
