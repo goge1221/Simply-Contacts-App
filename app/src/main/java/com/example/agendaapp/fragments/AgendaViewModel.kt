@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ContentResolver
 import android.database.Cursor
+import android.os.Parcel
 import android.provider.ContactsContract
+import android.support.v4.os.IResultReceiver._Parcel
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,13 +14,20 @@ import com.example.agendaapp.objects.Contact
 
 class AgendaViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Cupcake flavor for this order
     private var _contactsList = MutableLiveData<ArrayList<Contact>>()
     val contactsList: LiveData<ArrayList<Contact>> = _contactsList
 
 
+    private var _singleContact = MutableLiveData<Contact>()
+    val singleContact: LiveData<Contact> = _singleContact
+
     init {
         getContacts()
+    }
+
+
+    fun setSingleContact(contact: Contact){
+        _singleContact.value = contact
     }
 
     @SuppressLint("Range")

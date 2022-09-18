@@ -1,6 +1,6 @@
 package com.example.agendaapp.objects
 
 data class Contact(
-    private val phoneNumber: String,
-    private val name: String
-)
+    val phoneNumber: String,
+    val name: String
+) : java.io.Serializable
