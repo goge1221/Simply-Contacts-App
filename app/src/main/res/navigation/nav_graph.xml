@@ -18,5 +18,9 @@
         android:id="@+id/detailCallFragment"
         android:name="com.example.agendaapp.fragments.DetailCallFragment"
         android:label="fragment_detail_call"
-        tools:layout="@layout/fragment_detail_call" />
+        tools:layout="@layout/fragment_detail_call" >
+        <argument
+            android:name="bundle"
+            app:argType="com.example.agendaapp.objects.Contact" />
+    </fragment>
 </navigation>

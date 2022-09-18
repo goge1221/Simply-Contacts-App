@@ -83,6 +83,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         val bundle = Bundle().apply {
             putSerializable("CONTACT", contact)
         }
+
+
         findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment, bundle)
       //  findNavController().navigate(R.id.action_agendaFragment_to_detailCallFragment)
     }
