@@ -1,12 +1,10 @@
-package com.example.agendaapp.fragments
+package com.example.agendaapp.fragments.contacts
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ContentResolver
 import android.database.Cursor
-import android.os.Parcel
 import android.provider.ContactsContract
-import android.support.v4.os.IResultReceiver._Parcel
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

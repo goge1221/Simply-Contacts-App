@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/agendaFragment"
-        android:name="com.example.agendaapp.fragments.AgendaFragment"
+        android:name="com.example.agendaapp.fragments.contacts.AgendaFragment"
         android:label="fragment_agenda"
         tools:layout="@layout/fragment_agenda" >
         <action

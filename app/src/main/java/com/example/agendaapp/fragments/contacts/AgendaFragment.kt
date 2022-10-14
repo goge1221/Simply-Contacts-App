@@ -1,4 +1,4 @@
-package com.example.agendaapp.fragments
+package com.example.agendaapp.fragments.contacts
 
 import android.os.Bundle
 import android.view.LayoutInflater
