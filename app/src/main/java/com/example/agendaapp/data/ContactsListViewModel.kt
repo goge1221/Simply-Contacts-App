@@ -1,4 +1,4 @@
-package com.example.agendaapp.fragments.contacts
+package com.example.agendaapp.data
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -8,24 +8,16 @@ import android.provider.ContactsContract
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.agendaapp.objects.Contact
 
-class AgendaViewModel(application: Application) : AndroidViewModel(application) {
+class ContactsListViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _contactsList = MutableLiveData<ArrayList<Contact>>()
     val contactsList: LiveData<ArrayList<Contact>> = _contactsList
 
-
     private var _singleContact = MutableLiveData<Contact>()
-    val singleContact: LiveData<Contact> = _singleContact
 
     init {
         getContacts()
-    }
-
-
-    fun setSingleContact(contact: Contact){
-        _singleContact.value = contact
     }
 
     @SuppressLint("Range")
