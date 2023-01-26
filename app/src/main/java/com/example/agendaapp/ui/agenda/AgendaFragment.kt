@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.agendaapp.databinding.FragmentAgendaBinding
+import com.example.agendaapp.recyclerViews.agendaRecyclerView.AgendaAdapter
 
 class AgendaFragment : Fragment() {
 
@@ -25,13 +26,17 @@ class AgendaFragment : Fragment() {
     ): View {
         agendaViewModel = ViewModelProvider(this)[AgendaViewModel::class.java]
         _binding = FragmentAgendaBinding.inflate(inflater, container, false)
-        agendaViewModel.contactsList.observe(viewLifecycleOwner){
-            binding.textDashboard.text = it.size.toString()
-        }
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeRecyclerView()
+    }
+
+    private fun initializeRecyclerView(){
+        binding.agendaRecyclerView.adapter = AgendaAdapter(agendaViewModel.contactsList.value!!)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
