@@ -1,4 +1,4 @@
-package com.example.agendaapp.data
+package com.example.agendaapp.entity
 
 data class Contact(
     val phoneNumber: String,

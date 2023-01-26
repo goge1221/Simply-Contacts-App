@@ -1,4 +1,4 @@
-package com.example.agendaapp.data
+package com.example.agendaapp.ui.agenda
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -8,13 +8,12 @@ import android.provider.ContactsContract
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.agendaapp.entity.Contact
 
-class ContactsListViewModel(application: Application) : AndroidViewModel(application) {
+class AgendaViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _contactsList = MutableLiveData<ArrayList<Contact>>()
     val contactsList: LiveData<ArrayList<Contact>> = _contactsList
-
-    private var _singleContact = MutableLiveData<Contact>()
 
     init {
         getContacts()
@@ -41,7 +40,8 @@ class ContactsListViewModel(application: Application) : AndroidViewModel(applica
                     contactId =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
 
-                    val displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val displayName =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
 
                     val phoneCursor: Cursor = contentResolver.query(
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI,

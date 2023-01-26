@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_agenda"
+        android:icon="@drawable/round_person_24"
+        android:title="@string/contacts" />
+
+    <item
+        android:id="@+id/navigation_recent_calls"
+        android:icon="@drawable/round_list_24"
+        android:title="@string/recent_calls" />
+
+</menu>
