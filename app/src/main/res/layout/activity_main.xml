@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/green"
+        android:background="@color/green_500"
         app:layout_constraintTop_toTopOf="parent"/>
 
 

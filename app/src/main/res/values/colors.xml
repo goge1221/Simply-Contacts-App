@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="washed_off_purple">#B39DDB</color>
     <color name="green">#11C618</color>
+    <color name="green_700">#41C300</color>
+    <color name="green_500">#75E900</color>
+    <color name="green_200">#C6F68D</color>
+
 </resources>
