@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/green_500"
+        app:title="Agenda"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"/>
 
 
@@ -27,7 +29,7 @@
         app:menu="@menu/bottom_nav_menu" />
 
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main2"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
