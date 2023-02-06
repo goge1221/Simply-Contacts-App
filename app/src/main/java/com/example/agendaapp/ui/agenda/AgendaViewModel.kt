@@ -12,8 +12,8 @@ import com.example.agendaapp.entity.Contact
 
 class AgendaViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _contactsList = MutableLiveData<ArrayList<Contact>>()
-    val contactsList: LiveData<ArrayList<Contact>> = _contactsList
+    private var _contactsList = MutableLiveData<List<Contact>>()
+    val contactsList: LiveData<List<Contact>> = _contactsList
 
     init {
         getContacts()

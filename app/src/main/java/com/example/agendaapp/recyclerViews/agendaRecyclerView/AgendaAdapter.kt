@@ -7,7 +7,7 @@ import com.example.agendaapp.databinding.SingleAgendaItemBinding
 import com.example.agendaapp.entity.Contact
 
 class AgendaAdapter(
-    private var contactsList: ArrayList<Contact>,
+    private var contactsList: List<Contact>,
 ): RecyclerView.Adapter<AgendaViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgendaViewHolder {
         return AgendaViewHolder(
