@@ -8,10 +8,18 @@ import android.provider.CallLog
 import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.entity.RecentCall
 import java.util.Date
 
 class RecentCallsViewModel(application: Application) : AndroidViewModel(application) {
+
+    private var _recentCallsList = MutableLiveData<List<RecentCall>>()
+    val recentCallsList: LiveData<List<RecentCall>> = _recentCallsList
+
+
 
     private val projection = arrayOf(
         CallLog.Calls.NUMBER,
@@ -62,8 +70,9 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             )
         }
 
-        Log.i("CALLS", retrievedList.toString())
+        Log.i("RECENT_CALLS", retrievedList.toString())
         cursor.close()
+        _recentCallsList.value = retrievedList
     }
 
     @SuppressLint("Range")
@@ -81,6 +90,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             null
         )
         if (contactLookup != null && contactLookup.moveToNext()) {
+            //The get column index should never be smaller than 0
             if (contactLookup.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME) < 0) {
                 contactLookup.close()
                 return ""
