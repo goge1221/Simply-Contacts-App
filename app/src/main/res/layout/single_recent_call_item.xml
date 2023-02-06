@@ -8,16 +8,31 @@
     android:layout_marginTop="10dp"
     android:background="@drawable/round_shape_single_item">
 
+
+    <ImageView
+        android:id="@+id/call_type_image_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/call_type_round_shape"
+        android:backgroundTint="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon_for_the_type_of_call_made"/>
+
     <TextView
         android:id="@+id/caller_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="20dp"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/call_type_image_view"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Nuta dumbrava" />
 
