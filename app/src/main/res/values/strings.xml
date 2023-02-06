@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">AgendaApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="vrei_sa_o_suni_pe">Doresti sa suni pe</string>
     <string name="contacts">Contacts</string>
     <string name="recent_calls">Recent Calls</string>
     <string name="title_activity_main2">MainActivity2</string>
@@ -9,4 +8,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="icon_for_the_type_of_call_made">Icon for the type of call made</string>
+    <string name="call_time">%1$s min</string>
+
 </resources>

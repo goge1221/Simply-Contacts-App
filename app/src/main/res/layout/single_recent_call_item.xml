@@ -17,23 +17,60 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/call_type_round_shape"
         android:backgroundTint="@color/grey"
+        android:contentDescription="@string/icon_for_the_type_of_call_made"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/icon_for_the_type_of_call_made"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/caller_name"
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="20dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/call_type_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/call_type_image_view"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nuta dumbrava" />
+        app:layout_constraintTop_toTopOf="@id/call_type_image_view">
+
+        <TextView
+            android:id="@+id/caller_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="3dp"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            tools:text="Nuta dumbrava" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="25sp"
+                tools:text="Date: 20.12.2022" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/call_time"
+                android:textSize="25sp"
+                tools:text="120 min" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
