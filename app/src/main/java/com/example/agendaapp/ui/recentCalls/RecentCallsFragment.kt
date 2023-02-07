@@ -1,9 +1,11 @@
 package com.example.agendaapp.ui.recentCalls
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.agendaapp.databinding.FragmentRecentCallsBinding
@@ -25,23 +27,76 @@ class RecentCallsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        notificationsViewModel = ViewModelProvider(this)[RecentCallsViewModel::class.java]
         _binding = FragmentRecentCallsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeRecyclerView()
+        if (hasPermissionToReadCallLog()) {
+            initializeViewModel()
+            changeLayoutToPermissionsGranted()
+        } else {
+            requestPermissionToReadCallLog()
+            setGrantPermissionsButtonListener()
+        }
     }
 
+    private fun initializePermissionsNotGrantedLayout(){
+        binding.linearLayout.visibility = View.VISIBLE
+    }
 
-    private fun initializeRecyclerView(){
-        binding.agendaRecyclerView.adapter = notificationsViewModel.recentCallsList.value?.let {
-            RecentCallsAdapter(
-                it
+    private fun setGrantPermissionsButtonListener() {
+        binding.grantPermissionsButton.setOnClickListener {
+            requestPermissionToReadCallLog()
+        }
+    }
+    private fun changeLayoutToPermissionsGranted(){
+        binding.linearLayout.visibility = View.GONE
+        binding.agendaRecyclerView.visibility = View.VISIBLE
+        binding.agendaRecyclerView.adapter = RecentCallsAdapter(notificationsViewModel.recentCallsList.value!!)
+    }
+
+    private fun initializeViewModel(){
+        notificationsViewModel = ViewModelProvider(this)[RecentCallsViewModel::class.java]
+    }
+
+    private fun hasPermissionToReadCallLog() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        android.Manifest.permission.READ_CALL_LOG
+    ) == PackageManager.PERMISSION_GRANTED
+
+
+    private fun requestPermissionToReadCallLog() {
+        if (!hasPermissionToReadCallLog()) {
+            requestPermissions(
+                arrayOf(android.Manifest.permission.READ_CALL_LOG),
+                PERMISSION_TO_READ_CALL_LOG
             )
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_TO_READ_CALL_LOG && grantResults.isNotEmpty()) {
+            for (i in grantResults.indices) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    //Permission to read contacts was granted
+                    initializeViewModel()
+                    changeLayoutToPermissionsGranted()
+                    return
+                }
+            }
+        }
+        initializePermissionsNotGrantedLayout()
+    }
+
+    companion object {
+        private const val PERMISSION_TO_READ_CALL_LOG = 1
     }
 
 
