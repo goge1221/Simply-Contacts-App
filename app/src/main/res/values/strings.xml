@@ -9,5 +9,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="icon_for_the_type_of_call_made">Icon for the type of call made</string>
     <string name="call_time">%1$s min</string>
-
+    <string name="read_contacts_permission">We need the permission to your contacts in order to display the contacts list.</string>
+    <string name="how_to_grant_permission">Please click on the button below or enable this from your settings</string>
+    <string name="grant_permission_button_text">Grant Permission</string>
 </resources>

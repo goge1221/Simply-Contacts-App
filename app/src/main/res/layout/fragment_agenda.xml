@@ -6,10 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".ui.agenda.AgendaFragment">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/read_contacts_permission"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_grant_permission"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:layout_marginBottom="50dp"/>
+
+        <Button
+            android:id="@+id/grant_permissions_button"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/round_button"
+            android:text="@string/grant_permission_button_text"
+            android:textSize="30sp"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/agenda_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
