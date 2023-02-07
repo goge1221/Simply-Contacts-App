@@ -19,8 +19,6 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
     private var _recentCallsList = MutableLiveData<List<RecentCall>>()
     val recentCallsList: LiveData<List<RecentCall>> = _recentCallsList
 
-
-
     private val projection = arrayOf(
         CallLog.Calls.NUMBER,
         CallLog.Calls.CACHED_NAME,
@@ -58,10 +56,12 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             val date: Long = cursor.getLong(dateColumnIndex)
             val duration: Int = cursor.getInt(durationColumnIndex)
             val type: Int = cursor.getInt(typeColumnIndex)
-            var name: String = cursor.getString(nameColumnIndex)
+            var name = ""
+            if (cursor.getString(nameColumnIndex) != null)
+                name = cursor.getString(nameColumnIndex)
 
             if (name.isEmpty())
-                name = getName(number)
+                name = number
 
             retrievedList.add(
                 RecentCall(
@@ -74,34 +74,6 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         cursor.close()
         _recentCallsList.value = retrievedList
     }
-
-    @SuppressLint("Range")
-    private fun getName(number: String): String {
-
-        val uri = Uri.withAppendedPath(
-            ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-            Uri.encode(number)
-        )
-        val contactLookup = getApplication<Application>().contentResolver.query(
-            uri,
-            arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME),
-            null,
-            null,
-            null
-        )
-        if (contactLookup != null && contactLookup.moveToNext()) {
-            //The get column index should never be smaller than 0
-            if (contactLookup.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME) < 0) {
-                contactLookup.close()
-                return ""
-            }
-            contactLookup.close()
-            return contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
-        }
-
-        return ""
-    }
-
 
     private fun getCursor(): Cursor? {
         return getApplication<Application>().contentResolver.query(
