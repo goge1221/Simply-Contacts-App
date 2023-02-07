@@ -17,14 +17,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/recent_calls_list_image"
             android:layout_marginBottom="5dp"
+            android:src="@drawable/recent_calls_list_image"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/read_recent_calls_permission"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -34,20 +35,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/how_to_grant_permission"
             android:textAlignment="center"
             android:textSize="25sp" />
 
         <Button
             android:id="@+id/grant_permissions_button"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/round_button"
+            android:paddingVertical="10dp"
             android:text="@string/grant_permission_button_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
 
@@ -57,7 +60,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/agenda_recycler_view"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </androidx.constraintlayout.widget.ConstraintLayout>

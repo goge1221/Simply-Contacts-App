@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/read_contacts_permission"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -34,22 +35,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/how_to_grant_permission"
             android:textAlignment="center"
             android:textSize="25sp" />
 
         <Button
             android:id="@+id/grant_permissions_button"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/round_button"
+            android:paddingVertical="10dp"
             android:text="@string/grant_permission_button_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
-
 
     </LinearLayout>
 
