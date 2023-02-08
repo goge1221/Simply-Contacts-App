@@ -11,7 +11,7 @@
         android:id="@+id/person_sample_image"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:src="@drawable/user_detailed_contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,48 @@
         tools:text="Nuta dumbrava" />
 
 
-   
+    <LinearLayout
+        android:id="@+id/mobile_information_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/caller_name">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mobile"
+                android:textColor="@color/green_700"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                tools:text="00436607608929" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/settings"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -44,7 +85,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="15dp"
         android:weightSum="2"
-        app:layout_constraintTop_toBottomOf="@+id/caller_name"
+        app:layout_constraintTop_toBottomOf="@+id/mobile_information_layout"
         tools:layout_editor_absoluteX="25dp">
 
         <ImageView
