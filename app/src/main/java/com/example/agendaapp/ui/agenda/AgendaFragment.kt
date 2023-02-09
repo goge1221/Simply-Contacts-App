@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.agendaapp.R
@@ -13,6 +12,8 @@ import com.example.agendaapp.databinding.FragmentAgendaBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.recyclerViews.agendaRecyclerView.AgendaAdapter
 import com.example.agendaapp.ui.DetailedContactFragment
+import com.example.agendaapp.utils.Constants
+import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -36,7 +37,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (hasPermissionToReadContacts()) {
+        if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CONTACTS)) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
         } else {
@@ -72,17 +73,11 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         }
     }
 
-    private fun hasPermissionToReadContacts() = ActivityCompat.checkSelfPermission(
-        requireContext(),
-        android.Manifest.permission.READ_CONTACTS
-    ) == PackageManager.PERMISSION_GRANTED
-
-
     private fun requestPermissionToReadContacts() {
-        if (!hasPermissionToReadContacts()) {
+        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CONTACTS)) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
-                PERMISSION_TO_READ_CONTACTS
+                Constants.PERMISSION_TO_READ_CONTACTS
             )
         }
     }
@@ -93,7 +88,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_TO_READ_CONTACTS && grantResults.isNotEmpty()) {
+        if (requestCode == Constants.PERMISSION_TO_READ_CONTACTS && grantResults.isNotEmpty()) {
             for (i in grantResults.indices) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //Permission to read contacts was granted
@@ -104,10 +99,6 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
             }
         }
         initializePermissionsNotGrantedLayout()
-    }
-
-    companion object {
-        private const val PERMISSION_TO_READ_CONTACTS = 0
     }
 
     override fun selectContact(contact: Contact) {
