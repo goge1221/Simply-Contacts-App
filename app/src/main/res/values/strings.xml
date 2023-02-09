@@ -14,5 +14,8 @@
     <string name="grant_permission_button_text">Grant Permission</string>
     <string name="read_recent_calls_permission">We need the permission to your recent calls in order to display them here.</string>
     <string name="mobile">Mobile</string>
+    <string name="name">Name</string>
+    <string name="new_name">New name</string>
+    <string name="update_contact">Update Contact</string>
 
 </resources>

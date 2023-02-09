@@ -95,7 +95,7 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
     private fun openModifyContactFragment(){
         parentFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment_activity_main2, EditContactFragment(contact), "EDIT_CONTACT_FRAGMENT")
-            .addToBackStack(tag)
+            .addToBackStack("DETAILED_CONTACT_FRAGMENT")
             .commit()
     }
 
