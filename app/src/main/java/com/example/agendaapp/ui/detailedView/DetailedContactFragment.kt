@@ -47,8 +47,15 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
     private fun addButtonListeners(){
         addEditButtonListener()
         addCallButtonClickListener()
+        addSmsButtonClickListener()
     }
 
+
+    private fun addSmsButtonClickListener(){
+        binding.messageButton.setOnClickListener {
+            initiateSMSSending()
+        }
+    }
 
     private fun addCallButtonClickListener(){
         binding.callButton.setOnClickListener {
@@ -78,6 +85,12 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
         startActivity(intent)
     }
+
+    private fun initiateSMSSending(){
+        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + contact.phoneNumber))
+        startActivity(intent)
+    }
+
 
     private fun openModifyContactFragment(){
         parentFragmentManager.beginTransaction()
