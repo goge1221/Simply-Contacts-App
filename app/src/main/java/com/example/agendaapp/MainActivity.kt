@@ -27,13 +27,19 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun whenBackButtonClickedReturnToAgendaFragment(){
+    private fun whenBackButtonClickedReturnToAgendaFragment() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                if (isOnDetailedContactsFragment()) {
+                    supportFragmentManager.popBackStack()
+                }
                 binding.navView.visibility = View.VISIBLE
                 binding.toolbar.visibility = View.VISIBLE
-                supportFragmentManager.popBackStack()
             }
         })
+    }
+
+    private fun isOnDetailedContactsFragment(): Boolean {
+        return binding.navView.visibility == View.GONE
     }
 }
