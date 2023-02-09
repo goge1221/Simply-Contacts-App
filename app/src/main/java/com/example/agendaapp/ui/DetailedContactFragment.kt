@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
+import com.example.agendaapp.entity.Contact
 
-class DetailedContactFragment : Fragment() {
+class DetailedContactFragment(private val contact: Contact) : Fragment() {
 
     private var _binding: FragmentDetailedContactBinding? = null
 
@@ -23,6 +24,23 @@ class DetailedContactFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addButtonListeners()
+        initializeViewWithInformation()
+    }
+
+    private fun initializeViewWithInformation(){
+        binding.callerName.text = contact.name
+        binding.callerNumber.text = contact.phoneNumber
+    }
+
+
+    private fun addButtonListeners(){
+    }
+
+
 
 
 }

@@ -1,6 +1,8 @@
 package com.example.agendaapp
 
 import android.os.Bundle
+import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,6 +22,18 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main2)
         navView.setupWithNavController(navController)
+
+        whenBackButtonClickedReturnToAgendaFragment()
     }
 
+
+    private fun whenBackButtonClickedReturnToAgendaFragment(){
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                binding.navView.visibility = View.VISIBLE
+                binding.toolbar.visibility = View.VISIBLE
+                supportFragmentManager.popBackStack()
+            }
+        })
+    }
 }

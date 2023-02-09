@@ -8,10 +8,15 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentAgendaBinding
+import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.recyclerViews.agendaRecyclerView.AgendaAdapter
+import com.example.agendaapp.ui.DetailedContactFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class AgendaFragment : Fragment() {
+
+class AgendaFragment : Fragment(), OnContactClickedListener {
 
     private var _binding: FragmentAgendaBinding? = null
 
@@ -52,7 +57,8 @@ class AgendaFragment : Fragment() {
     private fun changeLayoutToPermissionsGranted() {
         binding.linearLayout.visibility = View.GONE
         binding.agendaRecyclerView.visibility = View.VISIBLE
-        binding.agendaRecyclerView.adapter = AgendaAdapter(agendaViewModel.contactsList.value!!)
+        binding.agendaRecyclerView.adapter =
+            AgendaAdapter(agendaViewModel.contactsList.value!!, this)
     }
 
     override fun onDestroyView() {
@@ -102,6 +108,22 @@ class AgendaFragment : Fragment() {
 
     companion object {
         private const val PERMISSION_TO_READ_CONTACTS = 0
+    }
+
+    override fun selectContact(contact: Contact) {
+        hideToolAndNavBar()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact), "DETAILED_CONTACT_FRAGMENT")
+            .addToBackStack(tag)
+            .commit()
+    }
+
+    private fun hideToolAndNavBar(){
+        val toolBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        toolBar.visibility = View.GONE
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+        navBar.visibility = View.GONE
     }
 
 }
