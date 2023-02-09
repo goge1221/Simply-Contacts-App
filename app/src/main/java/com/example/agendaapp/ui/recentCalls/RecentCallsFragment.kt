@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.agendaapp.databinding.FragmentRecentCallsBinding
 import com.example.agendaapp.recyclerViews.recentCallsRecyclerView.RecentCallsAdapter
+import com.example.agendaapp.utils.Constants.PERMISSION_TO_READ_CALL_LOG
+import com.example.agendaapp.utils.PermissionChecker
 
 
 class RecentCallsFragment : Fragment() {
@@ -33,7 +34,7 @@ class RecentCallsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (hasPermissionToReadCallLog()) {
+        if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CALL_LOG)) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
         } else {
@@ -61,14 +62,8 @@ class RecentCallsFragment : Fragment() {
         notificationsViewModel = ViewModelProvider(this)[RecentCallsViewModel::class.java]
     }
 
-    private fun hasPermissionToReadCallLog() = ActivityCompat.checkSelfPermission(
-        requireContext(),
-        android.Manifest.permission.READ_CALL_LOG
-    ) == PackageManager.PERMISSION_GRANTED
-
-
     private fun requestPermissionToReadCallLog() {
-        if (!hasPermissionToReadCallLog()) {
+        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CALL_LOG)) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CALL_LOG),
                 PERMISSION_TO_READ_CALL_LOG
@@ -94,11 +89,6 @@ class RecentCallsFragment : Fragment() {
         }
         initializePermissionsNotGrantedLayout()
     }
-
-    companion object {
-        private const val PERMISSION_TO_READ_CALL_LOG = 1
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
