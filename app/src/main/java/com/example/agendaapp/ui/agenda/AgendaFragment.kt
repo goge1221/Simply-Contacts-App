@@ -11,7 +11,7 @@ import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentAgendaBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.recyclerViews.agendaRecyclerView.AgendaAdapter
-import com.example.agendaapp.ui.DetailedContactFragment
+import com.example.agendaapp.ui.detailedView.DetailedContactFragment
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView

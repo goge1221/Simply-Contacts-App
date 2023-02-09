@@ -1,4 +1,4 @@
-package com.example.agendaapp.ui
+package com.example.agendaapp.ui.detailedView
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.utils.Constants
@@ -49,7 +50,7 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         binding.settingsButton.setOnClickListener{
             if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.WRITE_CONTACTS)){
                 //open intent with edit
-                openModifyContactIntent()
+                openModifyContactFragment()
             }
             else{
                 requestPermissionToWriteContacts()
@@ -57,8 +58,11 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         }
     }
 
-    private fun openModifyContactIntent(){
-        Toast.makeText(context, "aa", Toast.LENGTH_SHORT).show()
+    private fun openModifyContactFragment(){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main2, EditContactFragment(contact), "EDIT_CONTACT_FRAGMENT")
+            .addToBackStack(tag)
+            .commit()
     }
 
     private fun requestPermissionToWriteContacts() {
@@ -80,7 +84,7 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
             for (i in grantResults.indices) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //Permission to write contacts was granted
-                    openModifyContactIntent()
+                    openModifyContactFragment()
                     return
                 }
             }
