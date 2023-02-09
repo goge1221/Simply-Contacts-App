@@ -2,11 +2,13 @@ package com.example.agendaapp
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.agendaapp.databinding.ActivityMainBinding
+import com.example.agendaapp.ui.detailedView.DetailedContactFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -30,16 +32,18 @@ class MainActivity : AppCompatActivity() {
     private fun whenBackButtonClickedReturnToAgendaFragment() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (isOnDetailedContactsFragment()) {
-                    supportFragmentManager.popBackStack()
+
+                val currentFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main2)
+                if (currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedContactFragment) {
+                    Toast.makeText(applicationContext, "Heeeey", Toast.LENGTH_SHORT).show()
+                    binding.navView.visibility = View.VISIBLE
+                    binding.toolbar.visibility = View.VISIBLE
                 }
-                binding.navView.visibility = View.VISIBLE
-                binding.toolbar.visibility = View.VISIBLE
+
+                supportFragmentManager.popBackStack()
             }
         })
     }
 
-    private fun isOnDetailedContactsFragment(): Boolean {
-        return binding.navView.visibility == View.GONE
-    }
 }
