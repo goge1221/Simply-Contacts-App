@@ -1,17 +1,19 @@
 package com.example.agendaapp.ui.detailedView
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
+
 
 class DetailedContactFragment(private val contact: Contact) : Fragment() {
 
@@ -44,6 +46,20 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
 
     private fun addButtonListeners(){
         addEditButtonListener()
+        addCallButtonClickListener()
+    }
+
+
+    private fun addCallButtonClickListener(){
+        binding.callButton.setOnClickListener {
+            if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.CALL_PHONE)){
+                //open intent with edit
+                initiateCall()
+            }
+            else{
+                requestPermissionToCall()
+            }
+        }
     }
 
     private fun addEditButtonListener(){
@@ -56,6 +72,11 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
                 requestPermissionToWriteContacts()
             }
         }
+    }
+
+    private fun initiateCall(){
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
+        startActivity(intent)
     }
 
     private fun openModifyContactFragment(){
@@ -74,6 +95,17 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         }
     }
 
+
+    private fun requestPermissionToCall(){
+        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.CALL_PHONE)){
+            requestPermissions(
+                arrayOf(android.Manifest.permission.CALL_PHONE),
+                Constants.PERMISSION_TO_CALL
+            )
+        }
+    }
+
+
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -85,11 +117,20 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //Permission to write contacts was granted
                     openModifyContactFragment()
-                    return
+                    break
                 }
             }
         }
-        Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
+        if (requestCode == Constants.PERMISSION_TO_CALL && grantResults.isNotEmpty()) {
+            for (i in grantResults.indices) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    //Permission to write contacts was granted
+                    initiateCall()
+                    break
+                }
+            }
+        }
+       // Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
     }
 
 }
