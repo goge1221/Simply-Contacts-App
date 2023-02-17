@@ -1,12 +1,9 @@
 package com.example.agendaapp.ui.detailedView
 
 import android.annotation.SuppressLint
-import android.content.ContentProviderOperation
-import android.content.ContentProviderResult
-import android.database.Cursor
+import android.content.*
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,95 +38,55 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
     }
 
 
-    private fun initializeViewWithInformation(){
+    private fun initializeViewWithInformation() {
         binding.callerName.setText(contact.name, TextView.BufferType.EDITABLE)
         binding.callerNumber.setText(contact.phoneNumber, TextView.BufferType.EDITABLE)
     }
 
-    private fun addOnUpdateClickListener(){
+    private fun addOnUpdateClickListener() {
         binding.updateContactButton.setOnClickListener {
             parentFragmentManager.popBackStack()
-            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show()
-            updateNameAndNumber()
+            myTest()
         }
     }
 
-    private val DATA_COLS = arrayOf(
-        ContactsContract.Data.MIMETYPE,
-        ContactsContract.Data.DATA1,  //phone number
-        ContactsContract.Data.CONTACT_ID
-    )
+    private fun myTest(){
+        val phoneId = getContactId(contact.name, contact.phoneNumber) // The ID of the phone number you want to update
+        Toast.makeText(context, phoneId.toString(), Toast.LENGTH_SHORT).show()
 
+        val newPhoneNumber =  "222"// The new phone number for the contact
+        val name = "new name meeen" // The new name for the contact
 
-    private fun updateNameAndNumber(): Boolean {
-        val newNumber = binding.callerNumber.text.toString()
-        val contactId = getContactId(contact.phoneNumber)
+        val values = ContentValues()
+        values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
 
-        //selection for name
-        var where = String.format(
-            "%s = '%s' AND %s = ?",
-            DATA_COLS[0],  //mimetype
-            ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE,
-            DATA_COLS[2] /*contactId*/
+        val updateUri = ContentUris.withAppendedId(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            phoneId
         )
-        val args = arrayOf(contactId)
-        val operations: ArrayList<ContentProviderOperation> = ArrayList()
-        operations.add(
-            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
-                .withSelection(where, args)
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, binding.callerName.text.toString())
-                .build()
-        )
-
-        //change selection for number
-        where = String.format(
-            "%s = '%s' AND %s = ?",
-            DATA_COLS[0],  //mimetype
-            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
-            DATA_COLS[1] /*number*/
-        )
-
-        //change args for number
-        args[0] = contact.phoneNumber
-        operations.add(
-            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
-                .withSelection(where, args)
-                .withValue(DATA_COLS[1], newNumber)
-                .build()
-        )
-        try {
-            val results: Array<ContentProviderResult> =
-                context?.contentResolver!!.applyBatch(ContactsContract.AUTHORITY, operations)
-            for (result in results) {
-                Log.d("Update Result", result.toString())
-            }
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return false
+      //  val rows = context?.contentResolver?.update(updateUri, values, null, null)
+    //    Toast.makeText(context, "Rows affected: " + rows, Toast.LENGTH_SHORT).show()
     }
-
-    //TODO FIX WHAT HAPPENS IF YOU CLICK
 
     @SuppressLint("Range")
-    private fun getContactId(number: String): String {
-        val cursor: Cursor? = context?.contentResolver?.query(
+    private fun getContactId(name: String, phoneNumber: String): Long {
+        var ret: Long = -1
+        val selection = (
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " like ? AND " +
+                        ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?"
+                )
+        val selectionArgs = arrayOf("%$name%", phoneNumber)
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
+        val c = requireContext().contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            arrayOf(
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-            ),
-            ContactsContract.CommonDataKinds.Phone.NUMBER + "=?",
-            arrayOf(number),
-            null
+            projection, selection, selectionArgs, null
         )
-        if (cursor == null || cursor.count == 0) return ""
-        cursor.moveToFirst()
-        val id: String =
-            cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
-        cursor.close()
-        return id
+        if (c!!.moveToFirst()) {
+            ret = c.getLong(0)
+        }
+        c.close()
+
+        return ret
     }
 
 }

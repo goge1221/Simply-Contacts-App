@@ -2,7 +2,6 @@ package com.example.agendaapp
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -36,11 +35,9 @@ class MainActivity : AppCompatActivity() {
                 val currentFragment =
                     supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main2)
                 if (currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedContactFragment) {
-                    Toast.makeText(applicationContext, "Heeeey", Toast.LENGTH_SHORT).show()
                     binding.navView.visibility = View.VISIBLE
                     binding.toolbar.visibility = View.VISIBLE
                 }
-
                 supportFragmentManager.popBackStack()
             }
         })
