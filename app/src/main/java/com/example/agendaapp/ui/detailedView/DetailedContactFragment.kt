@@ -13,6 +13,7 @@ import com.example.agendaapp.databinding.FragmentDetailedContactBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class DetailedContactFragment(private val contact: Contact) : Fragment() {
@@ -83,12 +84,17 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
 
     private fun initiateCall(){
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
+        parentFragmentManager.popBackStack()
+        showNavAndToolBar()
         startActivity(intent)
     }
 
     private fun initiateSMSSending(){
         val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + contact.phoneNumber))
+        showNavAndToolBar()
+        parentFragmentManager.popBackStack()
         startActivity(intent)
+
     }
 
 
@@ -116,6 +122,14 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
                 Constants.PERMISSION_TO_CALL
             )
         }
+    }
+
+    private fun showNavAndToolBar(){
+        val toolBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        toolBar.visibility = View.VISIBLE
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+        navBar.visibility = View.VISIBLE
     }
 
 

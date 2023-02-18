@@ -134,9 +134,5 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         navBar.visibility = View.GONE
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
 
 }
