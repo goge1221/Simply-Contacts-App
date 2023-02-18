@@ -56,7 +56,8 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                         contactsInfoList.add(
                             Contact(
                                 phoneNumber,
-                                displayName
+                                displayName,
+                                contactId
                             )
                         )
                     }
