@@ -1,7 +1,8 @@
 package com.example.agendaapp.ui.detailedView
 
 import android.annotation.SuppressLint
-import android.content.*
+import android.content.ContentUris
+import android.content.ContentValues
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -46,47 +47,99 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
     private fun addOnUpdateClickListener() {
         binding.updateContactButton.setOnClickListener {
             parentFragmentManager.popBackStack()
-            myTest()
+            Toast.makeText(context, updateContactName().toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun myTest(){
-        val phoneId = getContactId(contact.name, contact.phoneNumber) // The ID of the phone number you want to update
-        Toast.makeText(context, phoneId.toString(), Toast.LENGTH_SHORT).show()
+    private fun updateContactName(): Boolean {
+        val rawContactIds = getRawContactIdsForContact(contact.contactId.toLong())
 
-        val newPhoneNumber =  "222"// The new phone number for the contact
-        val name = "new name meeen" // The new name for the contact
+        var rowsUpdated = 0
+        for (rawContactId in rawContactIds) {
+            val updateValues = ContentValues().apply {
+                put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, binding.callerName.text.toString())
+            }
 
-        val values = ContentValues()
-        values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
+            // Update the contact name
+            val nameUpdateUri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, rawContactId)
+            rowsUpdated += requireContext().contentResolver.update(
+                nameUpdateUri,
+                updateValues,
+                "${ContactsContract.Data.MIMETYPE} = ?",
+                arrayOf(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+            )
+        }
 
-        val updateUri = ContentUris.withAppendedId(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            phoneId
-        )
-      //  val rows = context?.contentResolver?.update(updateUri, values, null, null)
-    //    Toast.makeText(context, "Rows affected: " + rows, Toast.LENGTH_SHORT).show()
+        // Return true if at least one row was updated
+        return rowsUpdated > 0
+    }
+
+
+    private fun updateContact(): Boolean {
+
+        val name = binding.callerName.text.toString()
+        val phoneNumber = binding.callerNumber.text.toString()
+
+        val rawContactIds = getRawContactIdsForContact(contact.contactId.toLong())
+
+        var rowsUpdated = 0
+        for (rawContactId in rawContactIds) {
+            val updateValues = ContentValues().apply {
+                put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
+            }
+
+            // Update the contact name
+            val nameUpdateUri =
+                ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, rawContactId)
+            rowsUpdated += requireContext().contentResolver.update(
+                nameUpdateUri,
+                updateValues,
+                null,
+                null
+            )
+
+            // Update the phone number
+            val phoneUpdateValues = ContentValues().apply {
+                put(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber)
+            }
+
+            val phoneUpdateUri =
+                ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, rawContactId)
+            rowsUpdated += requireContext().contentResolver.update(
+                phoneUpdateUri,
+                phoneUpdateValues,
+                "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.CommonDataKinds.Phone.TYPE} = ?",
+                arrayOf(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
+                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE.toString()
+                )
+            )
+        }
+
+        // Return true if at least one row was updated
+        return rowsUpdated > 0
     }
 
     @SuppressLint("Range")
-    private fun getContactId(name: String, phoneNumber: String): Long {
-        var ret: Long = -1
-        val selection = (
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " like ? AND " +
-                        ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?"
-                )
-        val selectionArgs = arrayOf("%$name%", phoneNumber)
-        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
-        val c = requireContext().contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            projection, selection, selectionArgs, null
-        )
-        if (c!!.moveToFirst()) {
-            ret = c.getLong(0)
-        }
-        c.close()
+    private fun getRawContactIdsForContact(contactId: Long): List<Long> {
+        val rawContactIds = mutableListOf<Long>()
 
-        return ret
+        val uri = ContactsContract.RawContacts.CONTENT_URI
+        val projection = arrayOf(ContactsContract.RawContacts._ID)
+        val selection = "${ContactsContract.RawContacts.CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(contactId.toString())
+
+        val cursor =
+            requireContext().contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            while (it.moveToNext()) {
+                val rawContactId = it.getLong(it.getColumnIndex(ContactsContract.RawContacts._ID))
+                rawContactIds.add(rawContactId)
+            }
+        }
+
+        return rawContactIds
     }
+
 
 }
