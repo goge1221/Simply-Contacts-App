@@ -2,10 +2,12 @@ package com.example.agendaapp.ui.agenda
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentAgendaBinding
@@ -25,6 +27,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var agendaViewModel: AgendaViewModel
+    private lateinit var agendaObserver: AgendaObserver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +50,21 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
 
     }
 
+    private fun addObserverToContactsList(){
+        // Create the observer which updates the UI.
+        val nameObserver = Observer<List<Contact>> { updatedContactsList ->
+            // Update the UI, in this case, a TextView.
+            agendaObserver.updateContactsList(updatedContactsList)
+            Log.e("updated_list", updatedContactsList.toString())
+        }
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        agendaViewModel.contactsList.observe(viewLifecycleOwner, nameObserver)
+    }
+
     private fun initializeViewModel() {
         agendaViewModel = ViewModelProvider(this)[AgendaViewModel::class.java]
+        addObserverToContactsList()
     }
 
     private fun initializePermissionsNotGrantedLayout() {
@@ -58,8 +74,9 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     private fun changeLayoutToPermissionsGranted() {
         binding.linearLayout.visibility = View.GONE
         binding.agendaRecyclerView.visibility = View.VISIBLE
-        binding.agendaRecyclerView.adapter =
-            AgendaAdapter(agendaViewModel.contactsList.value!!, this)
+        val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
+        agendaObserver = agendaAdapter
+        binding.agendaRecyclerView.adapter = agendaAdapter
     }
 
     override fun onDestroyView() {
@@ -116,5 +133,10 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
         navBar.visibility = View.GONE
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
 
 }

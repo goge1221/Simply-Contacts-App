@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.agendaapp.databinding.SingleAgendaItemBinding
 import com.example.agendaapp.entity.Contact
+import com.example.agendaapp.ui.agenda.AgendaObserver
 import com.example.agendaapp.ui.agenda.OnContactClickedListener
 
 class AgendaAdapter(
     private var contactsList: List<Contact>,
     private val clickListener: OnContactClickedListener
-) : RecyclerView.Adapter<AgendaViewHolder>() {
+) : RecyclerView.Adapter<AgendaViewHolder>(), AgendaObserver {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgendaViewHolder {
         return AgendaViewHolder(
             SingleAgendaItemBinding.inflate(
@@ -25,6 +26,11 @@ class AgendaAdapter(
 
     override fun getItemCount(): Int {
         return contactsList.size
+    }
+
+    override fun updateContactsList(updatedList: List<Contact>) {
+        this.contactsList = updatedList
+        notifyDataSetChanged()
     }
 
 }
