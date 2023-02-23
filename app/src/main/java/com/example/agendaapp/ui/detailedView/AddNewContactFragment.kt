@@ -1,14 +1,14 @@
 package com.example.agendaapp.ui.detailedView
 
-import android.content.ContentValues
-import android.net.Uri
+import android.content.ContentProviderOperation
 import android.os.Bundle
-import android.provider.Contacts.People
 import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.StructuredName
+import android.provider.ContactsContract.RawContacts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentAddNewContactBinding
@@ -34,24 +34,100 @@ class AddNewContactFragment : Fragment() {
 
     private fun addNewContactClickListener() {
         binding.updateContactButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
-            showNavAndToolBar()
-            insertContact()
+            if (nameIsOk() && numberIsOk()) {
+                insertContact()
+                showNavAndToolBar()
+                parentFragmentManager.popBackStack()
+            }
         }
     }
 
+    private fun nameIsOk(): Boolean {
+        if (binding.callerName.text.toString().isEmpty()) {
+            Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private fun numberIsOk(): Boolean {
+        if (binding.callerName.text.toString().isEmpty()) {
+            Toast.makeText(context, "Please enter a number", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
     private fun insertContact() {
-        val values = ContentValues()
-        values.put(CommonDataKinds.Phone.NUMBER, binding.callerNumber.text.toString())
-        values.put(CommonDataKinds.Phone.TYPE, CommonDataKinds.Phone.TYPE_CUSTOM)
-        values.put(CommonDataKinds.Phone.DISPLAY_NAME, binding.callerName.text.toString())
-        val dataUri: Uri? = requireContext().contentResolver.insert(People.CONTENT_URI, values)
-        val updateUri = Uri.withAppendedPath(dataUri, People.Phones.CONTENT_DIRECTORY)
-        values.clear()
-        ContactsContract.RawContacts.ACCOUNT_TYPE
-        values.put(CommonDataKinds.Phone.TYPE, CommonDataKinds.Phone.TYPE_MOBILE)
-        values.put(CommonDataKinds.Phone.NUMBER, binding.callerNumber.text.toString())
-        requireContext().contentResolver.insert(updateUri, values)
+
+
+        val ops = ArrayList<ContentProviderOperation>()
+
+        ops.add(
+            ContentProviderOperation
+                .newInsert(RawContacts.CONTENT_URI)
+                .withValue(RawContacts.ACCOUNT_TYPE, null)
+                .withValue(RawContacts.ACCOUNT_NAME, null)
+                .build()
+        )
+
+        //Add name
+        ops.add(
+            ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(
+                    ContactsContract.Data.RAW_CONTACT_ID, 0
+                )
+                .withValue(
+                    ContactsContract.Data.MIMETYPE,
+                    StructuredName.CONTENT_ITEM_TYPE
+                )
+                .withValue(
+                    StructuredName.DISPLAY_NAME,
+                    binding.callerName.text.toString()
+                ).build()
+        )
+
+        //Add mobile number
+        ops.add(
+            ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(
+                    ContactsContract.Data.RAW_CONTACT_ID, 0
+                )
+                .withValue(
+                    ContactsContract.Data.MIMETYPE,
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                )
+                .withValue(
+                    ContactsContract.CommonDataKinds.Phone.NUMBER,
+                    binding.callerNumber.text.toString()
+                )
+                .withValue(
+                    ContactsContract.CommonDataKinds.Phone.TYPE,
+                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+                )
+                .build()
+        )
+
+        //Add contact raw id
+        val rawContactInsertIndex = ops.size
+
+        ops.add(
+            ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
+                .withValue(RawContacts.ACCOUNT_TYPE, null).withValue(RawContacts.ACCOUNT_NAME, null)
+                .build()
+        )
+
+        ops.add(
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(RawContacts.Data.RAW_CONTACT_ID, rawContactInsertIndex)
+                .withValue(RawContacts.Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(StructuredName.DISPLAY_NAME, binding.callerName.text.toString()).build()
+        )
+
+        requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
+
     }
 
 
