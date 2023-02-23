@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +13,7 @@ import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentAgendaBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.recyclerViews.agendaRecyclerView.AgendaAdapter
+import com.example.agendaapp.ui.detailedView.AddNewContactFragment
 import com.example.agendaapp.ui.detailedView.DetailedContactFragment
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
@@ -70,7 +70,11 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
 
     private fun addNewContactListener(){
         binding.addContactButton.setOnClickListener {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+            hideToolAndNavBar()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main2, AddNewContactFragment(), "ADD_NEW_CONTACT_FRAGMENT")
+                .addToBackStack(tag)
+                .commit()
         }
     }
 

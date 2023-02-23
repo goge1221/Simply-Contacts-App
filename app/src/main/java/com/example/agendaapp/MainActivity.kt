@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.agendaapp.databinding.ActivityMainBinding
+import com.example.agendaapp.ui.detailedView.AddNewContactFragment
 import com.example.agendaapp.ui.detailedView.DetailedContactFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 
                 val currentFragment =
                     supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main2)
-                if (currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedContactFragment) {
+                if (currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedContactFragment
+                    || currentFragment?.childFragmentManager?.fragments?.get(0) is AddNewContactFragment) {
                     binding.navView.visibility = View.VISIBLE
                     binding.toolbar.visibility = View.VISIBLE
                 }
