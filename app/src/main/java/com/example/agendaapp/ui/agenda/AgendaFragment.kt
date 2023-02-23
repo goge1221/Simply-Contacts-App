@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -67,16 +68,24 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
         addObserverToContactsList()
     }
 
+    private fun addNewContactListener(){
+        binding.addContactButton.setOnClickListener {
+            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun initializePermissionsNotGrantedLayout() {
         binding.linearLayout.visibility = View.VISIBLE
     }
 
     private fun changeLayoutToPermissionsGranted() {
         binding.linearLayout.visibility = View.GONE
+        binding.addContactButton.visibility = View.VISIBLE
         binding.agendaRecyclerView.visibility = View.VISIBLE
         val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
+        addNewContactListener()
     }
 
     override fun onDestroyView() {

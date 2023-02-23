@@ -17,5 +17,6 @@
     <string name="name">Name</string>
     <string name="new_name">New name</string>
     <string name="update_contact">Update Contact</string>
+    <string name="add_person">add person</string>
 
 </resources>
