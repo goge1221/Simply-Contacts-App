@@ -66,6 +66,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     private fun initializeViewModel() {
         agendaViewModel = ViewModelProvider(this)[AgendaViewModel::class.java]
         addObserverToContactsList()
+        agendaViewModel.retrieveContacts()
     }
 
     private fun addNewContactListener(){

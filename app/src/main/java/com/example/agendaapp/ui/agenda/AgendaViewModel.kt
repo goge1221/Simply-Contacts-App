@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.ContactsContract
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
     val contactsList: LiveData<List<Contact>> = _contactsList
 
     init {
+        Toast.makeText(application.applicationContext, "Called", Toast.LENGTH_SHORT).show()
         getContacts()
     }
 
@@ -55,9 +57,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                             phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                         contactsInfoList.add(
                             Contact(
-                                phoneNumber,
-                                displayName,
-                                contactId
+                                phoneNumber, displayName, contactId
                             )
                         )
                     }
@@ -69,4 +69,9 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
 
         _contactsList.value = contactsInfoList
     }
+
+    fun retrieveContacts() {
+        getContacts()
+    }
+
 }
