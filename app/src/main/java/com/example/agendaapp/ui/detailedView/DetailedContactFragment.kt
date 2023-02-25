@@ -1,6 +1,5 @@
 package com.example.agendaapp.ui.detailedView
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -8,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
@@ -22,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class DetailedContactFragment(
     private val contact: Contact,
     private val deleteListener: IContactDelete
-) : Fragment() {
+) : Fragment(), IReturnFromDialogToMainFragment {
 
     private var _binding: FragmentDetailedContactBinding? = null
 
@@ -58,22 +56,22 @@ class DetailedContactFragment(
         addDeleteButtonListener()
     }
 
-    private fun addDeleteButtonListener(){
+    private fun addDeleteButtonListener() {
         binding.deleteButton.setOnClickListener {
             showConfirmationDialog()
         }
     }
 
-    private fun showConfirmationDialog(){
-        //returnToLast and delete contact
-        val dialog = Dialog(requireContext(), R.style.DialogTheme)
-        dialog.setContentView(R.layout.confirm_delete_dialog)
-        val deleteTextView = dialog.findViewById<TextView>(R.id.confirmation_delete_text)
-        val deleteText: String = binding.root.resources.getString(
-            R.string.are_you_sure_you_want_to_delete, contact.name
+    private fun showConfirmationDialog() {
+        val probeDialog = ConfirmDeletionDialog(
+            requireContext(),
+            R.style.DialogTheme,
+            binding.root,
+            contact,
+            deleteListener,
+            this
         )
-        deleteTextView.text = deleteText
-        dialog.show()
+        probeDialog.show()
     }
 
     private fun addSmsButtonClickListener() {
@@ -124,7 +122,7 @@ class DetailedContactFragment(
         startActivity(intent)
     }
 
-    private fun returnToLastFragment(){
+    private fun returnToLastFragment() {
         showNavAndToolBar()
         parentFragmentManager.popBackStack()
     }
@@ -202,6 +200,10 @@ class DetailedContactFragment(
             }
         }
         // Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
+    }
+
+    override fun returnBackToDisplayFragments() {
+        returnToLastFragment()
     }
 
 }

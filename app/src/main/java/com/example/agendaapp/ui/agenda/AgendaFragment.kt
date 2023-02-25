@@ -151,7 +151,10 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete {
 
     override fun deleteContact(contact: Contact) {
         val successfullyDeleted = agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
-        Toast.makeText(context, "Deleted: $successfullyDeleted", Toast.LENGTH_SHORT).show()
+        if (successfullyDeleted)
+            Toast.makeText(context, contact.name + " deleted.", Toast.LENGTH_SHORT).show()
+        else
+            Toast.makeText(context, "An error occurred during deletion.", Toast.LENGTH_SHORT).show()
     }
 
 
