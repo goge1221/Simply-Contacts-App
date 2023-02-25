@@ -11,12 +11,16 @@ import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
 import com.example.agendaapp.entity.Contact
+import com.example.agendaapp.ui.agenda.IContactDelete
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class DetailedContactFragment(private val contact: Contact) : Fragment() {
+class DetailedContactFragment(
+    private val contact: Contact,
+    private val deleteListener: IContactDelete
+) : Fragment() {
 
     private var _binding: FragmentDetailedContactBinding? = null
 
@@ -39,74 +43,98 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         initializeViewWithInformation()
     }
 
-    private fun initializeViewWithInformation(){
+    private fun initializeViewWithInformation() {
         binding.callerName.text = contact.name
         binding.callerNumber.text = contact.phoneNumber
     }
 
 
-    private fun addButtonListeners(){
+    private fun addButtonListeners() {
         addEditButtonListener()
         addCallButtonClickListener()
         addSmsButtonClickListener()
+        addDeleteButtonListener()
     }
 
+    private fun addDeleteButtonListener(){
+        binding.deleteButton.setOnClickListener {
+            deleteListener.deleteContact(contact)
+            returnToLastFragment()
+            //TODO DISPLAY TOAST MESSAGE THAT ASKS IF YOU REALLY WANT TO DELETE THE CONTACT
+            //TODO CLOSE THE FRAGMENT AFTER THIS AND RETURN TO THE LAST FRAGMENT IF YES
+        }
+    }
 
-    private fun addSmsButtonClickListener(){
+    private fun addSmsButtonClickListener() {
         binding.messageButton.setOnClickListener {
             initiateSMSSending()
         }
     }
 
-    private fun addCallButtonClickListener(){
+    private fun addCallButtonClickListener() {
         binding.callButton.setOnClickListener {
-            if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.CALL_PHONE)){
+            if (PermissionChecker.userHasSpecifiedPermission(
+                    context,
+                    android.Manifest.permission.CALL_PHONE
+                )
+            ) {
                 //open intent with edit
                 initiateCall()
-            }
-            else{
+            } else {
                 requestPermissionToCall()
             }
         }
     }
 
-    private fun addEditButtonListener(){
-        binding.settingsButton.setOnClickListener{
-            if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.WRITE_CONTACTS)){
+    private fun addEditButtonListener() {
+        binding.settingsButton.setOnClickListener {
+            if (PermissionChecker.userHasSpecifiedPermission(
+                    context,
+                    android.Manifest.permission.WRITE_CONTACTS
+                )
+            ) {
                 //open intent with edit
                 openModifyContactFragment()
-            }
-            else{
+            } else {
                 requestPermissionToWriteContacts()
             }
         }
     }
 
-    private fun initiateCall(){
+    private fun initiateCall() {
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
-        parentFragmentManager.popBackStack()
-        showNavAndToolBar()
+        returnToLastFragment()
         startActivity(intent)
     }
 
-    private fun initiateSMSSending(){
+    private fun initiateSMSSending() {
         val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + contact.phoneNumber))
-        showNavAndToolBar()
-        parentFragmentManager.popBackStack()
+        returnToLastFragment()
         startActivity(intent)
-
     }
 
+    private fun returnToLastFragment(){
+        showNavAndToolBar()
+        parentFragmentManager.popBackStack()
+    }
 
-    private fun openModifyContactFragment(){
+    private fun openModifyContactFragment() {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_main2, EditContactFragment(contact), "EDIT_CONTACT_FRAGMENT")
+            .replace(
+                R.id.nav_host_fragment_activity_main2,
+                EditContactFragment(contact),
+                "EDIT_CONTACT_FRAGMENT"
+            )
             .addToBackStack("DETAILED_CONTACT_FRAGMENT")
             .commit()
     }
 
     private fun requestPermissionToWriteContacts() {
-        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.WRITE_CONTACTS)) {
+        if (!PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.WRITE_CONTACTS
+            )
+        ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.WRITE_CONTACTS),
                 Constants.PERMISSION_TO_WRITE_CONTACTS
@@ -115,8 +143,12 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
     }
 
 
-    private fun requestPermissionToCall(){
-        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.CALL_PHONE)){
+    private fun requestPermissionToCall() {
+        if (!PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.CALL_PHONE
+            )
+        ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.CALL_PHONE),
                 Constants.PERMISSION_TO_CALL
@@ -124,8 +156,9 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
         }
     }
 
-    private fun showNavAndToolBar(){
-        val toolBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+    private fun showNavAndToolBar() {
+        val toolBar =
+            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolBar.visibility = View.VISIBLE
 
         val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
@@ -157,7 +190,7 @@ class DetailedContactFragment(private val contact: Contact) : Fragment() {
                 }
             }
         }
-       // Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
+        // Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
     }
 
 }

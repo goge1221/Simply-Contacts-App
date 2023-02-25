@@ -3,7 +3,9 @@ package com.example.agendaapp.ui.agenda
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ContentResolver
+import android.content.Context
 import android.database.Cursor
+import android.net.Uri
 import android.provider.ContactsContract
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
@@ -69,6 +71,40 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
 
         _contactsList.value = contactsInfoList
     }
+
+    @SuppressLint("Range")
+    fun deleteContact(context: Context, phoneNumber: String, contactName: String): Boolean {
+        val contactUri: Uri =
+            Uri.withAppendedPath(
+                ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+                Uri.encode(phoneNumber)
+            )
+        val cur: Cursor = context.contentResolver.query(contactUri, null, null, null, null)!!
+        try {
+            if (cur.moveToFirst()) {
+                do {
+                    if (cur.getString(cur.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
+                            .equals(contactName, ignoreCase = true)
+                    ) {
+                        val lookupKey =
+                            cur.getString(cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
+                        val uri: Uri = Uri.withAppendedPath(
+                            ContactsContract.Contacts.CONTENT_LOOKUP_URI,
+                            lookupKey
+                        )
+                        context.contentResolver.delete(uri, null, null)
+                        return true
+                    }
+                } while (cur.moveToNext())
+            }
+        } catch (e: Exception) {
+            println(e.stackTrace)
+        } finally {
+            cur.close()
+        }
+        return false
+    }
+
 
     fun retrieveContacts() {
         getContacts()

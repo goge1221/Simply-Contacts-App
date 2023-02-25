@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +21,7 @@ import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class AgendaFragment : Fragment(), OnContactClickedListener {
+class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete {
 
     private var _binding: FragmentAgendaBinding? = null
 
@@ -135,7 +136,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
     override fun selectContact(contact: Contact) {
         hideToolAndNavBar()
         parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact), "DETAILED_CONTACT_FRAGMENT")
+            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact, this), "DETAILED_CONTACT_FRAGMENT")
             .addToBackStack(tag)
             .commit()
     }
@@ -146,6 +147,11 @@ class AgendaFragment : Fragment(), OnContactClickedListener {
 
         val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
         navBar.visibility = View.GONE
+    }
+
+    override fun deleteContact(contact: Contact) {
+        val successfullyDeleted = agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
+        Toast.makeText(context, "Deleted: $successfullyDeleted", Toast.LENGTH_SHORT).show()
     }
 
 
