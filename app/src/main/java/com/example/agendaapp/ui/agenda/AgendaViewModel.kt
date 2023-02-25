@@ -7,7 +7,6 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.ContactsContract
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +18,6 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
     val contactsList: LiveData<List<Contact>> = _contactsList
 
     init {
-        Toast.makeText(application.applicationContext, "Called", Toast.LENGTH_SHORT).show()
         getContacts()
     }
 

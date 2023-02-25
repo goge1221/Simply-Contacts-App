@@ -1,5 +1,6 @@
 package com.example.agendaapp.ui.detailedView
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
@@ -58,11 +60,20 @@ class DetailedContactFragment(
 
     private fun addDeleteButtonListener(){
         binding.deleteButton.setOnClickListener {
-            deleteListener.deleteContact(contact)
-            returnToLastFragment()
-            //TODO DISPLAY TOAST MESSAGE THAT ASKS IF YOU REALLY WANT TO DELETE THE CONTACT
-            //TODO CLOSE THE FRAGMENT AFTER THIS AND RETURN TO THE LAST FRAGMENT IF YES
+            showConfirmationDialog()
         }
+    }
+
+    private fun showConfirmationDialog(){
+        //returnToLast and delete contact
+        val dialog = Dialog(requireContext(), R.style.DialogTheme)
+        dialog.setContentView(R.layout.confirm_delete_dialog)
+        val deleteTextView = dialog.findViewById<TextView>(R.id.confirmation_delete_text)
+        val deleteText: String = binding.root.resources.getString(
+            R.string.are_you_sure_you_want_to_delete, contact.name
+        )
+        deleteTextView.text = deleteText
+        dialog.show()
     }
 
     private fun addSmsButtonClickListener() {

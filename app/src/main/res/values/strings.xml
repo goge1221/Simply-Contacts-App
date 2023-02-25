@@ -21,5 +21,8 @@
     <string name="add_new_contact">Add new contact</string>
     <string name="enter_the_name_here">Enter the NAME here</string>
     <string name="enter_the_number_here">Enter the NUMBER here</string>
+    <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete %1$s?</string>
+    <string name="no">No</string>
+    <string name="yes">YES</string>
 
 </resources>
