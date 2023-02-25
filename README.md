@@ -12,5 +12,6 @@ https://www.flaticon.com/free-icon/phone-call_5585856?term=call&page=1&position=
 
 https://www.flaticon.com/free-icon/chat_9068690?term=messag&page=1&position=40&origin=search&related_id=9068690
 
+https://www.flaticon.com/free-icon/delete_6932392?term=delete&page=2&position=12&origin=search&related_id=6932392
 
 https://www.flaticon.com/free-icon/settings_3524623?term=settings&page=1&position=31&origin=search&related_id=3524623
