@@ -1,18 +1,14 @@
 package com.example.agendaapp.ui.recentCalls
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.database.Cursor
-import android.net.Uri
 import android.provider.CallLog
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.entity.RecentCall
-import java.util.Date
+import java.util.*
 
 class RecentCallsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -54,7 +50,8 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         while (cursor!!.moveToNext()) {
             val number: String = cursor.getString(numberColumnIndex)
             val date: Long = cursor.getLong(dateColumnIndex)
-            val duration: Int = cursor.getInt(durationColumnIndex)
+            val secondsInMinutes = 60
+            val duration: Int = cursor.getInt(durationColumnIndex)/secondsInMinutes
             val type: Int = cursor.getInt(typeColumnIndex)
             var name = ""
             if (cursor.getString(nameColumnIndex) != null)
