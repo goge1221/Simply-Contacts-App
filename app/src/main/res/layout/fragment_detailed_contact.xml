@@ -85,7 +85,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
             android:src="@drawable/settings"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:ignore="ContentDescription" />
 
     </LinearLayout>
