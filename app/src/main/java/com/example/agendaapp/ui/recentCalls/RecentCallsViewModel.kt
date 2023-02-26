@@ -50,8 +50,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         while (cursor!!.moveToNext()) {
             val number: String = cursor.getString(numberColumnIndex)
             val date: Long = cursor.getLong(dateColumnIndex)
-            val secondsInMinutes = 60
-            val duration: Int = cursor.getInt(durationColumnIndex)/secondsInMinutes
+            val durationInSeconds: Int = cursor.getInt(durationColumnIndex)
             val type: Int = cursor.getInt(typeColumnIndex)
             var name = ""
             if (cursor.getString(nameColumnIndex) != null)
@@ -62,7 +61,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
 
             retrievedList.add(
                 RecentCall(
-                    name, number, Date(date), duration, type
+                    name, number, Date(date), durationInSeconds, type
                 )
             )
         }

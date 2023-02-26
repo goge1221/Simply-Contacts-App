@@ -19,10 +19,16 @@ class RecentCallsViewHolder(
         setDate(recentCall.date)
     }
 
-    private fun setTime(timeInMinutes: Int) {
-        val callDuration: String = binding.root.resources.getString(
-            R.string.call_time, timeInMinutes.toString()
-        )
+    private fun setTime(timeInSeconds: Int) {
+        val secondsInMinute = 60
+        val callDuration: String = if (timeInSeconds / secondsInMinute < 1)
+            binding.root.context.getString(
+                R.string.call_time_in_seconds, timeInSeconds.toString()
+            )
+        else
+            binding.root.resources.getString(
+                R.string.call_time, (timeInSeconds / secondsInMinute).toString()
+            )
         binding.duration.text = callDuration
     }
 
