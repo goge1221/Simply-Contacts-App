@@ -21,7 +21,7 @@ import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete {
+class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactGetById {
 
     private var _binding: FragmentAgendaBinding? = null
 
@@ -136,7 +136,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete {
     override fun selectContact(contact: Contact) {
         hideToolAndNavBar()
         parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact, this), "DETAILED_CONTACT_FRAGMENT")
+            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact, this, this), "DETAILED_CONTACT_FRAGMENT")
             .addToBackStack(tag)
             .commit()
     }
@@ -155,6 +155,10 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete {
             Toast.makeText(context, contact.name + " deleted.", Toast.LENGTH_SHORT).show()
         else
             Toast.makeText(context, "An error occurred during deletion.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun getContactById(contactId: String): Contact {
+        return agendaViewModel.getContactById(contactId)
     }
 
 

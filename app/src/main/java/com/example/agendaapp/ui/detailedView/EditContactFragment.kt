@@ -45,48 +45,54 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
     private fun addOnUpdateClickListener() {
         binding.updateContactButton.setOnClickListener {
             parentFragmentManager.popBackStack()
-            updateContact()
+            updateNameAndNumber()
         }
     }
 
-    private fun updateContact() {
-        val id = contact.contactId
-        val number = "000 000 000"
-        val ops = ArrayList<ContentProviderOperation>()
+    fun updateNameAndNumber() {
 
-        // Name
-        var builder: ContentProviderOperation.Builder = ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
-        builder.withSelection(
-            ContactsContract.Data.CONTACT_ID + "=?" + " AND " + ContactsContract.Data.MIMETYPE + "=?",
-            arrayOf(
-                id,
-                ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
-            )
+        val rawContactId = getRawContactIdsForContact(contact.contactId.toLong()).get(0).toString()
+
+        val where = (ContactsContract.Data.RAW_CONTACT_ID + " = ? AND "
+                + ContactsContract.Data.MIMETYPE + " = ?")
+
+        val nameParams = arrayOf<String>(
+            rawContactId,
+            ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
         )
-        builder.withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, binding.callerName.text.toString())
-        ops.add(builder.build())
-
-        // Number
-        builder = ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
-        builder.withSelection(
-            ContactsContract.Data.CONTACT_ID + "=?" + " AND " + ContactsContract.Data.MIMETYPE + "=?" + " AND " + ContactsContract.CommonDataKinds.Organization.TYPE + "=?",
-            arrayOf(
-                id,
-                ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
-                ContactsContract.CommonDataKinds.Phone.TYPE_HOME.toString()
-            )
+        val numberParams = arrayOf<String>(
+            rawContactId,
+            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
         )
-        builder.withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, number)
-        ops.add(builder.build())
 
+        val ops: ArrayList<ContentProviderOperation> = ArrayList()
 
-        // Update
-        try {
-            requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        ops.add(
+            ContentProviderOperation.newUpdate(
+                ContactsContract.Data.CONTENT_URI
+            )
+                .withSelection(where, nameParams)
+                .withValue(
+                    ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+                    binding.callerName.text.toString()
+                ).build()
+        )
+
+        ops.add(
+            ContentProviderOperation.newUpdate(
+                ContactsContract.Data.CONTENT_URI
+            )
+                .withSelection(where, numberParams)
+                .withValue(
+                    ContactsContract.CommonDataKinds.Phone.NUMBER,
+                    binding.callerNumber.text.toString()
+                )
+                .build()
+        )
+
+        requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
     }
+
 
     @SuppressLint("Range")
     private fun getRawContactIdsForContact(contactId: Long): List<Long> {

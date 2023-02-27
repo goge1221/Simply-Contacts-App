@@ -103,6 +103,13 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         return false
     }
 
+    fun getContactById(contactId: String): Contact{
+        getContacts()
+        for (contact in contactsList.value!!)
+            if (contact.contactId == contactId)
+                return contact
+        return Contact("","","")
+    }
 
     fun retrieveContacts() {
         getContacts()

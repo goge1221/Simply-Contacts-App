@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.agendaapp.R
 import com.example.agendaapp.databinding.FragmentDetailedContactBinding
 import com.example.agendaapp.entity.Contact
 import com.example.agendaapp.ui.agenda.IContactDelete
+import com.example.agendaapp.ui.agenda.IContactGetById
 import com.example.agendaapp.utils.Constants
 import com.example.agendaapp.utils.PermissionChecker
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,7 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DetailedContactFragment(
     private val contact: Contact,
-    private val deleteListener: IContactDelete
+    private val deleteListener: IContactDelete,
+    private val contactRetriever: IContactGetById
 ) : Fragment(), IReturnFromDialogToMainFragment {
 
     private var _binding: FragmentDetailedContactBinding? = null
@@ -44,8 +47,20 @@ class DetailedContactFragment(
     }
 
     private fun initializeViewWithInformation() {
-        binding.callerName.text = contact.name
-        binding.callerNumber.text = contact.phoneNumber
+        val updatedContact = contactRetriever.getContactById(contact.contactId)
+        if (updatedContact.name != contact.name){
+            Toast.makeText(context, "Name updated", Toast.LENGTH_SHORT).show()
+            binding.callerName.text = updatedContact.name
+        }
+        else
+            binding.callerName.text = contact.name
+
+        if (updatedContact.phoneNumber != contact.phoneNumber){
+            Toast.makeText(context, "Number updated", Toast.LENGTH_SHORT).show()
+            binding.callerNumber.text = updatedContact.phoneNumber
+        }
+        else
+            binding.callerNumber.text = contact.phoneNumber
     }
 
 
