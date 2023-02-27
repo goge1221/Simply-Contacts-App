@@ -71,6 +71,7 @@ class DetailedContactFragment(
         addDeleteButtonListener()
     }
 
+    //FIXME After editing a contact the deletion does not work
     private fun addDeleteButtonListener() {
         binding.deleteButton.setOnClickListener {
             showConfirmationDialog()

@@ -45,38 +45,23 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
     private fun addOnUpdateClickListener() {
         binding.updateContactButton.setOnClickListener {
             parentFragmentManager.popBackStack()
-            updateNameAndNumber()
+            updateNumber()
         }
     }
 
-    fun updateNameAndNumber() {
+    private fun updateNumber() {
 
         val rawContactId = getRawContactIdsForContact(contact.contactId.toLong()).get(0).toString()
 
         val where = (ContactsContract.Data.RAW_CONTACT_ID + " = ? AND "
                 + ContactsContract.Data.MIMETYPE + " = ?")
 
-        val nameParams = arrayOf<String>(
-            rawContactId,
-            ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
-        )
-        val numberParams = arrayOf<String>(
+        val numberParams = arrayOf(
             rawContactId,
             ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
         )
 
         val ops: ArrayList<ContentProviderOperation> = ArrayList()
-
-        ops.add(
-            ContentProviderOperation.newUpdate(
-                ContactsContract.Data.CONTENT_URI
-            )
-                .withSelection(where, nameParams)
-                .withValue(
-                    ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-                    binding.callerName.text.toString()
-                ).build()
-        )
 
         ops.add(
             ContentProviderOperation.newUpdate(
