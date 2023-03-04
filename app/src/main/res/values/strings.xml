@@ -26,4 +26,9 @@
     <string name="no">No</string>
     <string name="yes">YES</string>
 
+    <!-- Preference Titles -->
+    <string name="language">Language</string>
+    <string name="dark_mode">Enable Dark Mode</string>
+
+
 </resources>
