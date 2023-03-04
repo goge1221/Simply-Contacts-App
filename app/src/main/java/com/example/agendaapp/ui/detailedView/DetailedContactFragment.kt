@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class DetailedContactFragment(
-    private val contact: Contact,
+    private var contact: Contact,
     private val deleteListener: IContactDelete,
     private val contactRetriever: IContactGetById
 ) : Fragment(), IReturnFromDialogToMainFragment {
@@ -51,6 +51,7 @@ class DetailedContactFragment(
         if (updatedContact.name != contact.name){
             Toast.makeText(context, "Name updated", Toast.LENGTH_SHORT).show()
             binding.callerName.text = updatedContact.name
+            contact = updatedContact
         }
         else
             binding.callerName.text = contact.name
@@ -58,6 +59,7 @@ class DetailedContactFragment(
         if (updatedContact.phoneNumber != contact.phoneNumber){
             Toast.makeText(context, "Number updated", Toast.LENGTH_SHORT).show()
             binding.callerNumber.text = updatedContact.phoneNumber
+            contact = updatedContact
         }
         else
             binding.callerNumber.text = contact.phoneNumber

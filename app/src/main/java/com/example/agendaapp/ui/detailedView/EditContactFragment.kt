@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentProviderOperation
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +47,68 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
         binding.updateContactButton.setOnClickListener {
             parentFragmentManager.popBackStack()
             updateNumber()
+            updateName()
         }
+    }
+
+    private fun updateName() {
+
+        val id = contact.contactId
+        val ops = ArrayList<ContentProviderOperation>()
+
+        // Name
+        val builder: ContentProviderOperation.Builder =
+            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
+        builder.withSelection(
+            ContactsContract.Data.CONTACT_ID + "=?" + " AND " + ContactsContract.Data.MIMETYPE + "=?",
+            arrayOf(
+                id,
+                ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+            )
+        )
+        builder.withValue(
+            ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
+            binding.callerName.text.toString().substringBefore(" ")
+        )
+
+        if (checkIfPersonHasSecondName()) {
+            val secondName = binding.callerName.text.toString().substringAfter(" ")
+            Log.e(
+                "EEE", "First string: " + binding.callerName.text
+                    .toString().substringBefore(" ")
+                        + " Second: " + binding.callerName.text.toString()
+                    .substringAfter(" ")
+            )
+
+            builder.withValue(
+                ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
+                secondName
+            )
+        } else{
+            builder.withValue(
+                ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
+                ""
+            )
+        }
+
+        ops.add(builder.build())
+
+        // Update
+        try {
+            requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun checkIfPersonHasSecondName(): Boolean {
+        val fullName = binding.callerName.text.toString()
+        return fullName.contains(" ")
     }
 
     private fun updateNumber() {
 
-        val rawContactId = getRawContactIdsForContact(contact.contactId.toLong()).get(0).toString()
+        val rawContactId = getRawContactIdsForContact(contact.contactId.toLong())[0].toString()
 
         val where = (ContactsContract.Data.RAW_CONTACT_ID + " = ? AND "
                 + ContactsContract.Data.MIMETYPE + " = ?")
