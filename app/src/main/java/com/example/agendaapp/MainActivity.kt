@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.agendaapp.databinding.ActivityMainBinding
-import com.example.agendaapp.ui.SettingsFragment
 import com.example.agendaapp.ui.detailedView.AddNewContactFragment
 import com.example.agendaapp.ui.detailedView.DetailedContactFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,22 +26,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         whenBackButtonClickedReturnToAgendaFragment()
-        addSettingsButtonListener()
-    }
-
-    private fun addSettingsButtonListener() {
-        binding.settingsButton.setOnClickListener {
-            binding.toolbar.visibility = View.GONE
-            binding.navView.visibility = View.GONE
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.main_layout,
-                    SettingsFragment(),
-                    "SETTINGS_FRAGMENT"
-                )
-                .addToBackStack("DETAILED_CONTACT_FRAGMENT")
-                .commit()
-        }
     }
 
     private fun whenBackButtonClickedReturnToAgendaFragment() {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="contacts">Contacte</string>
+    <string name="recent_calls">Apeluri recente</string>
+    <string name="title_notifications">Notificari</string>
+    <string name="call_time">%1$s min</string>
+    <string name="call_time_in_seconds">%1$s sec</string>
+    <string name="read_contacts_permission">Avem nevoie de permisiune la agenda ca sa va putem afisa contactele.</string>
+    <string name="how_to_grant_permission">Vă rugăm să faceți clic pe butonul de mai jos sau să activați acest lucru din setările dvs</string>
+    <string name="grant_permission_button_text">Acordă permisiunea</string>
+    <string name="read_recent_calls_permission">Avem nevoie de permisiunea la contacte recente pentru a le afisa aici.</string>
+    <string name="mobile">Mobil</string>
+    <string name="name">Nume</string>
+    <string name="new_name">Nume nou</string>
+    <string name="update_contact">Actualizeaza contact</string>
+    <string name="add_person">Adauga Persoana</string>
+    <string name="add_new_contact">Adauga contact nou</string>
+    <string name="enter_the_name_here">Introdu numele aici</string>
+    <string name="enter_the_number_here">Introdu numarul aici</string>
+    <string name="are_you_sure_you_want_to_delete">Sunteți sigur că doriți să ștergeți %1$s?</string>
+    <string name="no">" Nu"</string>
+    <string name="yes">Da</string>
+    <string name="toolbar_name">Agendă</string>
+</resources>

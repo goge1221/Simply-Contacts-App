@@ -12,21 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green_500"
-        app:title="Agenda"
+        app:title="@string/toolbar_name"
         app:titleTextAppearance="@style/ToolbarTextStyle"
         app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/settings_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:layout_margin="10dp"
-            android:src="@drawable/baseline_settings_24"
-            tools:ignore="ContentDescription" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
