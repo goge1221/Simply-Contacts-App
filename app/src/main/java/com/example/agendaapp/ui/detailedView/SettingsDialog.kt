@@ -3,6 +3,8 @@ package com.example.agendaapp.ui.detailedView
 import android.R
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ class SettingsDialog(
 ) : Dialog(context, themeResId), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: SettingsDialogBinding
+    private var userLanguagePreference = "English"
 
     var courses = listOf<String?>(
         "C", "Data structures",
@@ -41,6 +44,10 @@ class SettingsDialog(
     private fun setUpSpinner() {
         val spinner: Spinner = binding.languageSpinner
         spinner.onItemSelectedListener = this
+
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_preferences", MODE_PRIVATE)
+        val userChoice = sharedPreferences.getString("user_language", "English")
+
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             context,
@@ -51,25 +58,28 @@ class SettingsDialog(
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             spinner.adapter = adapter
+            spinner.setSelection(adapter.getPosition(userChoice))
         }
     }
 
     private fun setOnClickListeners() {
         binding.doneButton.setOnClickListener {
+            saveUserChoice()
             dismiss()
         }
     }
 
+    private fun saveUserChoice(){
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_preferences", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("user_language", userLanguagePreference)
+        editor.apply()
+    }
+
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        //TODO("Not yet implemented")
-        // parent.getItemAtPosition(pos)
-        p0?.getItemAtPosition(p2)
-
+        userLanguagePreference = p0?.getItemAtPosition(p2).toString()
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        //TODO("Not yet implemented")
-    }
-
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
 
 }
