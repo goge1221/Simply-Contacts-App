@@ -23,12 +23,6 @@ class SettingsDialog(
     private lateinit var binding: SettingsDialogBinding
     private var userLanguagePreference = "English"
 
-    var courses = listOf<String?>(
-        "C", "Data structures",
-        "Interview prep", "Algorithms",
-        "DSA with java", "OS"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = SettingsDialogBinding.inflate(
