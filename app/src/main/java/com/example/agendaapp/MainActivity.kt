@@ -9,12 +9,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.agendaapp.databinding.ActivityMainBinding
 import com.example.agendaapp.ui.detailedView.AddNewContactFragment
 import com.example.agendaapp.ui.detailedView.DetailedContactFragment
+import com.example.agendaapp.ui.detailedView.SettingsDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,8 +26,19 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         whenBackButtonClickedReturnToAgendaFragment()
+        setOnSettingsClickListener()
     }
 
+    private fun setOnSettingsClickListener(){
+        binding.settingsButton.setOnClickListener {
+            val settingsDialog = SettingsDialog(
+                this@MainActivity,
+                R.style.DialogTheme,
+                binding.root,
+            )
+            settingsDialog.show()
+        }
+    }
     private fun whenBackButtonClickedReturnToAgendaFragment() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

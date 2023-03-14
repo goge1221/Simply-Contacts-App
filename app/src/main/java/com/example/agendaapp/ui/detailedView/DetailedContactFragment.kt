@@ -81,7 +81,7 @@ class DetailedContactFragment(
     }
 
     private fun showConfirmationDialog() {
-        val probeDialog = ConfirmDeletionDialog(
+        val confirmationDialog = ConfirmDeletionDialog(
             requireContext(),
             R.style.DialogTheme,
             binding.root,
@@ -89,7 +89,7 @@ class DetailedContactFragment(
             deleteListener,
             this
         )
-        probeDialog.show()
+        confirmationDialog.show()
     }
 
     private fun addSmsButtonClickListener() {

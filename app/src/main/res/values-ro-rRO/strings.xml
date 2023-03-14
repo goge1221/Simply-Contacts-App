@@ -22,4 +22,6 @@
     <string name="no">" Nu"</string>
     <string name="yes">Da</string>
     <string name="toolbar_name">Agendă</string>
+    <string name="language">Limbaj</string>
+    <string name="done">Gata</string>
 </resources>

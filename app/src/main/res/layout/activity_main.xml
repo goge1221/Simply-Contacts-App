@@ -15,8 +15,18 @@
         app:title="@string/toolbar_name"
         app:titleTextAppearance="@style/ToolbarTextStyle"
         app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/settings_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:src="@drawable/baseline_settings_24"
+            tools:ignore="ContentDescription" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
