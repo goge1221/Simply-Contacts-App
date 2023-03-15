@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="toolbar_name">"议程 "</string>
+    <string name="contacts">联系我们</string>
+    <string name="recent_calls">最近的电话</string>
+    <string name="title_notifications">通知</string>
+    <string name="call_time">%1$s 最小</string>
+    <string name="call_time_in_seconds">%1$ s秒</string>
+    <string name="read_contacts_permission">我们需要你的议程的权限，以便显示联系人名单。</string>
+    <string name="how_to_grant_permission">请点击下面的按钮或从你的设置中启用该功能。</string>
+    <string name="grant_permission_button_text">授权许可</string>
+    <string name="read_recent_calls_permission">我们需要您的许可，以便在这里显示您最近的电话。</string>
+    <string name="mobile">手机</string>
+    <string name="name">命名</string>
+    <string name="new_name">新名称</string>
+    <string name="update_contact">更新联系</string>
+    <string name="add_person">添加人</string>
+    <string name="add_new_contact">添加新的联系人</string>
+    <string name="enter_the_name_here">在此输入名字</string>
+    <string name="enter_the_number_here">在此输入数字</string>
+    <string name="are_you_sure_you_want_to_delete">你确定你要删除 %1$s 吗？</string>
+    <string name="no">不</string>
+    <string name="yes">是</string>
+    <string name="language">语言</string>
+    <string name="done">已完成</string>
+</resources>

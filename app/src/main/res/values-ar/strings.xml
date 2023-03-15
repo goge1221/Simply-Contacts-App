@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="toolbar_name">جدول الأعمال</string>
+    <string name="contacts">جهات الاتصال</string>
+    <string name="recent_calls">المكالمات الأخيرة</string>
+    <string name="title_notifications">الإخطارات</string>
+    <string name="call_time">%1$s دقيقة</string>
+    <string name="call_time_in_seconds">%1$s ثانية</string>
+    <string name="read_contacts_permission">نحن بحاجة إلى إذن لجدول أعمالك من أجل عرض قائمة جهات الاتصال.</string>
+    <string name="how_to_grant_permission">يرجى النقر على الزر أدناه أو تمكين هذا من الإعدادات الخاصة بك</string>
+    <string name="grant_permission_button_text">منح الإذن</string>
+    <string name="read_recent_calls_permission">نحن بحاجة إلى إذن لمكالماتك الأخيرة من أجل عرضها هنا.</string>
+    <string name="mobile">موبايل</string>
+    <string name="name">الاسم</string>
+    <string name="new_name">اسم جديد</string>
+    <string name="update_contact">تحديث الاتصال</string>
+    <string name="add_person">إضافة شخص</string>
+    <string name="add_new_contact">إضافة جهة اتصال جديدة</string>
+    <string name="enter_the_name_here">أدخل الاسم هنا</string>
+    <string name="enter_the_number_here">أدخل الرقم هنا</string>
+    <string name="are_you_sure_you_want_to_delete">هل أنت متأكد أنك تريد حذف %1$s  s الصورة?</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="language">اللغة</string>
+    <string name="done">تم</string>
+</resources>

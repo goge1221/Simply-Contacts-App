@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="toolbar_name">Повестка дня</string>
+    <string name="contacts">Контакты</string>
+    <string name="recent_calls">Недавние звонки</string>
+    <string name="title_notifications">Уведомления</string>
+    <string name="call_time">%1$с мин</string>
+    <string name="call_time_in_seconds">%1$с сек</string>
+    <string name="read_contacts_permission">Нам нужно разрешение на вашу повестку дня, чтобы отобразить список контактов.</string>
+    <string name="how_to_grant_permission">Пожалуйста, нажмите на кнопку ниже или включите это в своих настройках</string>
+    <string name="grant_permission_button_text">Предоставить разрешение</string>
+    <string name="read_recent_calls_permission">Нам нужно разрешение на ваши недавние звонки, чтобы отобразить их здесь.</string>
+    <string name="mobile">Мобильный</string>
+    <string name="name">Имя</string>
+    <string name="new_name">Новое имя</string>
+    <string name="update_contact">Обновить контакт</string>
+    <string name="add_person">Добавить человека</string>
+    <string name="add_new_contact">Добавить новый контакт</string>
+    <string name="enter_the_name_here">Введите ИМЯ здесь</string>
+    <string name="enter_the_number_here">Введите НОМЕР здесь</string>
+    <string name="are_you_sure_you_want_to_delete">Вы уверены, что хотите удалить %1$s?</string>
+    <string name="no">Нет</string>
+    <string name="yes">да</string>
+    <string name="language">Язык</string>
+    <string name="done">Сделано</string>
+</resources>

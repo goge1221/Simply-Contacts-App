@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="toolbar_name">Gündem</string>
+    <string name="contacts">İletişim</string>
+    <string name="recent_calls">Son aramalar</string>
+    <string name="title_notifications">Bildirimler</string>
+    <string name="call_time">%1$s min</string>
+    <string name="call_time_in_seconds">%1$s sec</string>
+    <string name="read_contacts_permission">Kişi listesini görüntülemek için Ajandanızın iznine ihtiyacımız var.</string>
+    <string name="how_to_grant_permission">Lütfen aşağıdaki düğmeye tıklayın veya ayarlarınızdan bunu etkinleştirin</string>
+    <string name="grant_permission_button_text">İzin Verin</string>
+    <string name="read_recent_calls_permission">Son aramalarınızı burada görüntüleyebilmemiz için izin almamız gerekiyor.</string>
+    <string name="mobile">Mobil</string>
+    <string name="name">İsim</string>
+    <string name="new_name">Yeni isim</string>
+    <string name="update_contact">İletişim Güncellemesi</string>
+    <string name="add_person">kişi ekle</string>
+    <string name="add_new_contact">Yeni kişi ekle</string>
+    <string name="enter_the_name_here">İSMİ buraya girin</string>
+    <string name="enter_the_number_here">NUMARAYI buraya girin</string>
+    <string name="are_you_sure_you_want_to_delete">%1$s yi silmek istediğinizden emin misiniz?</string>
+    <string name="no">Hayır</string>
+    <string name="yes">EVET</string>
+    <string name="language">Dil</string>
+    <string name="done">Bitti</string>
+</resources>
