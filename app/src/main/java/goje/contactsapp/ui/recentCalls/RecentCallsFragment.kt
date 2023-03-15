@@ -7,13 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentRecentCallsBinding
+import goje.contactsapp.entity.RecentCall
+import goje.contactsapp.recyclerViews.agendaRecyclerView.IRecentCallClickListener
 import goje.contactsapp.recyclerViews.recentCallsRecyclerView.RecentCallsAdapter
+import goje.contactsapp.ui.detailedView.DetailedRecentContactFragment
 import goje.contactsapp.utils.Constants.PERMISSION_TO_READ_CALL_LOG
 import goje.contactsapp.utils.PermissionChecker
 
 
-class RecentCallsFragment : Fragment() {
+class RecentCallsFragment : Fragment(), IRecentCallClickListener {
 
     private var _binding: FragmentRecentCallsBinding? = null
 
@@ -21,7 +26,7 @@ class RecentCallsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var notificationsViewModel : RecentCallsViewModel
+    private lateinit var notificationsViewModel: RecentCallsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +39,11 @@ class RecentCallsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CALL_LOG)) {
+        if (PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.READ_CALL_LOG
+            )
+        ) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
         } else {
@@ -43,7 +52,7 @@ class RecentCallsFragment : Fragment() {
         }
     }
 
-    private fun initializePermissionsNotGrantedLayout(){
+    private fun initializePermissionsNotGrantedLayout() {
         binding.linearLayout.visibility = View.VISIBLE
     }
 
@@ -52,18 +61,24 @@ class RecentCallsFragment : Fragment() {
             requestPermissionToReadCallLog()
         }
     }
-    private fun changeLayoutToPermissionsGranted(){
+
+    private fun changeLayoutToPermissionsGranted() {
         binding.linearLayout.visibility = View.GONE
         binding.agendaRecyclerView.visibility = View.VISIBLE
-        binding.agendaRecyclerView.adapter = RecentCallsAdapter(notificationsViewModel.recentCallsList.value!!)
+        binding.agendaRecyclerView.adapter =
+            RecentCallsAdapter(notificationsViewModel.recentCallsList.value!!, this)
     }
 
-    private fun initializeViewModel(){
+    private fun initializeViewModel() {
         notificationsViewModel = ViewModelProvider(this)[RecentCallsViewModel::class.java]
     }
 
     private fun requestPermissionToReadCallLog() {
-        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CALL_LOG)) {
+        if (!PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.READ_CALL_LOG
+            )
+        ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CALL_LOG),
                 PERMISSION_TO_READ_CALL_LOG
@@ -93,5 +108,26 @@ class RecentCallsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun openRecentCall(call: RecentCall) {
+        hideToolAndNavBar()
+        parentFragmentManager.beginTransaction()
+            .replace(
+                R.id.nav_host_fragment_activity_main2,
+                DetailedRecentContactFragment(call),
+                "DETAILED_CONTACT_FRAGMENT"
+            )
+            .addToBackStack(tag)
+            .commit()
+    }
+
+    private fun hideToolAndNavBar() {
+        val toolBar =
+            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        toolBar.visibility = View.GONE
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+        navBar.visibility = View.GONE
     }
 }

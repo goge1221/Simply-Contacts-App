@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.SingleRecentCallItemBinding
 import goje.contactsapp.entity.RecentCall
+import goje.contactsapp.recyclerViews.agendaRecyclerView.IRecentCallClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -12,11 +13,15 @@ class RecentCallsViewHolder(
     private val binding: SingleRecentCallItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(recentCall: RecentCall) {
+    fun bind(recentCall: RecentCall, recentCallClickListener: IRecentCallClickListener) {
         binding.callerName.text = recentCall.name
         determineCallType(recentCall.type)
         setTime(recentCall.duration)
         setDate(recentCall.date)
+
+        binding.root.setOnClickListener {
+            recentCallClickListener.openRecentCall(recentCall)
+        }
     }
 
     private fun setTime(timeInSeconds: Int) {

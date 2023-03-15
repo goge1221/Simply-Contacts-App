@@ -6,10 +6,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import goje.contactsapp.ui.detailedView.AddNewContactFragment
-import goje.contactsapp.ui.detailedView.DetailedContactFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.databinding.ActivityMainBinding
+import goje.contactsapp.ui.detailedView.AddNewContactFragment
+import goje.contactsapp.ui.detailedView.DetailedContactFragment
+import goje.contactsapp.ui.detailedView.DetailedRecentContactFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main2)
                 if (currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedContactFragment
                     || currentFragment?.childFragmentManager?.fragments?.get(0) is AddNewContactFragment
+                    || currentFragment?.childFragmentManager?.fragments?.get(0) is DetailedRecentContactFragment
                 ) {
                     binding.navView.visibility = View.VISIBLE
                     binding.toolbar.visibility = View.VISIBLE
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
 
 }

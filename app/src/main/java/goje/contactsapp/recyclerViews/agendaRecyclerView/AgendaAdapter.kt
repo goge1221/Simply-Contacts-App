@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import goje.contactsapp.databinding.SingleAgendaItemBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.ui.agenda.AgendaObserver
-import goje.contactsapp.ui.agenda.OnContactClickedListener
 
 class AgendaAdapter(
     private var contactsList: List<Contact>,

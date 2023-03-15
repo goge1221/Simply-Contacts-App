@@ -15,6 +15,7 @@ import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentAgendaBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.recyclerViews.agendaRecyclerView.AgendaAdapter
+import goje.contactsapp.recyclerViews.agendaRecyclerView.OnContactClickedListener
 import goje.contactsapp.ui.detailedView.AddNewContactFragment
 import goje.contactsapp.ui.detailedView.DetailedContactFragment
 import goje.contactsapp.utils.Constants

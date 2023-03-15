@@ -9,14 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import goje.contactsapp.R
+import goje.contactsapp.databinding.FragmentDetailedContactBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.ui.agenda.IContactDelete
 import goje.contactsapp.ui.agenda.IContactGetById
 import goje.contactsapp.utils.Constants
 import goje.contactsapp.utils.PermissionChecker
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import goje.contactsapp.R
-import goje.contactsapp.databinding.FragmentDetailedContactBinding
 
 
 class DetailedContactFragment(
