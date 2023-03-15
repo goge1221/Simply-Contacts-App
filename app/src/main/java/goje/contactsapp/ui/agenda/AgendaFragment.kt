@@ -30,6 +30,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
     private val binding get() = _binding!!
     private lateinit var agendaViewModel: AgendaViewModel
     private lateinit var agendaObserver: AgendaObserver
+    private var askForWriteContacts = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,8 +75,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
 
     private fun addNewContactListener() {
         binding.addContactButton.setOnClickListener {
-
-            if (PermissionChecker.userHasSpecifiedPermission(
+            askForWriteContacts = true
+            if (!PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.WRITE_CONTACTS
                 )
@@ -85,16 +86,17 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
                     Constants.PERMISSION_TO_WRITE_CONTACTS
                 )
             }
-            hideToolAndNavBar()
-            parentFragmentManager.beginTransaction()
-                .replace(
-                    R.id.nav_host_fragment_activity_main2,
-                    AddNewContactFragment(),
-                    "ADD_NEW_CONTACT_FRAGMENT"
-                )
-                .addToBackStack(tag)
-                .commit()
-
+            else {
+                hideToolAndNavBar()
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.nav_host_fragment_activity_main2,
+                        AddNewContactFragment(),
+                        "ADD_NEW_CONTACT_FRAGMENT"
+                    )
+                    .addToBackStack(tag)
+                    .commit()
+            }
         }
     }
 
@@ -153,7 +155,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
                 }
             }
         }
-        initializePermissionsNotGrantedLayout()
+        if (!askForWriteContacts)
+            initializePermissionsNotGrantedLayout()
     }
 
     override fun selectContact(contact: Contact) {
