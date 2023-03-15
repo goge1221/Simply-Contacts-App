@@ -24,4 +24,7 @@
     <string name="toolbar_name">Agendă</string>
     <string name="language">Limbaj</string>
     <string name="done">Gata</string>
+    <string name="person_added_toast">%1$s adaugat!</string>
+    <string name="error_occured_deletion">A apărut o eroare la ștergere!</string>
+    <string name="person_deleted">%1$s șters!</string>
 </resources>

@@ -25,5 +25,8 @@
     <string name="yes">YES</string>
     <string name="language">Language</string>
     <string name="done">Done</string>
+    <string name="person_added_toast">%1$s added!</string>
+    <string name="error_occured_deletion">An error occurred during deletion!</string>
+    <string name="person_deleted">%1$s deleted!</string>
 
 </resources>

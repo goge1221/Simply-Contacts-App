@@ -24,4 +24,7 @@
     <string name="yes">OUI</string>
     <string name="language">Langue</string>
     <string name="done">Fait</string>
+    <string name="person_added_toast">%1$s ajouté !</string>
+    <string name="error_occured_deletion">Une erreur s\'est produite lors de la suppression !</string>
+    <string name="person_deleted">%1$s supprimé !</string>
 </resources>

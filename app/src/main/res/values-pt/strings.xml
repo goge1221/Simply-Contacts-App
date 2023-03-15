@@ -24,4 +24,7 @@
     <string name="yes">SIM</string>
     <string name="language">Língua</string>
     <string name="done">Feito</string>
+    <string name="person_added_toast">%1$s adicionados!</string>
+    <string name="error_occured_deletion">Ocorreu um erro ao excluir!</string>
+    <string name="person_deleted">%1$s excluídos!</string>
 </resources>

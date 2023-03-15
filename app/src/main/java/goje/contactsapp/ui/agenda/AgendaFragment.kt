@@ -85,8 +85,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
                     arrayOf(android.Manifest.permission.WRITE_CONTACTS),
                     Constants.PERMISSION_TO_WRITE_CONTACTS
                 )
-            }
-            else {
+            } else {
                 hideToolAndNavBar()
                 parentFragmentManager.beginTransaction()
                     .replace(
@@ -184,9 +183,17 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
         val successfullyDeleted =
             agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
         if (successfullyDeleted)
-            Toast.makeText(context, contact.name + " deleted.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                binding.root.resources.getString(R.string.person_deleted, contact.name),
+                Toast.LENGTH_SHORT
+            ).show()
         else
-            Toast.makeText(context, "An error occurred during deletion.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                binding.root.resources.getString(R.string.error_occured_deletion),
+                Toast.LENGTH_SHORT
+            ).show()
     }
 
     override fun getContactById(contactId: String): Contact {

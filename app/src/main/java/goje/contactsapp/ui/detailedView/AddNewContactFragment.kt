@@ -128,6 +128,12 @@ class AddNewContactFragment : Fragment() {
 
         requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
 
+        Toast.makeText(
+            context,
+            binding.root.resources.getString(
+                R.string.person_added_toast, binding.callerName.text.toString()
+            ), Toast.LENGTH_SHORT
+        ).show()
     }
 
 

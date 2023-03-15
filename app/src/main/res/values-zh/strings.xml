@@ -24,4 +24,7 @@
     <string name="yes">是</string>
     <string name="language">语言</string>
     <string name="done">已完成</string>
+    <string name="person_added_toast">添加了 %1$s！</string>
+    <string name="error_occured_deletion">删除时出错！</string>
+    <string name="person_deleted">%1$s 已删除！</string>
 </resources>

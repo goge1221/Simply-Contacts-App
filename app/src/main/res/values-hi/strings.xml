@@ -24,4 +24,7 @@
     <string name="yes">हाँ</string>
     <string name="language">भाषा</string>
     <string name="done">पूर्ण</string>
+    <string name="person_added_toast">%1$s जोड़े गए!</string>
+    <string name="error_occured_deletion">हटाते समय एक त्रुटि हुई!</string>
+    <string name="person_deleted">%1$s हटा दिए गए!</string>
 </resources>

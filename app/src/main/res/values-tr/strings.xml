@@ -24,4 +24,7 @@
     <string name="yes">EVET</string>
     <string name="language">Dil</string>
     <string name="done">Bitti</string>
+    <string name="person_added_toast">%1$s eklendi!</string>
+    <string name="error_occured_deletion">Silinirken bir hata oluştu!</string>
+    <string name="person_deleted">%1$s silindi!</string>
 </resources>

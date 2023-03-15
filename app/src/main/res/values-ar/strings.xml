@@ -24,4 +24,7 @@
     <string name="yes">نعم</string>
     <string name="language">اللغة</string>
     <string name="done">تم</string>
+    <string name="person_added_toast">تمت إضافة  %1$s !</string>
+    <string name="error_occured_deletion">حدث خطأ أثناء الحذف!</string>
+    <string name="person_deleted">%1$s تم الحذف</string>
 </resources>
