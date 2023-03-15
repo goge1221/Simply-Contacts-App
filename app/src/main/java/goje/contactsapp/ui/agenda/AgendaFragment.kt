@@ -185,14 +185,14 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
             agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
         if (successfullyDeleted)
             Toast.makeText(
-                context,
-                binding.root.resources.getString(R.string.person_deleted, contact.name),
+                requireContext(),
+                requireContext().resources.getString(R.string.person_deleted, contact.name),
                 Toast.LENGTH_SHORT
             ).show()
         else
             Toast.makeText(
-                context,
-                binding.root.resources.getString(R.string.error_occured_deletion),
+                requireContext(),
+                requireContext().resources.getString(R.string.error_occured_deletion),
                 Toast.LENGTH_SHORT
             ).show()
     }
