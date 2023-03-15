@@ -20,8 +20,12 @@
         android:theme="@style/Theme.AgendaApp"
         tools:targetApi="31">
         <activity
+
             android:name="goje.contactsapp.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

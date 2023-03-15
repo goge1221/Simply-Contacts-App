@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="3dp"
+            android:textColor="?android:textColorPrimary"
             android:textSize="35sp"
             android:textStyle="bold"
             tools:text="Nuta dumbrava" />
@@ -54,6 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="25sp"
                 tools:text="Date: 20.12.2022" />
 
@@ -65,6 +67,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="@string/call_time"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="22sp"
                 tools:text="120 min" />
         </LinearLayout>
