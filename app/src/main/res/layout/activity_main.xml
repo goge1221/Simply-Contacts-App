@@ -23,6 +23,7 @@
             android:layout_height="50dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
+            android:visibility="invisible"
             android:src="@drawable/baseline_settings_24"
             tools:ignore="ContentDescription" />
 

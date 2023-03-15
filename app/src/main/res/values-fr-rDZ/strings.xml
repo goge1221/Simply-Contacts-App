@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgendaApp</string>
+    <string name="contacts">Contacts</string>
+    <string name="recent_calls">Appels récents</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="call_time">%1$s min</string>
+    <string name="call_time_in_seconds">%1$s sec</string>
+    <string name="read_contacts_permission">Nous avons besoin de l\'autorisation de votre Agenda afin d\'afficher la liste des contacts.</string>
+    <string name="how_to_grant_permission">Veuillez cliquer sur le bouton ci-dessous ou l\'activer à partir de vos paramètres</string>
+    <string name="grant_permission_button_text">Donner la permission</string>
+    <string name="read_recent_calls_permission">Nous avons besoin de l\'autorisation pour vos appels récents afin de les afficher ici.</string>
+    <string name="mobile">Mobile</string>
+    <string name="name">Nom</string>
+    <string name="new_name">Nouveau nom</string>
+    <string name="update_contact">Mettre à jour les contacts</string>
+    <string name="add_person">Ajouter le contact</string>
+    <string name="add_new_contact">Ajouter un nouveau contact</string>
+    <string name="enter_the_name_here">Entrez le NOM ici</string>
+    <string name="enter_the_number_here">Entrez le NOMBRE ici</string>
+    <string name="are_you_sure_you_want_to_delete">Voulez-vous vraiment supprimer %1$s ?</string>
+    <string name="no">Non</string>
+    <string name="yes">OUI</string>
+    <string name="language">Langue</string>
+    <string name="done">Fait</string>
+</resources>
