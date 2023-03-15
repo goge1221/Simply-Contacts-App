@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_agenda"
-        android:name="com.example.agendaapp.ui.agenda.AgendaFragment"
+        android:name="goje.contactsapp.ui.agenda.AgendaFragment"
         android:label="Agenda"
         tools:layout="@layout/fragment_agenda" />
 
     <fragment
         android:id="@+id/navigation_recent_calls"
-        android:name="com.example.agendaapp.ui.recentCalls.RecentCallsFragment"
+        android:name="goje.contactsapp.ui.recentCalls.RecentCallsFragment"
         android:label="Recent calls"
         tools:layout="@layout/fragment_recent_calls" />
 </navigation>

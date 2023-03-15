@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recentCalls.RecentCallsFragment">
+    tools:context="goje.contactsapp.ui.recentCalls.RecentCallsFragment">
 
     <LinearLayout
         android:id="@+id/linear_layout"

@@ -5,8 +5,8 @@
     <string name="contacts">Контакты</string>
     <string name="recent_calls">Недавние звонки</string>
     <string name="title_notifications">Уведомления</string>
-    <string name="call_time">%1$с мин</string>
-    <string name="call_time_in_seconds">%1$с сек</string>
+    <string name="call_time">%1$s мин</string>
+    <string name="call_time_in_seconds">%1$s сек</string>
     <string name="read_contacts_permission">Нам нужно разрешение на вашу повестку дня, чтобы отобразить список контактов.</string>
     <string name="how_to_grant_permission">Пожалуйста, нажмите на кнопку ниже или включите это в своих настройках</string>
     <string name="grant_permission_button_text">Предоставить разрешение</string>
