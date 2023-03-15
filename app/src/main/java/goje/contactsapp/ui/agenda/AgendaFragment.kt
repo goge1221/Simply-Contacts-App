@@ -10,15 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import goje.contactsapp.R
+import goje.contactsapp.databinding.FragmentAgendaBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.recyclerViews.agendaRecyclerView.AgendaAdapter
 import goje.contactsapp.ui.detailedView.AddNewContactFragment
 import goje.contactsapp.ui.detailedView.DetailedContactFragment
 import goje.contactsapp.utils.Constants
 import goje.contactsapp.utils.PermissionChecker
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import goje.contactsapp.R
-import goje.contactsapp.databinding.FragmentAgendaBinding
 
 
 class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactGetById {
@@ -42,7 +42,11 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CONTACTS)) {
+        if (PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.READ_CONTACTS
+            )
+        ) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
         } else {
@@ -52,10 +56,9 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
 
     }
 
-    private fun addObserverToContactsList(){
+    private fun addObserverToContactsList() {
         // Create the observer which updates the UI.
         val nameObserver = Observer<List<Contact>> { updatedContactsList ->
-            // Update the UI, in this case, a TextView.
             agendaObserver.updateContactsList(updatedContactsList)
             Log.e("updated_list", updatedContactsList.toString())
         }
@@ -66,17 +69,32 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
 
     private fun initializeViewModel() {
         agendaViewModel = ViewModelProvider(this)[AgendaViewModel::class.java]
-        addObserverToContactsList()
         agendaViewModel.retrieveContacts()
     }
 
-    private fun addNewContactListener(){
+    private fun addNewContactListener() {
         binding.addContactButton.setOnClickListener {
+
+            if (PermissionChecker.userHasSpecifiedPermission(
+                    context,
+                    android.Manifest.permission.WRITE_CONTACTS
+                )
+            ) {
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.WRITE_CONTACTS),
+                    Constants.PERMISSION_TO_WRITE_CONTACTS
+                )
+            }
             hideToolAndNavBar()
             parentFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main2, AddNewContactFragment(), "ADD_NEW_CONTACT_FRAGMENT")
+                .replace(
+                    R.id.nav_host_fragment_activity_main2,
+                    AddNewContactFragment(),
+                    "ADD_NEW_CONTACT_FRAGMENT"
+                )
                 .addToBackStack(tag)
                 .commit()
+
         }
     }
 
@@ -92,6 +110,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
         addNewContactListener()
+        addObserverToContactsList()
     }
 
     override fun onDestroyView() {
@@ -106,7 +125,11 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
     }
 
     private fun requestPermissionToReadContacts() {
-        if (!PermissionChecker.userHasSpecifiedPermission(context, android.Manifest.permission.READ_CONTACTS)) {
+        if (!PermissionChecker.userHasSpecifiedPermission(
+                context,
+                android.Manifest.permission.READ_CONTACTS
+            )
+        ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
                 Constants.PERMISSION_TO_READ_CONTACTS
@@ -136,13 +159,18 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
     override fun selectContact(contact: Contact) {
         hideToolAndNavBar()
         parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_main2, DetailedContactFragment(contact, this, this), "DETAILED_CONTACT_FRAGMENT")
+            .replace(
+                R.id.nav_host_fragment_activity_main2,
+                DetailedContactFragment(contact, this, this),
+                "DETAILED_CONTACT_FRAGMENT"
+            )
             .addToBackStack(tag)
             .commit()
     }
 
-    private fun hideToolAndNavBar(){
-        val toolBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+    private fun hideToolAndNavBar() {
+        val toolBar =
+            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolBar.visibility = View.GONE
 
         val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
@@ -150,7 +178,8 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
     }
 
     override fun deleteContact(contact: Contact) {
-        val successfullyDeleted = agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
+        val successfullyDeleted =
+            agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)
         if (successfullyDeleted)
             Toast.makeText(context, contact.name + " deleted.", Toast.LENGTH_SHORT).show()
         else
