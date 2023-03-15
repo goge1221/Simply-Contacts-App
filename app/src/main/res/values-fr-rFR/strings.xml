@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AgendaApp</string>
+    <string name="toolbar_name">Agenda</string>
     <string name="contacts">Contacts</string>
     <string name="recent_calls">Appels récents</string>
     <string name="title_notifications">Notifications</string>
