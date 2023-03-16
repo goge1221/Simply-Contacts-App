@@ -9,6 +9,7 @@ import goje.contactsapp.R
 import goje.contactsapp.databinding.ConfirmDeleteDialogBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.ui.agenda.IContactDelete
+import goje.contactsapp.utils.Constants
 
 
 class ConfirmDeletionDialog(
@@ -31,6 +32,10 @@ class ConfirmDeletionDialog(
         setContentView(binding.root)
         updateDeletionName()
         setOnClickListeners()
+
+        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+            binding.confirmationDeleteText.textSize = 30.0f
+        }
     }
 
     private fun setOnClickListeners(){
@@ -44,7 +49,6 @@ class ConfirmDeletionDialog(
             dismiss()
         }
     }
-
 
     private fun updateDeletionName(){
         val deleteText: String = binding.root.resources.getString(

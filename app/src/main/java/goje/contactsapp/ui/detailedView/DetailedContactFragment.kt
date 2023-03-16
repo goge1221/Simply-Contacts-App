@@ -44,6 +44,16 @@ class DetailedContactFragment(
         super.onViewCreated(view, savedInstanceState)
         addButtonListeners()
         initializeViewWithInformation()
+
+        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+            binding.personSampleImage.visibility = View.GONE
+            binding.callerName.setPadding(
+                binding.callerName.paddingLeft,
+                200,
+                binding.callerName.paddingRight,
+                binding.callerName.paddingBottom
+            )
+        }
     }
 
     private fun initializeViewWithInformation() {

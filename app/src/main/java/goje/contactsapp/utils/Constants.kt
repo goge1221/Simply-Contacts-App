@@ -5,4 +5,5 @@ object Constants {
     const val PERMISSION_TO_WRITE_CONTACTS = 1
     const val PERMISSION_TO_READ_CALL_LOG = 2
     const val PERMISSION_TO_CALL = 3
+    var USER_ENABLED_BIG_FONT_SIZE = false
 }

@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import goje.contactsapp.databinding.FragmentEditContactBinding
 import goje.contactsapp.entity.Contact
+import goje.contactsapp.utils.Constants
 
 
 class EditContactFragment(private val contact: Contact) : Fragment() {
@@ -35,6 +36,10 @@ class EditContactFragment(private val contact: Contact) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeViewWithInformation()
         addOnUpdateClickListener()
+
+        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+            binding.image.visibility = View.GONE
+        }
     }
 
 

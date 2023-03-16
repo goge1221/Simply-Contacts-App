@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentAddNewContactBinding
+import goje.contactsapp.utils.Constants
 
 
 class AddNewContactFragment : Fragment() {
@@ -30,6 +31,11 @@ class AddNewContactFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNewContactClickListener()
+
+        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+            binding.image.visibility = View.GONE
+        }
+
     }
 
     private fun addNewContactClickListener() {
