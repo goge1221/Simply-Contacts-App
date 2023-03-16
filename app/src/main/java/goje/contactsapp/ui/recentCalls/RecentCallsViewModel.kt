@@ -81,5 +81,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         )
     }
 
-
+    fun retrieveReentCalls(){
+        getList()
+    }
 }
