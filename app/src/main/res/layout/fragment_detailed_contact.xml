@@ -27,7 +27,7 @@
         android:src="@drawable/delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:contentDescription="@string/delete_button" />
 
 
     <TextView
@@ -80,7 +80,7 @@
 
         <ImageView
             android:id="@+id/settings_button"
-            android:layout_width="39dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/message_icon"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/messaging_button" />
 
         <ImageView
             android:id="@+id/call_button"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/call_icon"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/call_button" />
 
     </LinearLayout>
 

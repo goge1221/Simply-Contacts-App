@@ -28,5 +28,8 @@
     <string name="person_added_toast">%1$s added!</string>
     <string name="error_occured_deletion">An error occurred during deletion!</string>
     <string name="person_deleted">%1$s deleted!</string>
-
+    <string name="call_button" translatable="false">Call button</string>
+    <string name="messaging_button" translatable="false">Messaging button</string>
+    <string name="delete_button" translatable="false">Delete button</string>
+    <string name="list_of_contacts" translatable="false">List of contacts</string>
 </resources>
