@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AgendaApp</string>
+    <string name="app_name">Simply contacts</string>
     <string name="toolbar_name">Gündem</string>
     <string name="contacts">İletişim</string>
     <string name="recent_calls">Son aramalar</string>

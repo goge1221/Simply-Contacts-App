@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AgendaApp</string>
+    <string name="app_name">简单的联系</string>
     <string name="toolbar_name">"议程 "</string>
     <string name="contacts">联系我们</string>
     <string name="recent_calls">最近的电话</string>
