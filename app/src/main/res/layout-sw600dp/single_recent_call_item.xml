@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:elevation="5dp"
+    android:background="@drawable/round_shape_single_item">
+
+
+    <ImageView
+        android:id="@+id/call_type_image_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/call_type_round_shape"
+        android:backgroundTint="@color/grey"
+        android:contentDescription="@string/icon_for_the_type_of_call_made"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/call_type_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/call_type_image_view"
+        app:layout_constraintTop_toTopOf="@id/call_type_image_view">
+
+        <TextView
+            android:id="@+id/caller_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="3dp"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            tools:text="Nuta dumbrava" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="45sp"
+                tools:text="Date: 20.12.2022" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/call_time"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="45sp"
+                tools:text="120 min" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
