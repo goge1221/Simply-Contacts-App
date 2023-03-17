@@ -1,8 +1,11 @@
 package goje.contactsapp.ui.recentCalls
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.CallLog
+import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -37,14 +40,12 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         var dateColumnIndex = 0
         var durationColumnIndex = 0
         var typeColumnIndex = 0
-        var nameColumnIndex = 0
 
         cursor?.apply {
             numberColumnIndex = cursor.getColumnIndex(CallLog.Calls.NUMBER)
             dateColumnIndex = cursor.getColumnIndex(CallLog.Calls.DATE)
             durationColumnIndex = cursor.getColumnIndex(CallLog.Calls.DURATION)
             typeColumnIndex = cursor.getColumnIndex(CallLog.Calls.TYPE)
-            nameColumnIndex = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME)
         }
 
         while (cursor!!.moveToNext()) {
@@ -52,12 +53,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             val date: Long = cursor.getLong(dateColumnIndex)
             val durationInSeconds: Int = cursor.getInt(durationColumnIndex)
             val type: Int = cursor.getInt(typeColumnIndex)
-            var name = ""
-            if (cursor.getString(nameColumnIndex) != null)
-                name = cursor.getString(nameColumnIndex)
-
-            if (name.isEmpty())
-                name = number
+            val name = getNameByPhoneNumber(number)
 
             retrievedList.add(
                 RecentCall(
@@ -69,6 +65,25 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         Log.i("RECENT_CALLS", retrievedList.toString())
         cursor.close()
         _recentCallsList.value = retrievedList
+    }
+
+    @SuppressLint("Range")
+    private fun getNameByPhoneNumber(phoneNumber: String): String {
+        val contentResolver: ContentResolver = getApplication<Application>().contentResolver
+        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+        val selection = ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?"
+        val selectionArgs = arrayOf(phoneNumber)
+
+        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
+        var contactName: String? = null
+        if (cursor != null && cursor.moveToFirst()) {
+            contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            cursor.close()
+        }
+        if (contactName == null || contactName.isEmpty())
+            return phoneNumber
+        return contactName
     }
 
     private fun getCursor(): Cursor? {
