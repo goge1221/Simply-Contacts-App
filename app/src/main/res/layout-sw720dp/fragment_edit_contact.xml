@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="100dp"
         android:text="@string/name"
         android:textColor="@color/green_700"
-        android:textSize="45sp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image" />
@@ -41,7 +41,7 @@
         android:hint="@string/new_name"
         android:textColor="?android:textColorTertiary"
         android:inputType="text"
-        android:textSize="60sp"
+        android:textSize="80sp"
         app:layout_constraintTop_toBottomOf="@id/name_text"
         tools:text="Nuta Dumbrava" />
 
@@ -53,7 +53,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/mobile"
         android:textColor="@color/green_700"
-        android:textSize="45sp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/caller_name" />
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="New number"
         android:inputType="number"
-        android:textSize="60sp"
+        android:textSize="80sp"
         android:textColor="?android:textColorTertiary"
         app:layout_constraintTop_toBottomOf="@id/number_text"
         tools:text="0043 560 3002 200" />
@@ -80,7 +80,7 @@
         android:text="@string/update_contact"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="45sp"
+        android:textSize="55sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -9,25 +9,14 @@
 
     <ImageView
         android:id="@+id/person_sample_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/user_detailed_contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/delete_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:src="@drawable/delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/delete_button" />
 
 
     <TextView
@@ -37,7 +26,7 @@
         android:layout_marginTop="10dp"
         android:maxLines="2"
         android:textAlignment="center"
-        android:textSize="70sp"
+        android:textSize="100sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,27 +55,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mobile"
                 android:textColor="@color/green_700"
-                android:textSize="40sp"
+                android:textSize="55sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/caller_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
+                android:textSize="55sp"
                 tools:text="00436607608929" />
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/settings_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/settings"
-            android:visibility="visible"
-            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -95,7 +74,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="55dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -106,19 +85,19 @@
 
         <ImageView
             android:id="@+id/message_button"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             android:src="@drawable/message_icon"
-            android:contentDescription="@string/messaging_button" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/call_button"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             android:src="@drawable/call_icon"
-            android:contentDescription="@string/call_button" />
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
