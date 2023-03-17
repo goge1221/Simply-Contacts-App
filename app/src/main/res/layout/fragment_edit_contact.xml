@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="New Name"
         android:hint="@string/new_name"
+        android:textColor="?android:textColorTertiary"
         android:inputType="text"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@id/name_text"
@@ -64,6 +65,7 @@
         android:autofillHints="New number"
         android:inputType="number"
         android:textSize="30sp"
+        android:textColor="?android:textColorTertiary"
         app:layout_constraintTop_toBottomOf="@id/number_text"
         tools:text="0043 560 3002 200" />
 
