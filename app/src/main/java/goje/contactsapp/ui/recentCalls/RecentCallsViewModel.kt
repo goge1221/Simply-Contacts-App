@@ -18,6 +18,8 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
     private var _recentCallsList = MutableLiveData<List<RecentCall>>()
     val recentCallsList: LiveData<List<RecentCall>> = _recentCallsList
 
+    private var hashMap : HashMap<String, String> = hashMapOf()
+
     private val projection = arrayOf(
         CallLog.Calls.NUMBER,
         CallLog.Calls.CACHED_NAME,
@@ -69,6 +71,10 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
 
     @SuppressLint("Range")
     private fun getNameByPhoneNumber(phoneNumber: String): String {
+
+        if (hashMap.containsKey(phoneNumber))
+            return hashMap.getOrDefault(phoneNumber, phoneNumber)
+
         val contentResolver: ContentResolver = getApplication<Application>().contentResolver
         val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
         val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
@@ -81,8 +87,11 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             cursor.close()
         }
-        if (contactName == null || contactName.isEmpty())
+        if (contactName == null || contactName.isEmpty()) {
+            hashMap[phoneNumber] = phoneNumber
             return phoneNumber
+        }
+        hashMap[phoneNumber] = contactName
         return contactName
     }
 
