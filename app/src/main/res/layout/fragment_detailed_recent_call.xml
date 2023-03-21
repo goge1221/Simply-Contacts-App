@@ -11,93 +11,98 @@
         android:id="@+id/person_sample_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/user_detailed_contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-
-    <TextView
-        android:id="@+id/caller_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:padding="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:maxLines="2"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:textStyle="bold"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/person_sample_image"
-        tools:text="Nuta dumbrava aber mit langer " />
+        app:layout_constraintTop_toBottomOf="@id/person_sample_image">
 
 
-    <LinearLayout
-        android:id="@+id/mobile_information_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/caller_name">
+        <TextView
+            android:id="@+id/caller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            tools:text="Nuta dumbrava aber mit langer " />
 
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/mobile_information_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mobile"
-                android:textColor="@color/green_700"
-                android:textSize="25sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/caller_number"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                tools:text="00436607608929" />
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile"
+                    android:textColor="@color/green_700"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/caller_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    tools:text="00436607608929" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="55dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobile_information_layout">
-
-        <ImageView
-            android:id="@+id/message_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/message_icon"
-            tools:ignore="ContentDescription" />
+            android:layout_marginTop="65dp"
+            android:layout_marginBottom="55dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <ImageView
-            android:id="@+id/call_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/call_icon"
-            tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/message_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/messaging_button"
+                android:src="@drawable/message_icon" />
+
+            <ImageView
+                android:id="@+id/call_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/call_button"
+                android:src="@drawable/call_icon" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
