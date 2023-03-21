@@ -31,11 +31,9 @@ class AddNewContactFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNewContactClickListener()
-
-        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+        if (Constants.USER_ENABLED_BIG_FONT_SIZE) {
             binding.image.visibility = View.GONE
         }
-
     }
 
     private fun addNewContactClickListener() {

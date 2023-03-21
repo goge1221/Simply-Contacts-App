@@ -3,7 +3,6 @@ package goje.contactsapp
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val c: Configuration = resources.configuration
         val scale: Float = c.fontScale
-        if (scale > 1.0){
+        if (scale > 1.6){
            Constants.USER_ENABLED_BIG_FONT_SIZE = true
         }
     }
