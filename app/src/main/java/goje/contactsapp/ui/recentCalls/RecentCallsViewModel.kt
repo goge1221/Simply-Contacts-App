@@ -2,14 +2,13 @@ package goje.contactsapp.ui.recentCalls
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.CallLog
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import goje.contactsapp.entity.Contact
 import goje.contactsapp.entity.RecentCall
 import java.util.*
 
@@ -28,11 +27,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         CallLog.Calls.TYPE
     )
 
-    init {
-        getList()
-    }
-
-    private fun getList() {
+    private fun getList(value: List<Contact>) {
 
         val cursor = getCursor()
 
@@ -55,7 +50,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
             val date: Long = cursor.getLong(dateColumnIndex)
             val durationInSeconds: Int = cursor.getInt(durationColumnIndex)
             val type: Int = cursor.getInt(typeColumnIndex)
-            val name = getNameByPhoneNumber(number)
+            val name = getNameByPhoneNumber(number, value)
 
             retrievedList.add(
                 RecentCall(
@@ -69,30 +64,23 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         _recentCallsList.value = retrievedList
     }
 
-    @SuppressLint("Range")
-    private fun getNameByPhoneNumber(phoneNumber: String): String {
+    private fun getNameByPhoneNumber(phoneNumber: String, value: List<Contact>): String {
+        for (contact in value) {
+            val stringWithoutSpaces = contact.phoneNumber.replace("\\s".toRegex(), "")
+            var phoneNumberWithPlus = ""
+            var phoneNumberWithZero = ""
+            if (phoneNumber.length > 2){
+                phoneNumberWithPlus = "+" + phoneNumber.takeLast(phoneNumber.length-2)
+            }
+            if (phoneNumber.length > 1){
+                phoneNumberWithZero = "00" + phoneNumber.takeLast(phoneNumber.length-1)
+            }
 
-        if (hashMap.containsKey(phoneNumber))
-            return hashMap.getOrDefault(phoneNumber, phoneNumber)
-
-        val contentResolver: ContentResolver = getApplication<Application>().contentResolver
-        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
-        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-        val selection = ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?"
-        val selectionArgs = arrayOf(phoneNumber)
-
-        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
-        var contactName: String? = null
-        if (cursor != null && cursor.moveToFirst()) {
-            contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            cursor.close()
+            if (stringWithoutSpaces.contains(phoneNumber) || stringWithoutSpaces.contains(phoneNumberWithZero) ||stringWithoutSpaces.contains(phoneNumberWithPlus)) {
+                return contact.name
+            }
         }
-        if (contactName == null || contactName.isEmpty()) {
-            hashMap[phoneNumber] = phoneNumber
-            return phoneNumber
-        }
-        hashMap[phoneNumber] = contactName
-        return contactName
+        return phoneNumber
     }
 
     private fun getCursor(): Cursor? {
@@ -105,7 +93,7 @@ class RecentCallsViewModel(application: Application) : AndroidViewModel(applicat
         )
     }
 
-    fun retrieveReentCalls(){
-        getList()
+    fun retrieveReentCalls(value: List<Contact>) {
+        getList(value)
     }
 }

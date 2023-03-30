@@ -7,6 +7,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -55,6 +56,9 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                     if (phoneCursor.moveToNext()) {
                         val phoneNumber: String =
                             phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        if (displayName == "Buniica"){
+                            Log.d("SS", "getContacts: $phoneNumber")
+                        }
                         contactsInfoList.add(
                             Contact(
                                 phoneNumber, displayName, contactId
@@ -101,6 +105,20 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
             cur.close()
         }
         return false
+    }
+
+    fun getContactByNumber(phoneNumber: String): String {
+        getContacts()
+        var phoneNumberWithPlus = phoneNumber
+
+        if (phoneNumber.length > 1 && phoneNumber.startsWith("+")) {
+            phoneNumberWithPlus = "00" + phoneNumber.takeLast(phoneNumber.length - 1)
+        }
+
+        for (contact in contactsList.value!!)
+            if (contact.phoneNumber == phoneNumber || contact.phoneNumber == phoneNumberWithPlus)
+                return contact.name
+        return phoneNumber
     }
 
     fun getContactById(contactId: String): Contact {

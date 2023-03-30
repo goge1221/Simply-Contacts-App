@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,6 +13,7 @@ import goje.contactsapp.databinding.FragmentRecentCallsBinding
 import goje.contactsapp.entity.RecentCall
 import goje.contactsapp.recyclerViews.agendaRecyclerView.IRecentCallClickListener
 import goje.contactsapp.recyclerViews.recentCallsRecyclerView.RecentCallsAdapter
+import goje.contactsapp.ui.agenda.AgendaViewModel
 import goje.contactsapp.ui.detailedView.DetailedRecentContactFragment
 import goje.contactsapp.utils.Constants.PERMISSION_TO_READ_CALL_LOG
 import goje.contactsapp.utils.PermissionChecker
@@ -28,6 +28,8 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
     private val binding get() = _binding!!
 
     private lateinit var notificationsViewModel: RecentCallsViewModel
+    private lateinit var agendaViewModel: AgendaViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,8 +73,10 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
     }
 
     private fun initializeViewModel() {
+        agendaViewModel = ViewModelProvider(this)[AgendaViewModel::class.java]
+        agendaViewModel.retrieveContacts()
         notificationsViewModel = ViewModelProvider(this)[RecentCallsViewModel::class.java]
-        notificationsViewModel.retrieveReentCalls()
+        agendaViewModel.contactsList.value?.let { notificationsViewModel.retrieveReentCalls(it) }
     }
 
     private fun requestPermissionToReadCallLog() {
