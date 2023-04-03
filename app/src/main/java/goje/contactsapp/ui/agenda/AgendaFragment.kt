@@ -102,6 +102,9 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
 
     private fun initializePermissionsNotGrantedLayout() {
         binding.linearLayout.visibility = View.VISIBLE
+
+        if (Constants.fontSize > 1.2)
+            binding.image!!.visibility = View.INVISIBLE
     }
 
     private fun changeLayoutToPermissionsGranted() {
