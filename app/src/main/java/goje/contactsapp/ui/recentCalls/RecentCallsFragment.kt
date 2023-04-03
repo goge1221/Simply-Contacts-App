@@ -1,10 +1,15 @@
 package goje.contactsapp.ui.recentCalls
 
+import android.app.role.RoleManager
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.telecom.TelecomManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,7 +20,9 @@ import goje.contactsapp.recyclerViews.agendaRecyclerView.IRecentCallClickListene
 import goje.contactsapp.recyclerViews.recentCallsRecyclerView.RecentCallsAdapter
 import goje.contactsapp.ui.agenda.AgendaViewModel
 import goje.contactsapp.ui.detailedView.DetailedRecentContactFragment
+import goje.contactsapp.utils.Constants
 import goje.contactsapp.utils.Constants.PERMISSION_TO_READ_CALL_LOG
+import goje.contactsapp.utils.Constants.REQUEST_CODE_SET_DEFAULT_DIALER
 import goje.contactsapp.utils.PermissionChecker
 
 
@@ -55,13 +62,52 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
         }
     }
 
+    private fun appIsDefaultHandler(): Boolean {
+        val telecomManager =
+            requireActivity().getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+        return requireActivity().packageName == telecomManager.defaultDialerPackage
+    }
+
+    private fun makeAppDefaultCallerApp() {
+        Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(
+            TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME,
+            requireActivity().packageName
+        ).apply {
+            if (resolveActivity(requireActivity().packageManager) != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val rm: RoleManager? = requireActivity().getSystemService(RoleManager::class.java)
+                    if (rm?.isRoleAvailable(RoleManager.ROLE_DIALER) == true) {
+                        @Suppress("DEPRECATION")
+                        requireActivity().startActivityForResult(
+                            rm.createRequestRoleIntent(RoleManager.ROLE_DIALER),
+                            REQUEST_CODE_SET_DEFAULT_DIALER
+                        )
+                    }
+                } else {
+                    @Suppress("DEPRECATION")
+                    requireActivity().startActivityForResult(this, REQUEST_CODE_SET_DEFAULT_DIALER)
+                }
+            }
+        }
+    }
+
     private fun initializePermissionsNotGrantedLayout() {
         binding.linearLayout.visibility = View.VISIBLE
+        if (Constants.fontSize > 1.2)
+            binding.image.visibility = View.GONE
     }
 
     private fun setGrantPermissionsButtonListener() {
         binding.grantPermissionsButton.setOnClickListener {
-            requestPermissionToReadCallLog()
+            if (appIsDefaultHandler())
+                requestPermissionToReadCallLog()
+            else {
+                makeAppDefaultCallerApp()
+                if (appIsDefaultHandler())
+                    requestPermissionToReadCallLog()
+                else
+                    initializePermissionsNotGrantedLayout()
+            }
         }
     }
 
@@ -80,16 +126,30 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
     }
 
     private fun requestPermissionToReadCallLog() {
-        if (!PermissionChecker.userHasSpecifiedPermission(
-                context,
-                android.Manifest.permission.READ_CALL_LOG
-            )
-        ) {
-            requestPermissions(
-                arrayOf(android.Manifest.permission.READ_CALL_LOG),
-                PERMISSION_TO_READ_CALL_LOG
-            )
+
+        if (!appIsDefaultHandler()) {
+            initializePermissionsNotGrantedLayout()
+            makeAppDefaultCallerApp()
         }
+
+        if (appIsDefaultHandler()) {
+
+            if (!PermissionChecker.userHasSpecifiedPermission(
+                    context,
+                    android.Manifest.permission.READ_CALL_LOG
+                )
+            ) {
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.READ_CALL_LOG),
+                    PERMISSION_TO_READ_CALL_LOG
+                )
+            }
+            else{
+                initializeViewModel()
+                changeLayoutToPermissionsGranted()
+            }
+        }
+
     }
 
     @Deprecated("Deprecated in Java")
