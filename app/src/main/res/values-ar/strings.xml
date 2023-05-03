@@ -10,7 +10,7 @@
     <string name="read_contacts_permission">نحن بحاجة إلى إذن لجدول أعمالك من أجل عرض قائمة جهات الاتصال.</string>
     <string name="how_to_grant_permission">يرجى النقر على الزر أدناه أو تمكين هذا من الإعدادات الخاصة بك</string>
     <string name="grant_permission_button_text">منح الإذن</string>
-    <string name="read_recent_calls_permission">نحن بحاجة إلى إذن لمكالماتك الأخيرة من أجل عرضها هنا.</string>
+    <string name="read_recent_calls_permission">التطبيق يحتاج إلى أن يكون معالج الهاتف الافتراضي لمن أجل إظهار</string>
     <string name="mobile">موبايل</string>
     <string name="name">الاسم</string>
     <string name="new_name">اسم جديد</string>

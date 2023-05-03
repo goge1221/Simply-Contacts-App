@@ -10,7 +10,7 @@
     <string name="read_contacts_permission">Necesitamos el permiso de tu Agenda para poder mostrar la lista de contactos.</string>
     <string name="how_to_grant_permission">Haga clic en el botón que aparece a continuación o active esta opción en la configuración.</string>
     <string name="grant_permission_button_text">Conceder permiso</string>
-    <string name="read_recent_calls_permission">Necesitamos el permiso de sus llamadas recientes para poder mostrarlas aquí.</string>
+    <string name="read_recent_calls_permission">La aplicación debe ser el controlador de teléfono predeterminado para mostrar el registro de llamadas.</string>
     <string name="mobile">Móvil</string>
     <string name="name">Nombre</string>
     <string name="new_name">Nuevo nombre</string>

@@ -10,7 +10,7 @@
     <string name="read_contacts_permission">Kişi listesini görüntülemek için Ajandanızın iznine ihtiyacımız var.</string>
     <string name="how_to_grant_permission">Lütfen aşağıdaki düğmeye tıklayın veya ayarlarınızdan bunu etkinleştirin</string>
     <string name="grant_permission_button_text">İzin Verin</string>
-    <string name="read_recent_calls_permission">Son aramalarınızı burada görüntüleyebilmemiz için izin almamız gerekiyor.</string>
+    <string name="read_recent_calls_permission">Arama günlüğünü göstermek için uygulamanın varsayılan telefon işleyicisi olması gerekir.</string>
     <string name="mobile">Mobil</string>
     <string name="name">İsim</string>
     <string name="new_name">Yeni isim</string>
