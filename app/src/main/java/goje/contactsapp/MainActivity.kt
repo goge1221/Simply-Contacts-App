@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.telecom.TelecomManager
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -74,10 +73,6 @@ class MainActivity : AppCompatActivity() {
         val telecomManager = getSystemService(TELECOM_SERVICE) as TelecomManager
         val isAlreadyDefaultDialer = packageName == telecomManager.defaultDialerPackage
         Constants.DEFAULT_PHONE_HANDLER = isAlreadyDefaultDialer
-        if (isAlreadyDefaultDialer) {
-            Toast.makeText(applicationContext, "Yes", Toast.LENGTH_SHORT)
-                .show()
-        }
     }
 
     private fun whenBackButtonClickedReturnToAgendaFragment() {
