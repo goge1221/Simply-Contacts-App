@@ -10,7 +10,7 @@
     <string name="read_contacts_permission">संपर्क सूची प्रदर्शित करने के लिए हमें आपके एजेंडे की अनुमति की आवश्यकता है।</string>
     <string name="how_to_grant_permission">कृपया नीचे दिए गए बटन पर क्लिक करें या अपनी सेटिंग से इसे सक्षम करें</string>
     <string name="grant_permission_button_text">अनुदान अनुमति</string>
-    <string name="read_recent_calls_permission">हमें आपके हालिया कॉल को यहां प्रदर्शित करने के लिए अनुमति की आवश्यकता है।</string>
+    <string name="read_recent_calls_permission">"कॉल लॉग दिखाने के लिए ऐप को डिफ़ॉल्ट फोन हैंडलर होना चाहिए । "</string>
     <string name="mobile">गतिमान</string>
     <string name="name">नाम</string>
     <string name="new_name">नया नाम</string>

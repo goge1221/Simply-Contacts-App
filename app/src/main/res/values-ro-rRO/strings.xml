@@ -9,7 +9,7 @@
     <string name="read_contacts_permission">Avem nevoie de permisiune la agenda ca sa va putem afisa contactele.</string>
     <string name="how_to_grant_permission">Vă rugăm să faceți clic pe butonul de mai jos sau să activați acest lucru din setările dvs</string>
     <string name="grant_permission_button_text">Acordă permisiunea</string>
-    <string name="read_recent_calls_permission">Avem nevoie de permisiunea la contacte recente pentru a le afisa aici.</string>
+    <string name="read_recent_calls_permission">Aplicația trebuie să fie handler-ul implicit al telefonului pentru a afișa jurnalul de apeluri.</string>
     <string name="mobile">Mobil</string>
     <string name="name">Nume</string>
     <string name="new_name">Nume nou</string>
