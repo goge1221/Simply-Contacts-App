@@ -2,6 +2,7 @@ package goje.contactsapp.ui.recentCalls
 
 import android.app.role.RoleManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentRecentCallsBinding
@@ -52,7 +54,7 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
         if (PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.READ_CALL_LOG
-            )
+            ) == true
         ) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
@@ -137,7 +139,7 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
             if (!PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.READ_CALL_LOG
-                )
+                )!!
             ) {
                 requestPermissions(
                     arrayOf(android.Manifest.permission.READ_CALL_LOG),
@@ -161,6 +163,20 @@ class RecentCallsFragment : Fragment(), IRecentCallClickListener {
         if (requestCode == PERMISSION_TO_READ_CALL_LOG && grantResults.isNotEmpty()) {
             for (i in grantResults.indices) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+                    val sharedPreferences: SharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+
+                    // Get the SharedPreferences.Editor to make changes
+                    val editor = sharedPreferences.edit()
+
+                    // Save the boolean value
+                    editor.putBoolean("permission_to_read_call_log_granted", true)
+
+                    // Apply the changes
+                    editor.apply()
+
                     //Permission to read contacts was granted
                     initializeViewModel()
                     changeLayoutToPermissionsGranted()

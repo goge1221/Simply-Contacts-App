@@ -1,14 +1,20 @@
 package goje.contactsapp.ui.detailedView
 
+import android.app.role.RoleManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.telecom.TelecomManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentDetailedContactBinding
@@ -45,7 +51,7 @@ class DetailedContactFragment(
         addButtonListeners()
         initializeViewWithInformation()
 
-        if(Constants.USER_ENABLED_BIG_FONT_SIZE){
+        if (Constants.USER_ENABLED_BIG_FONT_SIZE) {
             binding.personSampleImage.visibility = View.GONE
             binding.callerName.setPadding(
                 binding.callerName.paddingLeft,
@@ -58,20 +64,18 @@ class DetailedContactFragment(
 
     private fun initializeViewWithInformation() {
         val updatedContact = contactRetriever.getContactById(contact.contactId)
-        if (updatedContact.name != contact.name){
+        if (updatedContact.name != contact.name) {
             Toast.makeText(context, "Name updated", Toast.LENGTH_SHORT).show()
             binding.callerName.text = updatedContact.name
             contact = updatedContact
-        }
-        else
+        } else
             binding.callerName.text = contact.name
 
-        if (updatedContact.phoneNumber != contact.phoneNumber){
+        if (updatedContact.phoneNumber != contact.phoneNumber) {
             Toast.makeText(context, "Number updated", Toast.LENGTH_SHORT).show()
             binding.callerNumber.text = updatedContact.phoneNumber
             contact = updatedContact
-        }
-        else
+        } else
             binding.callerNumber.text = contact.phoneNumber
     }
 
@@ -113,14 +117,55 @@ class DetailedContactFragment(
             if (PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.CALL_PHONE
-                )
+                ) == true && appIsDefaultHandler()
             ) {
                 //open intent with edit
                 initiateCall()
             } else {
-                requestPermissionToCall()
+                if (appIsDefaultHandler()) {
+                    requestPermissionToCall()
+                } else {
+                    makeAppDefaultCallerApp()
+                    if (appIsDefaultHandler())
+                        requestPermissionToCall()
+                    //else
+                    //makeAppDefaultCallerApp()
+                }
             }
         }
+    }
+
+    private fun makeAppDefaultCallerApp() {
+        Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(
+            TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME,
+            requireActivity().packageName
+        ).apply {
+            if (resolveActivity(requireActivity().packageManager) != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val rm: RoleManager? =
+                        requireActivity().getSystemService(RoleManager::class.java)
+                    if (rm?.isRoleAvailable(RoleManager.ROLE_DIALER) == true) {
+                        @Suppress("DEPRECATION")
+                        requireActivity().startActivityForResult(
+                            rm.createRequestRoleIntent(RoleManager.ROLE_DIALER),
+                            Constants.REQUEST_CODE_SET_DEFAULT_DIALER
+                        )
+                    }
+                } else {
+                    @Suppress("DEPRECATION")
+                    requireActivity().startActivityForResult(
+                        this,
+                        Constants.REQUEST_CODE_SET_DEFAULT_DIALER
+                    )
+                }
+            }
+        }
+    }
+
+    private fun appIsDefaultHandler(): Boolean {
+        val telecomManager =
+            requireActivity().getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+        return requireActivity().packageName == telecomManager.defaultDialerPackage
     }
 
     private fun addEditButtonListener() {
@@ -128,7 +173,7 @@ class DetailedContactFragment(
             if (PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.WRITE_CONTACTS
-                )
+                ) == true
             ) {
                 //open intent with edit
                 openModifyContactFragment()
@@ -170,7 +215,7 @@ class DetailedContactFragment(
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.WRITE_CONTACTS
-            )
+            )!!
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.WRITE_CONTACTS),
@@ -184,7 +229,7 @@ class DetailedContactFragment(
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.CALL_PHONE
-            )
+            )!!
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.CALL_PHONE),
@@ -222,6 +267,20 @@ class DetailedContactFragment(
             for (i in grantResults.indices) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //Permission to write contacts was granted
+                    val sharedPreferences: SharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+
+                    // Get the SharedPreferences.Editor to make changes
+                    val editor = sharedPreferences.edit()
+
+                    // Save the boolean value
+                    editor.putBoolean("permission_to_call_granted", true)
+
+                    // Apply the changes
+                    editor.apply()
+
+
                     initiateCall()
                     break
                 }

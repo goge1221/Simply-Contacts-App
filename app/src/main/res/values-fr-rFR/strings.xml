@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occured_deletion">Une erreur s\'est produite lors de la suppression !</string>
+    <string name="person_deleted">%1$s supprimé !</string>
+</resources>

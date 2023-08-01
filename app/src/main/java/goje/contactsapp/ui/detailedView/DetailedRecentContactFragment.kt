@@ -71,7 +71,7 @@ class DetailedRecentContactFragment(
             if (PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.CALL_PHONE
-                )
+                ) == true
             ) {
                 //open intent with edit
                 initiateCall()
@@ -102,7 +102,7 @@ class DetailedRecentContactFragment(
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.CALL_PHONE
-            )
+            )!!
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.CALL_PHONE),

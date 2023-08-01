@@ -22,7 +22,8 @@ import goje.contactsapp.utils.Constants
 import goje.contactsapp.utils.PermissionChecker
 
 
-class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactGetById {
+class
+AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactGetById {
 
     private var _binding: FragmentAgendaBinding? = null
 
@@ -47,7 +48,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
         if (PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.READ_CONTACTS
-            )
+            ) == true
         ) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
@@ -80,7 +81,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
             if (!PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.WRITE_CONTACTS
-                )
+                )!!
             ) {
                 requestPermissions(
                     arrayOf(android.Manifest.permission.WRITE_CONTACTS),
@@ -133,7 +134,7 @@ class AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, ICo
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.READ_CONTACTS
-            )
+            )!!
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
