@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentAgendaBinding
 import goje.contactsapp.entity.Contact
@@ -48,7 +47,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         if (PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.READ_CONTACTS
-            ) == true
+            )
         ) {
             initializeViewModel()
             changeLayoutToPermissionsGranted()
@@ -81,14 +80,13 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             if (!PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.WRITE_CONTACTS
-                )!!
+                )
             ) {
                 requestPermissions(
                     arrayOf(android.Manifest.permission.WRITE_CONTACTS),
                     Constants.PERMISSION_TO_WRITE_CONTACTS
                 )
             } else {
-                hideToolAndNavBar()
                 parentFragmentManager.beginTransaction()
                     .replace(
                         R.id.nav_host_fragment_activity_main2,
@@ -134,7 +132,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.READ_CONTACTS
-            )!!
+            )
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
@@ -164,7 +162,6 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
     }
 
     override fun selectContact(contact: Contact) {
-        hideToolAndNavBar()
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.nav_host_fragment_activity_main2,
@@ -175,14 +172,6 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             .commit()
     }
 
-    private fun hideToolAndNavBar() {
-        val toolBar =
-            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolBar.visibility = View.GONE
-
-        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
-        navBar.visibility = View.GONE
-    }
 
     override fun deleteContact(contact: Contact) {
         val successfullyDeleted =

@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentAddNewContactBinding
 import goje.contactsapp.utils.Constants
@@ -40,7 +39,6 @@ class AddNewContactFragment : Fragment() {
         binding.updateContactButton.setOnClickListener {
             if (nameIsOk() && numberIsOk()) {
                 insertContact()
-                showNavAndToolBar()
                 parentFragmentManager.popBackStack()
             }
         }
@@ -138,16 +136,6 @@ class AddNewContactFragment : Fragment() {
                 R.string.person_added_toast, binding.callerName.text.toString()
             ), Toast.LENGTH_SHORT
         ).show()
-    }
-
-
-    private fun showNavAndToolBar() {
-        val toolBar =
-            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolBar.visibility = View.VISIBLE
-
-        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
-        navBar.visibility = View.VISIBLE
     }
 
 }

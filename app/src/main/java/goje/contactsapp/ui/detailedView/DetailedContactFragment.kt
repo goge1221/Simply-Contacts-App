@@ -1,21 +1,16 @@
 package goje.contactsapp.ui.detailedView
 
-import android.app.role.RoleManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.telecom.TelecomManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentDetailedContactBinding
 import goje.contactsapp.entity.Contact
@@ -117,63 +112,21 @@ class DetailedContactFragment(
             if (PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.CALL_PHONE
-                ) == true && appIsDefaultHandler()
+                )
             ) {
                 //open intent with edit
                 initiateCall()
-            } else {
-                if (appIsDefaultHandler()) {
-                    requestPermissionToCall()
-                } else {
-                    makeAppDefaultCallerApp()
-                    if (appIsDefaultHandler())
-                        requestPermissionToCall()
-                    //else
-                    //makeAppDefaultCallerApp()
-                }
             }
+            else
+                requestPermissionToCall()
         }
     }
-
-    private fun makeAppDefaultCallerApp() {
-        Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(
-            TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME,
-            requireActivity().packageName
-        ).apply {
-            if (resolveActivity(requireActivity().packageManager) != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val rm: RoleManager? =
-                        requireActivity().getSystemService(RoleManager::class.java)
-                    if (rm?.isRoleAvailable(RoleManager.ROLE_DIALER) == true) {
-                        @Suppress("DEPRECATION")
-                        requireActivity().startActivityForResult(
-                            rm.createRequestRoleIntent(RoleManager.ROLE_DIALER),
-                            Constants.REQUEST_CODE_SET_DEFAULT_DIALER
-                        )
-                    }
-                } else {
-                    @Suppress("DEPRECATION")
-                    requireActivity().startActivityForResult(
-                        this,
-                        Constants.REQUEST_CODE_SET_DEFAULT_DIALER
-                    )
-                }
-            }
-        }
-    }
-
-    private fun appIsDefaultHandler(): Boolean {
-        val telecomManager =
-            requireActivity().getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
-        return requireActivity().packageName == telecomManager.defaultDialerPackage
-    }
-
     private fun addEditButtonListener() {
         binding.settingsButton.setOnClickListener {
             if (PermissionChecker.userHasSpecifiedPermission(
                     context,
                     android.Manifest.permission.WRITE_CONTACTS
-                ) == true
+                )
             ) {
                 //open intent with edit
                 openModifyContactFragment()
@@ -184,8 +137,10 @@ class DetailedContactFragment(
     }
 
     private fun initiateCall() {
+        // TODO instead of callig only open the default handler
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
         returnToLastFragment()
+        Toast.makeText(requireContext(), "hell", Toast.LENGTH_SHORT).show()
         startActivity(intent)
     }
 
@@ -196,7 +151,6 @@ class DetailedContactFragment(
     }
 
     private fun returnToLastFragment() {
-        showNavAndToolBar()
         parentFragmentManager.popBackStack()
     }
 
@@ -229,7 +183,7 @@ class DetailedContactFragment(
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.CALL_PHONE
-            )!!
+            )
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.CALL_PHONE),
@@ -237,16 +191,6 @@ class DetailedContactFragment(
             )
         }
     }
-
-    private fun showNavAndToolBar() {
-        val toolBar =
-            requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolBar.visibility = View.VISIBLE
-
-        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
-        navBar.visibility = View.VISIBLE
-    }
-
 
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(

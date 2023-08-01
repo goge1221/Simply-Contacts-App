@@ -11,9 +11,4 @@
         android:label="Agenda"
         tools:layout="@layout/fragment_agenda" />
 
-    <fragment
-        android:id="@+id/navigation_recent_calls"
-        android:name="goje.contactsapp.ui.recentCalls.RecentCallsFragment"
-        android:label="Recent calls"
-        tools:layout="@layout/fragment_recent_calls" />
 </navigation>
