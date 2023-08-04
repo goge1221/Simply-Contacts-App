@@ -27,4 +27,8 @@
     <string name="person_added_toast">¡%1$s añadido!</string>
     <string name="error_occured_deletion">¡Ocurrió un error al eliminar!</string>
     <string name="person_deleted">%1$s eliminada/o!</string>
+    <string name="enter_name_error">Por favor, introduzca un nombre</string>
+    <string name="enter_number_error">Por favor, introduzca un número</string>
+    <string name="number_updated">Número actualizado</string>
+    <string name="name_updated">Nombre actualizado</string>
 </resources>

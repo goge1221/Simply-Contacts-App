@@ -32,4 +32,9 @@
     <string name="messaging_button" translatable="false">Messaging button</string>
     <string name="delete_button" translatable="false">Delete button</string>
     <string name="list_of_contacts" translatable="false">List of contacts</string>
+    <string name="enter_name_error">Please enter a name</string>
+    <string name="enter_number_error">Please enter a number</string>
+    <string name="number_updated">Number updated</string>
+    <string name="name_updated">Name updated</string>
+
 </resources>

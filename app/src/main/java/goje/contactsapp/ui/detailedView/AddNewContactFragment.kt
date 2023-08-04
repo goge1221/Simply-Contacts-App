@@ -46,7 +46,11 @@ class AddNewContactFragment : Fragment() {
 
     private fun nameIsOk(): Boolean {
         if (binding.callerName.text.toString().isEmpty()) {
-            Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().resources.getString(R.string.enter_name_error),
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
         return true
@@ -54,7 +58,11 @@ class AddNewContactFragment : Fragment() {
 
     private fun numberIsOk(): Boolean {
         if (binding.callerName.text.toString().isEmpty()) {
-            Toast.makeText(context, "Please enter a number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().resources.getString(R.string.enter_number_error),
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
         return true

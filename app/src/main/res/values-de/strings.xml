@@ -27,4 +27,8 @@
     <string name="person_added_toast">%1$s hinzugefügt!</string>
     <string name="error_occured_deletion">Beim Löschen ist ein Fehler aufgetreten!</string>
     <string name="person_deleted">%1$s gelöscht!</string>
+    <string name="enter_name_error">Bitte geben Sie ein Namen ein</string>
+    <string name="enter_number_error">Bitte geben Sie eine Nummer ein</string>
+    <string name="number_updated">Nummer aktualisiert</string>
+    <string name="name_updated">Name aktualisiert</string>
 </resources>

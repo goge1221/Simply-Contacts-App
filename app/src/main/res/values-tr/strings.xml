@@ -27,4 +27,8 @@
     <string name="person_added_toast">%1$s eklendi!</string>
     <string name="error_occured_deletion">Silinirken bir hata oluştu!</string>
     <string name="person_deleted">%1$s silindi!</string>
+    <string name="enter_name_error">Lütfen bir isim girin</string>
+    <string name="enter_number_error">Lütfen bir numara girin</string>
+    <string name="number_updated">Numara güncellendi</string>
+    <string name="name_updated">İsim güncellendi</string>
 </resources>

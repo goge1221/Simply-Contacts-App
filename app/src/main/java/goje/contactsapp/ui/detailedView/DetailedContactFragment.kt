@@ -60,14 +60,22 @@ class DetailedContactFragment(
     private fun initializeViewWithInformation() {
         val updatedContact = contactRetriever.getContactById(contact.contactId)
         if (updatedContact.name != contact.name) {
-            Toast.makeText(context, "Name updated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().resources.getString(R.string.name_updated),
+                Toast.LENGTH_SHORT
+            ).show()
             binding.callerName.text = updatedContact.name
             contact = updatedContact
         } else
             binding.callerName.text = contact.name
 
         if (updatedContact.phoneNumber != contact.phoneNumber) {
-            Toast.makeText(context, "Number updated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().resources.getString(R.string.number_updated),
+                Toast.LENGTH_SHORT
+            ).show()
             binding.callerNumber.text = updatedContact.phoneNumber
             contact = updatedContact
         } else
@@ -82,7 +90,6 @@ class DetailedContactFragment(
         addDeleteButtonListener()
     }
 
-    //FIXME After editing a contact the deletion does not work
     private fun addDeleteButtonListener() {
         binding.deleteButton.setOnClickListener {
             showConfirmationDialog()
@@ -137,10 +144,8 @@ class DetailedContactFragment(
     }
 
     private fun initiateCall() {
-        // TODO instead of callig only open the default handler
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
         returnToLastFragment()
-        Toast.makeText(requireContext(), "hell", Toast.LENGTH_SHORT).show()
         startActivity(intent)
     }
 
@@ -169,7 +174,7 @@ class DetailedContactFragment(
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
                 android.Manifest.permission.WRITE_CONTACTS
-            )!!
+            )
         ) {
             requestPermissions(
                 arrayOf(android.Manifest.permission.WRITE_CONTACTS),
@@ -230,7 +235,6 @@ class DetailedContactFragment(
                 }
             }
         }
-        // Toast.makeText(context, "Please grant the permission in order to use this functionality", Toast.LENGTH_LONG).show()
     }
 
     override fun returnBackToDisplayFragments() {

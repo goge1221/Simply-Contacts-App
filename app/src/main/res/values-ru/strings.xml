@@ -27,4 +27,8 @@
     <string name="person_added_toast">Добавлен %1$s!</string>
     <string name="error_occured_deletion">При удалении произошла ошибка!</string>
     <string name="person_deleted">%1$s удален!</string>
+    <string name="enter_name_error">Пожалуйста, введите имя</string>
+    <string name="enter_number_error">Пожалуйста, введите номер</string>
+    <string name="number_updated">Обновленный номер</string>
+    <string name="name_updated">Имя обновлено</string>
 </resources>

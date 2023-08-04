@@ -50,7 +50,7 @@
             android:textAlignment="center"
             android:textSize="50sp"
             android:textStyle="bold"
-            tools:text="Nuta dumbrava aber mit langer " />
+            tools:text="Hei cum e shisha? " />
 
 
         <LinearLayout

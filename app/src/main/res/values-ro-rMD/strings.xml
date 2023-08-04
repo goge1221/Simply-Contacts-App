@@ -27,4 +27,8 @@
     <string name="person_added_toast">%1$s adaugat!</string>
     <string name="error_occured_deletion">A apărut o eroare la ștergere!</string>
     <string name="person_deleted">%1$s șters!</string>
+    <string name="enter_name_error">Introduceți un nume</string>
+    <string name="enter_number_error">Introduceți un număr</string>
+    <string name="number_updated">Numărul actualizat</string>
+    <string name="name_updated">Nume actualizat</string>
 </resources>

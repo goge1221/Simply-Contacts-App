@@ -27,4 +27,8 @@
     <string name="person_added_toast">添加了 %1$s！</string>
     <string name="error_occured_deletion">删除时出错！</string>
     <string name="person_deleted">%1$s 已删除！</string>
+    <string name="enter_name_error">请输入姓名</string>
+    <string name="enter_number_error">请输入号码</string>
+    <string name="number_updated">更新号码</string>
+    <string name="name_updated">更新名称</string>
 </resources>
