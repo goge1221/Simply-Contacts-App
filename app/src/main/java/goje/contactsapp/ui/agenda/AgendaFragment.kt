@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import goje.contactsapp.ui.detailedView.AddNewContactFragment
 import goje.contactsapp.ui.detailedView.DetailedContactFragment
 import goje.contactsapp.utils.Constants
 import goje.contactsapp.utils.PermissionChecker
+import java.util.Locale
 
 
 class
@@ -110,11 +112,44 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         binding.linearLayout.visibility = View.GONE
         binding.addContactButton.visibility = View.VISIBLE
         binding.agendaRecyclerView.visibility = View.VISIBLE
+        binding.searchView!!.visibility = View.VISIBLE
         val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
         addNewContactListener()
         addObserverToContactsList()
+        addObserverToSearchView()
+    }
+
+    private fun addObserverToSearchView() {
+        binding.searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterText(newText)
+                return true
+            }
+
+        })
+    }
+
+    private fun filterText(query: String?){
+        if (query == null) return
+
+        val filteredContacts = ArrayList<Contact>()
+
+        for (contact in agendaViewModel.contactsList.value!!){
+            if (contact.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                filteredContacts.add(contact)
+        }
+        agendaObserver.updateContactsList(filteredContacts)
+
+        if (filteredContacts.isNotEmpty()){
+            //TODO Show something that
+        }
     }
 
     override fun onDestroyView() {
