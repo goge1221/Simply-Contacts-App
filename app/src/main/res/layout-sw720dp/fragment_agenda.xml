@@ -56,17 +56,48 @@
     </LinearLayout>
 
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/search_view_background"
+        android:padding="10dp"
+        android:theme="@style/AppSearchView"
+        android:visibility="gone"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search here" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/agenda_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/list_of_contacts"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
+
+
+    <ImageView
+        android:id="@+id/contact_not_found_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/baseline_cancel_presentation_24"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="contentDescription" />
 
 
     <ImageButton

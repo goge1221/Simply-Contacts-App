@@ -148,7 +148,10 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         agendaObserver.updateContactsList(filteredContacts)
 
         if (filteredContacts.isNotEmpty()){
-            //TODO Show something that
+            binding.contactNotFoundImage!!.visibility = View.GONE
+        }
+        else{
+            binding.contactNotFoundImage!!.visibility = View.VISIBLE
         }
     }
 
