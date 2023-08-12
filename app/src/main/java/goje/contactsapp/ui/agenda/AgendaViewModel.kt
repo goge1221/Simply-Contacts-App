@@ -125,7 +125,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun addStartingLetters() {
         val modifiedList = mutableListOf<ContactElement>()
-        var currentStartingLetter = ' '
+        var currentStartingLetter: Char? = null
 
         _contactsList.value?.let { contactsList ->
             for (contact in contactsList) {
@@ -137,16 +137,19 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                             currentStartingLetter = firstChar
                             modifiedList.add(StartingCharacter("999", firstChar))
                         }
-                        modifiedList.add(contact)
                     } else {
-                        modifiedList.add(StartingCharacter("999", '#'))
-                        modifiedList.add(contact)
+                        if (currentStartingLetter != '#') {
+                            currentStartingLetter = '#'
+                            modifiedList.add(StartingCharacter("999", '#'))
+                        }
                     }
+                    modifiedList.add(contact)
                 }
             }
         }
 
         _contactsList.value = modifiedList
     }
+
 
 }
