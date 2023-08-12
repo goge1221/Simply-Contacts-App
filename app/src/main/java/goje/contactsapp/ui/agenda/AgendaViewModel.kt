@@ -12,11 +12,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import goje.contactsapp.entity.Contact
+import goje.contactsapp.entity.ContactElement
+import goje.contactsapp.entity.StartingCharacter
 
 class AgendaViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _contactsList = MutableLiveData<List<Contact>>()
-    val contactsList: LiveData<List<Contact>> = _contactsList
+    private var _contactsList = MutableLiveData<List<ContactElement>>()
+    val contactsList: LiveData<List<ContactElement>> = _contactsList
 
     init {
         getContacts()
@@ -107,30 +109,44 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         return false
     }
 
-    fun getContactByNumber(phoneNumber: String): String {
-        getContacts()
-        var phoneNumberWithPlus = phoneNumber
-
-        if (phoneNumber.length > 1 && phoneNumber.startsWith("+")) {
-            phoneNumberWithPlus = "00" + phoneNumber.takeLast(phoneNumber.length - 1)
-        }
-
-        for (contact in contactsList.value!!)
-            if (contact.phoneNumber == phoneNumber || contact.phoneNumber == phoneNumberWithPlus)
-                return contact.name
-        return phoneNumber
-    }
-
     fun getContactById(contactId: String): Contact {
         getContacts()
         for (contact in contactsList.value!!)
-            if (contact.contactId == contactId)
-                return contact
+            if (contact is Contact)
+                if (contact.contactId == contactId)
+                    return contact
         return Contact("","","")
     }
 
     fun retrieveContacts() {
         getContacts()
+        addStartingLetters()
+    }
+
+    private fun addStartingLetters() {
+        val modifiedList = mutableListOf<ContactElement>()
+        var currentStartingLetter = ' '
+
+        _contactsList.value?.let { contactsList ->
+            for (contact in contactsList) {
+                if (contact is Contact) {
+                    val firstChar = contact.name.first()
+
+                    if (firstChar.isLetter()) {
+                        if (firstChar != currentStartingLetter) {
+                            currentStartingLetter = firstChar
+                            modifiedList.add(StartingCharacter("999", firstChar))
+                        }
+                        modifiedList.add(contact)
+                    } else {
+                        modifiedList.add(StartingCharacter("999", '#'))
+                        modifiedList.add(contact)
+                    }
+                }
+            }
+        }
+
+        _contactsList.value = modifiedList
     }
 
 }

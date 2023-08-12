@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentAgendaBinding
 import goje.contactsapp.entity.Contact
+import goje.contactsapp.entity.ContactElement
 import goje.contactsapp.recyclerViews.agendaRecyclerView.AgendaAdapter
 import goje.contactsapp.recyclerViews.agendaRecyclerView.OnContactClickedListener
 import goje.contactsapp.ui.detailedView.AddNewContactFragment
@@ -62,7 +63,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
 
     private fun addObserverToContactsList() {
         // Create the observer which updates the UI.
-        val nameObserver = Observer<List<Contact>> { updatedContactsList ->
+        val nameObserver = Observer<List<ContactElement>> { updatedContactsList ->
             agendaObserver.updateContactsList(updatedContactsList)
             Log.e("updated_list", updatedContactsList.toString())
         }
@@ -112,7 +113,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         binding.linearLayout.visibility = View.GONE
         binding.addContactButton.visibility = View.VISIBLE
         binding.agendaRecyclerView.visibility = View.VISIBLE
-        binding.searchView!!.visibility = View.VISIBLE
+        binding.searchView.visibility = View.VISIBLE
         val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
@@ -142,8 +143,9 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         val filteredContacts = ArrayList<Contact>()
 
         for (contact in agendaViewModel.contactsList.value!!){
-            if (contact.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
-                filteredContacts.add(contact)
+            if (contact is Contact)
+                if (contact.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
+                    filteredContacts.add(contact)
         }
         agendaObserver.updateContactsList(filteredContacts)
 

@@ -4,4 +4,4 @@ data class Contact(
     val phoneNumber: String,
     val name: String,
     val contactId: String
-) : java.io.Serializable
+) : java.io.Serializable, ContactElement(contactId)
