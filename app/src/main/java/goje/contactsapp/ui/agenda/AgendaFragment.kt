@@ -123,24 +123,32 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
     }
 
     private fun addObserverToSearchView() {
-        binding.searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterText(newText)
+
+                if (newText != null)
+                    filterText(newText)
                 return true
             }
 
         })
     }
 
-    private fun filterText(query: String?){
-        if (query == null) return
+    private fun filterText(query: String){
 
-        val filteredContacts = ArrayList<Contact>()
+        if (query.isEmpty()){
+            agendaViewModel.contactsList.value?.let {
+                agendaObserver.updateContactsList(it)
+            }
+            return
+        }
+
+        val filteredContacts = ArrayList<ContactElement>()
 
         for (contact in agendaViewModel.contactsList.value!!){
             if (contact is Contact)
@@ -150,10 +158,10 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         agendaObserver.updateContactsList(filteredContacts)
 
         if (filteredContacts.isNotEmpty()){
-            binding.contactNotFoundImage!!.visibility = View.GONE
+            binding.contactNotFoundImage.visibility = View.GONE
         }
         else{
-            binding.contactNotFoundImage!!.visibility = View.VISIBLE
+            binding.contactNotFoundImage.visibility = View.VISIBLE
         }
     }
 
