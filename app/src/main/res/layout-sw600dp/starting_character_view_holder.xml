@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="1dp"
         android:paddingHorizontal="10dp"
-        android:textSize="30sp"
+        android:textSize="70sp"
         android:textStyle="bold"
         android:textColor = "?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
