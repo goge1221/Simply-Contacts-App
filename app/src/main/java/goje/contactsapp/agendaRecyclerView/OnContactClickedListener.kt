@@ -1,4 +1,4 @@
-package goje.contactsapp.recyclerViews.agendaRecyclerView
+package goje.contactsapp.agendaRecyclerView
 
 import goje.contactsapp.entity.Contact
 

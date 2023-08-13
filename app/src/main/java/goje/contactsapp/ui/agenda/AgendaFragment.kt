@@ -1,5 +1,6 @@
 package goje.contactsapp.ui.agenda
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import goje.contactsapp.R
+import goje.contactsapp.agendaRecyclerView.AgendaAdapter
+import goje.contactsapp.agendaRecyclerView.OnContactClickedListener
 import goje.contactsapp.databinding.FragmentAgendaBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.entity.ContactElement
-import goje.contactsapp.recyclerViews.agendaRecyclerView.AgendaAdapter
-import goje.contactsapp.recyclerViews.agendaRecyclerView.OnContactClickedListener
 import goje.contactsapp.ui.detailedView.AddNewContactFragment
 import goje.contactsapp.ui.detailedView.DetailedContactFragment
 import goje.contactsapp.utils.Constants
@@ -49,7 +50,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         super.onViewCreated(view, savedInstanceState)
         if (PermissionChecker.userHasSpecifiedPermission(
                 context,
-                android.Manifest.permission.READ_CONTACTS
+                Manifest.permission.READ_CONTACTS
             )
         ) {
             initializeViewModel()
@@ -82,11 +83,11 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             askForWriteContacts = true
             if (!PermissionChecker.userHasSpecifiedPermission(
                     context,
-                    android.Manifest.permission.WRITE_CONTACTS
+                    Manifest.permission.WRITE_CONTACTS
                 )
             ) {
                 requestPermissions(
-                    arrayOf(android.Manifest.permission.WRITE_CONTACTS),
+                    arrayOf(Manifest.permission.WRITE_CONTACTS),
                     Constants.PERMISSION_TO_WRITE_CONTACTS
                 )
             } else {
@@ -179,11 +180,11 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
     private fun requestPermissionToReadContacts() {
         if (!PermissionChecker.userHasSpecifiedPermission(
                 context,
-                android.Manifest.permission.READ_CONTACTS
+                Manifest.permission.READ_CONTACTS
             )
         ) {
             requestPermissions(
-                arrayOf(android.Manifest.permission.READ_CONTACTS),
+                arrayOf(Manifest.permission.READ_CONTACTS),
                 Constants.PERMISSION_TO_READ_CONTACTS
             )
         }

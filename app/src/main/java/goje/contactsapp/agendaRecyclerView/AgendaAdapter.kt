@@ -1,4 +1,4 @@
-package goje.contactsapp.recyclerViews.agendaRecyclerView
+package goje.contactsapp.agendaRecyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

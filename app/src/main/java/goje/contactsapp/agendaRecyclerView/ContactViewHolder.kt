@@ -1,4 +1,4 @@
-package goje.contactsapp.recyclerViews.agendaRecyclerView
+package goje.contactsapp.agendaRecyclerView
 
 import androidx.recyclerview.widget.RecyclerView
 import goje.contactsapp.databinding.SingleAgendaItemBinding
