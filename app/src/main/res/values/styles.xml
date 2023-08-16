@@ -17,7 +17,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+    <style name="AppSearchView" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/white</item>
+
+        <!-- AppSearchView attributes -->
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
