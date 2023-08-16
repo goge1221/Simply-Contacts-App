@@ -28,22 +28,7 @@ class AgendaAdapter(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
-        /*return when (viewType) {
-                0 -> {
-                    return ContactViewHolder(
-                        SingleAgendaItemBinding.inflate(
-                            LayoutInflater.from(parent.context), parent, false
-                        )
-                    )
-                }
-                else -> {
-                    return StartingCharacterViewHolder(
-                        StartingCharacterViewHolderBinding.inflate(
-                            LayoutInflater.from(parent.context), parent, false
-                        )
-                    )
-                }
-            } */
+
     }
 
     override fun getItemViewType(position: Int): Int {

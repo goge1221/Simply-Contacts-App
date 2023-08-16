@@ -58,7 +58,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                     if (phoneCursor.moveToNext()) {
                         val phoneNumber: String =
                             phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        if (displayName == "Buniica"){
+                        if (displayName == "Buniica") {
                             Log.d("SS", "getContacts: $phoneNumber")
                         }
                         contactsInfoList.add(
@@ -115,7 +115,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
             if (contact is Contact)
                 if (contact.contactId == contactId)
                     return contact
-        return Contact("","","")
+        return Contact("", "", "")
     }
 
     fun retrieveContacts() {
@@ -149,6 +149,32 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         }
 
         _contactsList.value = modifiedList
+    }
+
+    fun addStartingLettersWithReceivedList(contactsList: ArrayList<ContactElement>): List<ContactElement> {
+        val modifiedList = mutableListOf<ContactElement>()
+        var currentStartingLetter: Char? = null
+
+        for (contact in contactsList) {
+            if (contact is Contact) {
+                val firstChar = contact.name.first()
+
+                if (firstChar.isLetter()) {
+                    if (firstChar != currentStartingLetter) {
+                        currentStartingLetter = firstChar
+                        modifiedList.add(StartingCharacter("999", firstChar))
+                    }
+                } else {
+                    if (currentStartingLetter != '#') {
+                        currentStartingLetter = '#'
+                        modifiedList.add(StartingCharacter("999", '#'))
+                    }
+                }
+                modifiedList.add(contact)
+            }
+        }
+
+        return modifiedList
     }
 
 

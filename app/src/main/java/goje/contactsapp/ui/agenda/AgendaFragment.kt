@@ -150,7 +150,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             return
         }
 
-        val filteredContacts = ArrayList<ContactElement>()
+        var filteredContacts = ArrayList<ContactElement>()
 
         for (contact in agendaViewModel.contactsList.value!!){
             if (contact is Contact)
@@ -158,6 +158,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
                     filteredContacts.add(contact)
         }
 
+        filteredContacts = agendaViewModel.addStartingLettersWithReceivedList(filteredContacts) as ArrayList<ContactElement>
         agendaObserver.updateContactsList(filteredContacts)
 
         if (filteredContacts.isNotEmpty()){
