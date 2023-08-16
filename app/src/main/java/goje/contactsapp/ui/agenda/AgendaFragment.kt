@@ -146,6 +146,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             agendaViewModel.contactsList.value?.let {
                 agendaObserver.updateContactsList(it)
             }
+            binding.contactNotFoundImage.visibility = View.GONE
             return
         }
 
@@ -156,6 +157,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
                 if (contact.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
                     filteredContacts.add(contact)
         }
+
         agendaObserver.updateContactsList(filteredContacts)
 
         if (filteredContacts.isNotEmpty()){

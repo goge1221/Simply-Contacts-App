@@ -19,7 +19,7 @@
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
 </resources>
