@@ -1,7 +1,9 @@
 package goje.contactsapp.ui.agenda
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -78,6 +80,13 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         agendaViewModel.retrieveContacts()
     }
 
+    private fun addEnterNumberListener() {
+        binding.enterNumberButton.setOnClickListener {
+            val dialpadIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"))
+            startActivity(dialpadIntent)
+        }
+    }
+
     private fun addNewContactListener() {
         binding.addContactButton.setOnClickListener {
             askForWriteContacts = true
@@ -115,10 +124,12 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         binding.addContactButton.visibility = View.VISIBLE
         binding.agendaRecyclerView.visibility = View.VISIBLE
         binding.searchView.visibility = View.VISIBLE
+        binding.enterNumberButton.visibility = View.VISIBLE
         val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
         addNewContactListener()
+        addEnterNumberListener()
         addObserverToContactsList()
         addObserverToSearchView()
     }
@@ -140,9 +151,9 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         })
     }
 
-    private fun filterText(query: String){
+    private fun filterText(query: String) {
 
-        if (query.isEmpty()){
+        if (query.isEmpty()) {
             agendaViewModel.contactsList.value?.let {
                 agendaObserver.updateContactsList(it)
             }
@@ -152,19 +163,19 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
 
         var filteredContacts = ArrayList<ContactElement>()
 
-        for (contact in agendaViewModel.contactsList.value!!){
+        for (contact in agendaViewModel.contactsList.value!!) {
             if (contact is Contact)
                 if (contact.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
                     filteredContacts.add(contact)
         }
 
-        filteredContacts = agendaViewModel.addStartingLettersWithReceivedList(filteredContacts) as ArrayList<ContactElement>
+        filteredContacts =
+            agendaViewModel.addStartingLettersWithReceivedList(filteredContacts) as ArrayList<ContactElement>
         agendaObserver.updateContactsList(filteredContacts)
 
-        if (filteredContacts.isNotEmpty()){
+        if (filteredContacts.isNotEmpty()) {
             binding.contactNotFoundImage.visibility = View.GONE
-        }
-        else{
+        } else {
             binding.contactNotFoundImage.visibility = View.VISIBLE
         }
     }

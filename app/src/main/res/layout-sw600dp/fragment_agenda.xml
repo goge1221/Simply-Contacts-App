@@ -102,10 +102,10 @@
 
     <ImageButton
         android:id="@+id/add_contact_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="40dp"
         android:adjustViewBounds="true"
         android:background="@drawable/round_button"
         android:backgroundTint="@color/green_700"
@@ -116,6 +116,24 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/enter_number_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/green_700"
+        android:contentDescription="@string/add_person"
+        android:padding="14dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_dialpad_24"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_contact_button"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
