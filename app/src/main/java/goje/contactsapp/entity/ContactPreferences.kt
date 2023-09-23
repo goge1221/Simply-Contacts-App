@@ -15,9 +15,6 @@ class ContactPreferences {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
 
-
-        val oldContactList = retrieveAllContactsFromSharedPreferences(context)
-
         val updatedContactsList = checkIfContactsListChanged(
             contactLists,
             retrieveAllContactsFromSharedPreferences(context)
@@ -25,11 +22,10 @@ class ContactPreferences {
 
         val preferencesEditor = sharedPreferences.edit()
 
-
         var string = Gson().toJson(updatedContactsList)
 
-        if (Constants.FIRST_TIME_SAVING_CONTACTS_TO_SHARED_PREFERENCES){
-            string = Gson().toJson(contactLists)
+        if (Constants.FIRST_TIME_SAVING_CONTACTS_TO_SHARED_PREFERENCES) {
+            string = Gson().toJson(getInitialPairs(contactLists))
             Constants.FIRST_TIME_SAVING_CONTACTS_TO_SHARED_PREFERENCES = false
         }
         preferencesEditor.putString("contacts", string)
@@ -38,29 +34,38 @@ class ContactPreferences {
     }
 
 
-    fun retrieveMostContactedPersons(context: Context): ArrayList<Contact> {
+    fun retrieveMostContactedPersons(context: Context): ArrayList<Pair<Contact, Int>> {
         return retrieveAllContactsFromSharedPreferences(context)
     }
 
 
+    private fun getInitialPairs(contactsList: ArrayList<Contact>): ArrayList<Pair<Contact, Int>> {
+
+        val initializedContactLists = ArrayList<Pair<Contact, Int>>()
+
+        for (contact in contactsList)
+            initializedContactLists.add(Pair(contact, 0))
+
+        return initializedContactLists
+    }
+
     private fun checkIfContactsListChanged(
         contactsList: ArrayList<Contact>,
-        contactsFromPreferences: ArrayList<Contact>
-    ): ArrayList<Contact> {
+        contactsFromPreferences: ArrayList<Pair<Contact, Int>>
+    ): ArrayList<Pair<Contact, Int>> {
 
-        //TODO change later to an array list of pairs
-        val updatedPreferencesList = ArrayList<Contact>()
+        val updatedPreferencesList = ArrayList<Pair<Contact, Int>>()
 
         for (contact in contactsList) {
 
             for (contactInPreference in contactsFromPreferences) {
-                if (contact == contactInPreference) {
+                if (contact == contactInPreference.first) {
                     //Add the value from contact in prefference
-                    updatedPreferencesList.add(contact)
+                    updatedPreferencesList.add(Pair(contact, contactInPreference.second))
                     break
                 } else {
                     //Initialize with 0
-                    updatedPreferencesList.add(contact)
+                    updatedPreferencesList.add(Pair(contact, 0))
                     break
                 }
             }
@@ -68,13 +73,13 @@ class ContactPreferences {
         return updatedPreferencesList
     }
 
-    private fun retrieveAllContactsFromSharedPreferences(context: Context): ArrayList<Contact> {
+    private fun retrieveAllContactsFromSharedPreferences(context: Context): ArrayList<Pair<Contact, Int>> {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
 
         val contactsString = sharedPreferences.getString("contacts", "")
 
-        val type: Type = object : TypeToken<ArrayList<Contact?>?>() {}.type
+        val type: Type = object : TypeToken<ArrayList<Pair<Contact, Int>?>?>() {}.type
 
         return Gson().fromJson(contactsString, type) ?: ArrayList()
     }
