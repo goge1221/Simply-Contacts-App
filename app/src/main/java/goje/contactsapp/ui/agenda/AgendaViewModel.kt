@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.entity.ContactElement
+import goje.contactsapp.entity.ContactPreferences
 import goje.contactsapp.entity.StartingCharacter
 
 class AgendaViewModel(application: Application) : AndroidViewModel(application) {
@@ -58,9 +59,7 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                     if (phoneCursor.moveToNext()) {
                         val phoneNumber: String =
                             phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        if (displayName == "Buniica") {
-                            Log.d("SS", "getContacts: $phoneNumber")
-                        }
+
                         contactsInfoList.add(
                             Contact(
                                 phoneNumber, displayName, contactId
@@ -74,6 +73,11 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         cursor.close()
 
         _contactsList.value = contactsInfoList
+        ContactPreferences().updateContactsList(getApplication<Application?>().applicationContext, contactsInfoList)
+        Log.i("CONTACTS_CONTACT",
+            ContactPreferences().retrieveMostContactedPersons(getApplication<Application?>().applicationContext)
+                .toString()
+        )
     }
 
     @SuppressLint("Range")
