@@ -33,7 +33,6 @@ object ContactPreferences {
         }
     }
 
-
     fun updateContactsList(context: Context, contactLists: ArrayList<Contact>) {
 
         val sharedPreferences: SharedPreferences =
@@ -58,8 +57,14 @@ object ContactPreferences {
     }
 
 
-    fun retrieveMostContactedPersons(context: Context): ArrayList<Pair<Contact, Int>> {
-        return retrieveAllContactsFromSharedPreferences(context)
+    fun retrieveMostContactedPersons(context: Context): ArrayList<Contact> {
+
+        val contactsList = retrieveAllContactsFromSharedPreferences(context)
+
+        val contactsListWithoutZeroCalls = contactsList.filter { it.second != 0 }.sortedByDescending { it.second }
+        val topContacts = contactsListWithoutZeroCalls.take(5.coerceAtMost(contactsListWithoutZeroCalls.size))
+
+        return topContacts.map { it.first } as ArrayList<Contact>
     }
 
 

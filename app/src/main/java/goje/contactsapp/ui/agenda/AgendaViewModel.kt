@@ -7,7 +7,6 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -74,10 +73,6 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
 
         _contactsList.value = contactsInfoList
         ContactPreferences.updateContactsList(getApplication<Application?>().applicationContext, contactsInfoList)
-        Log.i("CONTACTS_CONTACT",
-            ContactPreferences.retrieveMostContactedPersons(getApplication<Application?>().applicationContext)
-                .toString()
-        )
     }
 
     @SuppressLint("Range")
