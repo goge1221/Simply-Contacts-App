@@ -134,12 +134,12 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                     if (firstChar.isLetter()) {
                         if (firstChar != currentStartingLetter) {
                             currentStartingLetter = firstChar
-                            modifiedList.add(StartingCharacter("999", firstChar))
+                            modifiedList.add(StartingCharacter("999", firstChar.toString()))
                         }
                     } else {
                         if (currentStartingLetter != '#') {
                             currentStartingLetter = '#'
-                            modifiedList.add(StartingCharacter("999", '#'))
+                            modifiedList.add(StartingCharacter("999", '#'.toString()))
                         }
                     }
                     modifiedList.add(contact)
@@ -161,12 +161,12 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
                 if (firstChar.isLetter()) {
                     if (firstChar != currentStartingLetter) {
                         currentStartingLetter = firstChar
-                        modifiedList.add(StartingCharacter("999", firstChar))
+                        modifiedList.add(StartingCharacter("999", firstChar.toString()))
                     }
                 } else {
                     if (currentStartingLetter != '#') {
                         currentStartingLetter = '#'
-                        modifiedList.add(StartingCharacter("999", '#'))
+                        modifiedList.add(StartingCharacter("999", '#'.toString()))
                     }
                 }
                 modifiedList.add(contact)

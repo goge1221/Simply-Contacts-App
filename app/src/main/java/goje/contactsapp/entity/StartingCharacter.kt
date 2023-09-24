@@ -2,5 +2,5 @@ package goje.contactsapp.entity
 
 data class StartingCharacter(
     val mId: String,
-    val character: Char
+    val character: String
 ) : ContactElement(mId)

@@ -1,7 +1,8 @@
 package goje.contactsapp.ui.agenda
 
+import android.content.Context
 import goje.contactsapp.entity.ContactElement
 
 interface AgendaObserver {
-    fun updateContactsList(updatedList: List<ContactElement>)
+    fun updateContactsList(context: Context, updatedList: List<ContactElement>)
 }

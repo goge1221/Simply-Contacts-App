@@ -1,5 +1,6 @@
 package goje.contactsapp.agendaRecyclerView
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import goje.contactsapp.databinding.SingleAgendaItemBinding
 import goje.contactsapp.databinding.StartingCharacterViewHolderBinding
 import goje.contactsapp.entity.Contact
 import goje.contactsapp.entity.ContactElement
+import goje.contactsapp.entity.ContactPreferences
 import goje.contactsapp.entity.StartingCharacter
 import goje.contactsapp.ui.agenda.AgendaObserver
 
@@ -16,6 +18,7 @@ class AgendaAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), AgendaObserver {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         if (viewType == 0) {
             return ContactViewHolder(
                 SingleAgendaItemBinding.inflate(
@@ -59,8 +62,12 @@ class AgendaAdapter(
         return contactsList.size
     }
 
-    override fun updateContactsList(updatedList: List<ContactElement>) {
-        this.contactsList = updatedList
+    override fun updateContactsList(context : Context, updatedList: List<ContactElement>) {
+
+        val mostContactedPersons : ArrayList<Contact> = ContactPreferences.retrieveMostContactedPersons(context)
+        val contactElements: ArrayList<ContactElement> = ArrayList(mostContactedPersons.toList())
+        contactElements.add(0, StartingCharacter("11", "Favorites"))
+        this.contactsList = contactElements + updatedList
         notifyDataSetChanged()
     }
 

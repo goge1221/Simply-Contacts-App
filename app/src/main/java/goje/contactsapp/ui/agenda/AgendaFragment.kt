@@ -67,7 +67,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
     private fun addObserverToContactsList() {
         // Create the observer which updates the UI.
         val nameObserver = Observer<List<ContactElement>> { updatedContactsList ->
-            agendaObserver.updateContactsList(updatedContactsList)
+            agendaObserver.updateContactsList(requireContext(), updatedContactsList)
             Log.e("updated_list", updatedContactsList.toString())
         }
 
@@ -125,6 +125,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
         binding.agendaRecyclerView.visibility = View.VISIBLE
         binding.searchView.visibility = View.VISIBLE
         binding.enterNumberButton.visibility = View.VISIBLE
+
         val agendaAdapter = AgendaAdapter(agendaViewModel.contactsList.value!!, this)
         agendaObserver = agendaAdapter
         binding.agendaRecyclerView.adapter = agendaAdapter
@@ -155,7 +156,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
 
         if (query.isEmpty()) {
             agendaViewModel.contactsList.value?.let {
-                agendaObserver.updateContactsList(it)
+                agendaObserver.updateContactsList(requireContext(), it)
             }
             binding.contactNotFoundImage.visibility = View.GONE
             return
@@ -171,7 +172,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
 
         filteredContacts =
             agendaViewModel.addStartingLettersWithReceivedList(filteredContacts) as ArrayList<ContactElement>
-        agendaObserver.updateContactsList(filteredContacts)
+        agendaObserver.updateContactsList(requireContext(), filteredContacts)
 
         if (filteredContacts.isNotEmpty()) {
             binding.contactNotFoundImage.visibility = View.GONE
