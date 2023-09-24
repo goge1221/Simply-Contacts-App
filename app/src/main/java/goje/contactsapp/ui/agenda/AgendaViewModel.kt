@@ -73,9 +73,9 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         cursor.close()
 
         _contactsList.value = contactsInfoList
-        ContactPreferences().updateContactsList(getApplication<Application?>().applicationContext, contactsInfoList)
+        ContactPreferences.updateContactsList(getApplication<Application?>().applicationContext, contactsInfoList)
         Log.i("CONTACTS_CONTACT",
-            ContactPreferences().retrieveMostContactedPersons(getApplication<Application?>().applicationContext)
+            ContactPreferences.retrieveMostContactedPersons(getApplication<Application?>().applicationContext)
                 .toString()
         )
     }

@@ -14,6 +14,7 @@ import androidx.preference.PreferenceManager
 import goje.contactsapp.R
 import goje.contactsapp.databinding.FragmentDetailedContactBinding
 import goje.contactsapp.entity.Contact
+import goje.contactsapp.entity.ContactPreferences
 import goje.contactsapp.ui.agenda.IContactDelete
 import goje.contactsapp.ui.agenda.IContactGetById
 import goje.contactsapp.utils.Constants
@@ -144,6 +145,7 @@ class DetailedContactFragment(
     }
 
     private fun initiateCall() {
+        ContactPreferences.increaseCallNumberOfContact(requireContext(), contact.contactId)
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.phoneNumber))
         returnToLastFragment()
         startActivity(intent)

@@ -8,7 +8,31 @@ import goje.contactsapp.utils.Constants
 import java.lang.reflect.Type
 
 
-class ContactPreferences {
+object ContactPreferences {
+
+    fun increaseCallNumberOfContact(context: Context, contactId: String) {
+        val contactsList = retrieveAllContactsFromSharedPreferences(context)
+
+        // Find the index of the pair with the matching contactId
+        val indexToUpdate = contactsList.indexOfFirst { it.first.contactId == contactId }
+
+        // If the contactId is found in the list, increase the Int value by 1
+        if (indexToUpdate != -1) {
+            val (contact, count) = contactsList[indexToUpdate]
+            val updatedPair = Pair(contact, count + 1)
+
+            // Update the list with the updated pair
+            contactsList[indexToUpdate] = updatedPair
+
+            // Save the updated list to SharedPreferences
+            val sharedPreferences = context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
+            val contactsJson = Gson().toJson(contactsList)
+
+            sharedPreferences.edit().putString(Constants.CONTACTS, contactsJson).apply()
+
+        }
+    }
+
 
     fun updateContactsList(context: Context, contactLists: ArrayList<Contact>) {
 
@@ -24,11 +48,11 @@ class ContactPreferences {
 
         var string = Gson().toJson(updatedContactsList)
 
-        if (Constants.FIRST_TIME_SAVING_CONTACTS_TO_SHARED_PREFERENCES) {
+        if (sharedPreferences.getBoolean("OPEN_APP_FIRST_TIME", true)) {
             string = Gson().toJson(getInitialPairs(contactLists))
-            Constants.FIRST_TIME_SAVING_CONTACTS_TO_SHARED_PREFERENCES = false
+            sharedPreferences.edit().putBoolean("OPEN_APP_FIRST_TIME", false).apply()
         }
-        preferencesEditor.putString("contacts", string)
+        preferencesEditor.putString(Constants.CONTACTS, string)
 
         preferencesEditor.apply()
     }
@@ -61,15 +85,19 @@ class ContactPreferences {
             for (contactInPreference in contactsFromPreferences) {
                 if (contact == contactInPreference.first) {
                     //Add the value from contact in prefference
-                    updatedPreferencesList.add(Pair(contact, contactInPreference.second))
-                    break
-                } else {
-                    //Initialize with 0
-                    updatedPreferencesList.add(Pair(contact, 0))
+                    updatedPreferencesList.add(contactInPreference)
                     break
                 }
             }
         }
+
+        for (contact in contactsList) {
+            val found = updatedPreferencesList.any { it.first == contact }
+            if (!found) {
+                updatedPreferencesList.add(Pair(contact, 0))
+            }
+        }
+
         return updatedPreferencesList
     }
 
@@ -77,7 +105,7 @@ class ContactPreferences {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
 
-        val contactsString = sharedPreferences.getString("contacts", "")
+        val contactsString = sharedPreferences.getString(Constants.CONTACTS, "")
 
         val type: Type = object : TypeToken<ArrayList<Pair<Contact, Int>?>?>() {}.type
 
