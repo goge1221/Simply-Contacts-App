@@ -30,10 +30,9 @@ import java.util.Locale
 class
 AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactGetById {
 
+    // This property is only valid between onCreateView and onDestroyView.
     private var _binding: FragmentAgendaBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var agendaViewModel: AgendaViewModel
     private lateinit var agendaObserver: AgendaObserver
@@ -172,7 +171,7 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
 
         filteredContacts =
             agendaViewModel.addStartingLettersWithReceivedList(filteredContacts) as ArrayList<ContactElement>
-        agendaObserver.updateContactsList(requireContext(), filteredContacts)
+        agendaObserver.updateContactsListFromFilter(filteredContacts)
 
         if (filteredContacts.isNotEmpty()) {
             binding.contactNotFoundImage.visibility = View.GONE

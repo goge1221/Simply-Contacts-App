@@ -21,10 +21,8 @@ object ContactPreferences {
             val (contact, count) = contactsList[indexToUpdate]
             val updatedPair = Pair(contact, count + 1)
 
-            // Update the list with the updated pair
             contactsList[indexToUpdate] = updatedPair
 
-            // Save the updated list to SharedPreferences
             val sharedPreferences = context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
             val contactsJson = Gson().toJson(contactsList)
 

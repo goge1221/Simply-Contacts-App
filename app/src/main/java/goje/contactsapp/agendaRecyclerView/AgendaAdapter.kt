@@ -62,13 +62,23 @@ class AgendaAdapter(
         return contactsList.size
     }
 
-    override fun updateContactsList(context : Context, updatedList: List<ContactElement>) {
+    override fun updateContactsList(context : Context, updatedList: List<ContactElement>, isFromFilter : Boolean) {
 
         val mostContactedPersons : ArrayList<Contact> = ContactPreferences.retrieveMostContactedPersons(context)
         val contactElements: ArrayList<ContactElement> = ArrayList(mostContactedPersons.toList())
-        contactElements.add(0, StartingCharacter("11", "Favorites"))
-        this.contactsList = contactElements + updatedList
+
+        if (contactElements.isNotEmpty())
+            contactElements.add(0, StartingCharacter("11", "Favorites"))
+        this.contactsList = contactElements
+        this.contactsList += updatedList
         notifyDataSetChanged()
     }
+
+    override fun updateContactsListFromFilter(updatedList: List<ContactElement>) {
+        this.contactsList = updatedList
+        notifyDataSetChanged()
+    }
+
+
 
 }

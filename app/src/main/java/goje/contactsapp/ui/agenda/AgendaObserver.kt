@@ -4,5 +4,6 @@ import android.content.Context
 import goje.contactsapp.entity.ContactElement
 
 interface AgendaObserver {
-    fun updateContactsList(context: Context, updatedList: List<ContactElement>)
+    fun updateContactsList(context: Context, updatedList: List<ContactElement>, isFromFilter : Boolean = false)
+    fun updateContactsListFromFilter(updatedList: List<ContactElement>)
 }
