@@ -235,7 +235,6 @@ AgendaFragment : Fragment(), OnContactClickedListener, IContactDelete, IContactG
             .commit()
     }
 
-
     override fun deleteContact(contact: Contact) {
         val successfullyDeleted =
             agendaViewModel.deleteContact(requireContext(), contact.phoneNumber, contact.name)

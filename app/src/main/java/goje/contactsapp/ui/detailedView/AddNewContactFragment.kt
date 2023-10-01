@@ -68,82 +68,54 @@ class AddNewContactFragment : Fragment() {
         return true
     }
 
+
     private fun insertContact() {
-
-
         val ops = ArrayList<ContentProviderOperation>()
-
-        ops.add(
-            ContentProviderOperation
-                .newInsert(RawContacts.CONTENT_URI)
-                .withValue(RawContacts.ACCOUNT_TYPE, null)
-                .withValue(RawContacts.ACCOUNT_NAME, null)
-                .build()
-        )
-
-        //Add name
-        ops.add(
-            ContentProviderOperation
-                .newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(
-                    ContactsContract.Data.RAW_CONTACT_ID, 0
-                )
-                .withValue(
-                    ContactsContract.Data.MIMETYPE,
-                    StructuredName.CONTENT_ITEM_TYPE
-                )
-                .withValue(
-                    StructuredName.DISPLAY_NAME,
-                    binding.callerName.text.toString()
-                ).build()
-        )
-
-        //Add mobile number
-        ops.add(
-            ContentProviderOperation
-                .newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(
-                    ContactsContract.Data.RAW_CONTACT_ID, 0
-                )
-                .withValue(
-                    ContactsContract.Data.MIMETYPE,
-                    ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
-                )
-                .withValue(
-                    ContactsContract.CommonDataKinds.Phone.NUMBER,
-                    binding.callerNumber.text.toString()
-                )
-                .withValue(
-                    ContactsContract.CommonDataKinds.Phone.TYPE,
-                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-                )
-                .build()
-        )
-
-        //Add contact raw id
-        val rawContactInsertIndex = ops.size
-
-        ops.add(
-            ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
-                .withValue(RawContacts.ACCOUNT_TYPE, null).withValue(RawContacts.ACCOUNT_NAME, null)
-                .build()
-        )
-
-        ops.add(
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(RawContacts.Data.RAW_CONTACT_ID, rawContactInsertIndex)
-                .withValue(RawContacts.Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
-                .withValue(StructuredName.DISPLAY_NAME, binding.callerName.text.toString()).build()
-        )
+        ops.add(createRawContactOperation())
+        ops.add(createStructuredNameOperation(binding.callerName.text.toString()))
+        ops.add(createPhoneNumberOperation(binding.callerNumber.text.toString()))
 
         requireContext().contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
 
         Toast.makeText(
-            context,
-            binding.root.resources.getString(
-                R.string.person_added_toast, binding.callerName.text.toString()
-            ), Toast.LENGTH_SHORT
+            requireContext(),
+            requireContext().resources.getString(
+                R.string.person_added_toast,
+                binding.callerName.text.toString()
+            ),
+            Toast.LENGTH_SHORT
         ).show()
+    }
+
+
+    private fun createRawContactOperation(): ContentProviderOperation {
+        return ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
+            .withValue(RawContacts.ACCOUNT_TYPE, null)
+            .withValue(RawContacts.ACCOUNT_NAME, null)
+            .build()
+    }
+
+    private fun createStructuredNameOperation(displayName: String): ContentProviderOperation {
+        return ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+            .withValue(ContactsContract.Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
+            .withValue(StructuredName.DISPLAY_NAME, displayName)
+            .build()
+    }
+
+    private fun createPhoneNumberOperation(phoneNumber: String): ContentProviderOperation {
+        return ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+            .withValue(
+                ContactsContract.Data.MIMETYPE,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+            )
+            .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber)
+            .withValue(
+                ContactsContract.CommonDataKinds.Phone.TYPE,
+                ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+            )
+            .build()
     }
 
 }

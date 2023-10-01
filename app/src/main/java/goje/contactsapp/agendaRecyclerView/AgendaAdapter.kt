@@ -67,19 +67,7 @@ class AgendaAdapter(
         context: Context,
         updatedList: List<ContactElement>
     ) {
-
-        val mostContactedPersons: ArrayList<Contact> =
-            ContactPreferences.retrieveMostContactedPersons(context)
-        val contactElements: ArrayList<ContactElement> = ArrayList(mostContactedPersons.toList())
-
-        if (contactElements.isNotEmpty())
-            contactElements.add(
-                0, StartingCharacter(
-                    "11",
-                    context.resources.getString(R.string.favorites_text),
-                )
-            )
-        this.contactsList = contactElements
+        this.contactsList = retrieveMostContactedPersons(context)
         this.contactsList += updatedList
         notifyDataSetChanged()
     }
@@ -87,6 +75,23 @@ class AgendaAdapter(
     override fun updateContactsListFromFilter(updatedList: List<ContactElement>) {
         this.contactsList = updatedList
         notifyDataSetChanged()
+    }
+
+    private fun retrieveMostContactedPersons(context : Context): ArrayList<ContactElement> {
+        val mostContactedPersons: ArrayList<Contact> = ContactPreferences.retrieveMostContactedPersons(context)
+        val contactElements: ArrayList<ContactElement> = ArrayList(mostContactedPersons.toList())
+
+        // If the list is not empty then add also "Favorites" before the favorite contacts beginn
+        if (contactElements.isNotEmpty()) {
+            contactElements.add(
+                0, StartingCharacter(
+                    "11",
+                    context.resources.getString(R.string.favorites_text),
+                )
+            )
+        }
+
+        return contactElements
     }
 
 

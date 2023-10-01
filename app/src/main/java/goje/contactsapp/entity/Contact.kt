@@ -1,5 +1,12 @@
 package goje.contactsapp.entity
 
+/**
+ * Represents a contact with essential information.
+ *
+ * @param phoneNumber The phone number associated with the contact.
+ * @param name The name of the contact.
+ * @param contactId A unique identifier for the contact.
+ */
 data class Contact(
     val phoneNumber: String,
     val name: String,
@@ -14,6 +21,7 @@ data class Contact(
         // Check if contactId is the same for both contacts
         return this.contactId == other.contactId
     }
+
     override fun hashCode(): Int {
         var result = phoneNumber.hashCode()
         result = 31 * result + name.hashCode()
@@ -22,3 +30,4 @@ data class Contact(
     }
 
 }
+

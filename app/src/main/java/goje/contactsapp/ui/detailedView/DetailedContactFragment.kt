@@ -221,7 +221,6 @@ class DetailedContactFragment(
                     val sharedPreferences: SharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-
                     // Get the SharedPreferences.Editor to make changes
                     val editor = sharedPreferences.edit()
 

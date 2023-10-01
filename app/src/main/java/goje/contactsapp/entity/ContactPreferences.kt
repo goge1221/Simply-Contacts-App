@@ -7,9 +7,14 @@ import com.google.gson.reflect.TypeToken
 import goje.contactsapp.utils.Constants
 import java.lang.reflect.Type
 
-
 object ContactPreferences {
 
+    /**
+     * Increases the call count of a specific contact identified by [contactId].
+     *
+     * @param context The application context.
+     * @param contactId The unique identifier of the contact.
+     */
     fun increaseCallNumberOfContact(context: Context, contactId: String) {
         val contactsList = retrieveAllContactsFromSharedPreferences(context)
 
@@ -27,10 +32,15 @@ object ContactPreferences {
             val contactsJson = Gson().toJson(contactsList)
 
             sharedPreferences.edit().putString(Constants.CONTACTS, contactsJson).apply()
-
         }
     }
 
+    /**
+     * Updates the list of contacts in SharedPreferences.
+     *
+     * @param context The application context.
+     * @param contactLists The updated list of contacts.
+     */
     fun updateContactsList(context: Context, contactLists: ArrayList<Contact>) {
 
         val sharedPreferences: SharedPreferences =
@@ -54,7 +64,12 @@ object ContactPreferences {
         preferencesEditor.apply()
     }
 
-
+    /**
+     * Retrieves the list of most contacted persons.
+     *
+     * @param context The application context.
+     * @return The list of most contacted persons.
+     */
     fun retrieveMostContactedPersons(context: Context): ArrayList<Contact> {
 
         val contactsList = retrieveAllContactsFromSharedPreferences(context)
@@ -65,7 +80,12 @@ object ContactPreferences {
         return topContacts.map { it.first } as ArrayList<Contact>
     }
 
-
+    /**
+     * Initializes a list of contact pairs with zero counts.
+     *
+     * @param contactsList The list of contacts to initialize.
+     * @return The list of initialized contact pairs.
+     */
     private fun getInitialPairs(contactsList: ArrayList<Contact>): ArrayList<Pair<Contact, Int>> {
 
         val initializedContactLists = ArrayList<Pair<Contact, Int>>()
@@ -76,6 +96,13 @@ object ContactPreferences {
         return initializedContactLists
     }
 
+    /**
+     * Checks if the contacts list has changed and updates it.
+     *
+     * @param contactsList The updated list of contacts.
+     * @param contactsFromPreferences The list of contacts stored in SharedPreferences.
+     * @return The updated list of contacts.
+     */
     private fun checkIfContactsListChanged(
         contactsList: ArrayList<Contact>,
         contactsFromPreferences: ArrayList<Pair<Contact, Int>>
@@ -87,7 +114,7 @@ object ContactPreferences {
 
             for (contactInPreference in contactsFromPreferences) {
                 if (contact == contactInPreference.first) {
-                    //Add the value from contact in prefference
+                    // Add the value from contact in preference
                     updatedPreferencesList.add(contactInPreference)
                     break
                 }
@@ -104,6 +131,12 @@ object ContactPreferences {
         return updatedPreferencesList
     }
 
+    /**
+     * Retrieves all contacts from SharedPreferences.
+     *
+     * @param context The application context.
+     * @return The list of contacts stored in SharedPreferences.
+     */
     private fun retrieveAllContactsFromSharedPreferences(context: Context): ArrayList<Pair<Contact, Int>> {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
@@ -114,6 +147,4 @@ object ContactPreferences {
 
         return Gson().fromJson(contactsString, type) ?: ArrayList()
     }
-
-
 }
