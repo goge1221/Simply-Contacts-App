@@ -31,4 +31,5 @@
     <string name="enter_number_error">الرجاء إدخال رقم</string>
     <string name="number_updated">الرقم محدث</string>
     <string name="name_updated">الاسم محدث</string>
+    <string name="favorites_text">المفضلة</string>
 </resources>

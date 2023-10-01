@@ -31,4 +31,5 @@
     <string name="enter_number_error">Bitte geben Sie eine Nummer ein</string>
     <string name="number_updated">Nummer aktualisiert</string>
     <string name="name_updated">Name aktualisiert</string>
+    <string name="favorites_text">Favoriten</string>
 </resources>

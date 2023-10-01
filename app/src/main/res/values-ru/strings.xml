@@ -31,4 +31,5 @@
     <string name="enter_number_error">Пожалуйста, введите номер</string>
     <string name="number_updated">Обновленный номер</string>
     <string name="name_updated">Имя обновлено</string>
+    <string name="favorites_text">Избранное</string>
 </resources>

@@ -31,4 +31,5 @@
     <string name="enter_number_error">Introduceți un număr</string>
     <string name="number_updated">Numărul actualizat</string>
     <string name="name_updated">Nume actualizat</string>
+    <string name="favorites_text">Favorite</string>
 </resources>

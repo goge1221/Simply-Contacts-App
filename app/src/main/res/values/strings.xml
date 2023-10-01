@@ -36,5 +36,6 @@
     <string name="enter_number_error">Please enter a number</string>
     <string name="number_updated">Number updated</string>
     <string name="name_updated">Name updated</string>
+    <string name="favorites_text">Favorites</string>
 
 </resources>

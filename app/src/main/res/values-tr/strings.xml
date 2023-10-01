@@ -31,4 +31,5 @@
     <string name="enter_number_error">Lütfen bir numara girin</string>
     <string name="number_updated">Numara güncellendi</string>
     <string name="name_updated">İsim güncellendi</string>
+    <string name="favorites_text">Favoriler</string>
 </resources>

@@ -31,4 +31,5 @@
     <string name="enter_number_error">请输入号码</string>
     <string name="number_updated">更新号码</string>
     <string name="name_updated">更新名称</string>
+    <string name="favorites_text">收藏品</string>
 </resources>
