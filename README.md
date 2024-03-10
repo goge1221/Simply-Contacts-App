@@ -2,8 +2,8 @@
 # AgendaAndroidApp
 
 The app is available in Google Play Store under: https://play.google.com/store/apps/details?id=goje.contactsapp&pcampaignid=web_share
-<p align="center">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/3386892d-8994-4286-8b98-59f68b1c4f2a" alt="Descriptive Alt Text" width="50%">
+<p align="right">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/3386892d-8994-4286-8b98-59f68b1c4f2a" alt="Descriptive Alt Text" width="10%">
 </p>
 
 
