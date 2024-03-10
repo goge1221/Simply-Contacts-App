@@ -10,7 +10,7 @@ The app is available in Google Play Store under: https://play.google.com/store/a
 
 This application was conceived and developed with a focus on accessibility, specifically designed to assist individuals with visual difficulties. The journey from concept to launch involved planning, implementation, and adaptation to ensure the app meets its user accessibility goals. Developed in Kotlin, this project served as an excellent opportunity to refine my skills in the language while creating a meaningful tool for the community.
 
-### 1. Planning and Design Phase
+## 1. Planning and Design Phase
 
 The initial phase centered around laying a solid foundation for the app's development:
 
@@ -19,7 +19,7 @@ The initial phase centered around laying a solid foundation for the app's develo
 - **Architecture Planning:** Determined the optimal number of fragments required, assigning specific functionalities to each to facilitate a seamless user experience.
 - **Technology Selection:** Kotlin, motivated by the dual goals of leveraging its modern features and furthering my expertise in the language.
 
-### 2. Implementation Phase
+## 2. Implementation Phase
 
 The development process was characterized by iterative enhancements, from basic layouts to complex functionalities:
 
@@ -34,17 +34,17 @@ Adapting the app for users with seeing difficulties posed unique challenges:
 
 - **Font Size Adaptation:** Addressed issues arising from the use of large fonts, particularly when combined with the device's maximum font setting, through dynamic resizing of UI elements.
 
-### 3. Rollout
+## 3. Rollout
 
 The app's release involved a comprehensive preparation process:
 
 - **Preparation for Launch:** Established an Android developer account and familiarized myself with Google Play's release process.
 - **Marketing Materials:** Designed an appealing app logo, created engaging screenshots for the app's landing page, and developed a privacy policy website.
 <p align="center">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/80564a04-e948-4c81-ad25-496db1c92da9" alt="First Image" width="25%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/819bdc6a-e16b-4d67-bc0e-b4350280e970" alt="Second Image" width="25%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/00f0cb99-2455-427f-81d9-9e00b423ba58" alt="Third Image" width="25%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/d4194413-0a83-41aa-8ebb-e3c8e3997e13" alt="Third Image" width="25%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/80564a04-e948-4c81-ad25-496db1c92da9" alt="First Image" width="20%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/819bdc6a-e16b-4d67-bc0e-b4350280e970" alt="Second Image" width="20%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/00f0cb99-2455-427f-81d9-9e00b423ba58" alt="Third Image" width="20%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/d4194413-0a83-41aa-8ebb-e3c8e3997e13" alt="Third Image" width="20%">
 </p>
 
 - **Accessibility and Localization:** Enhanced the app's reach by implementing multi-language support and adapting the UI for both smartphones and tablets as well as a dark mode.
