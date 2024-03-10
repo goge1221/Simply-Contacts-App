@@ -48,6 +48,24 @@ The app's release involved a comprehensive preparation process:
 
 The application is now available on the Google Play Store, proudly serving users worldwide with over 10 downloads to date.
 
+## Key Takeaways and Technologies Used
+
+In the development of this accessibility-focused Android application, several key decisions and technologies were pivotal to its success:
+
+- **Requirements Analysis and Design Decisions:** Carefully analyzed user needs and app requirements to design an inclusive and user-friendly interface. 
+
+- **Kotlin and Android Architecture Components:** Chose Kotlin due to its modern language features, concise syntax, and seamless integration with Android. Employed Android Architecture Components, including ViewModels for managing UI-related data in a lifecycle-conscious way, allowing for efficient data handling and reducing the risk of memory leaks.
+
+- **LiveData for Reactive UI Updates:** Utilized LiveData to observe changes in data and update the UI accordingly in a lifecycle-aware manner. This choice facilitated smooth communication between the app's database and the user interface, enhancing real-time responsiveness.
+
+- **MVVM Architecture for Separation of Concerns:** Adopted the Model-View-ViewModel (MVVM) architecture to promote a clear separation of concerns. This architectural pattern enhanced the scalability and maintainability of the codebase, allowing for easier feature additions and updates.
+
+- **Custom Accessibility Features:** Tailored the app's UI to cater to users with visual impairments by implementing dynamic font size adjustments and high-contrast color schemes. This focus on accessibility was central to the app's design, ensuring a positive user experience for all.
+
+- **Permission Handling for User Privacy:** Developed a comprehensive permission handling system to manage access to contacts and other sensitive information, prioritizing user privacy and security.
+
+- **Understandign of an Android App's release process:** Deeper understanding of the lifecycles an app has to go trough before being able to be released on the play store. 
+
 
 ## Installation
 To clone the repository and run the application on your local machine, follow these steps:
