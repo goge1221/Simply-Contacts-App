@@ -2,6 +2,9 @@
 # AgendaAndroidApp
 
 The app is available in Google Play Store under: https://play.google.com/store/apps/details?id=goje.contactsapp&pcampaignid=web_share
+![ic_launcher-playstore](https://github.com/goge1221/Simply-Contacts-App/assets/75140192/3386892d-8994-4286-8b98-59f68b1c4f2a)
+
+
 
 # Project Overview
 
@@ -38,10 +41,10 @@ The app's release involved a comprehensive preparation process:
 - **Preparation for Launch:** Established an Android developer account and familiarized myself with Google Play's release process.
 - **Marketing Materials:** Designed an appealing app logo, created engaging screenshots for the app's landing page, and developed a privacy policy website.
 <p align="center">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/80564a04-e948-4c81-ad25-496db1c92da9" alt="First Image" width="30%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/819bdc6a-e16b-4d67-bc0e-b4350280e970" alt="Second Image" width="30%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/00f0cb99-2455-427f-81d9-9e00b423ba58" alt="Third Image" width="30%">
-  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/d4194413-0a83-41aa-8ebb-e3c8e3997e13" alt="Third Image" width="30%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/80564a04-e948-4c81-ad25-496db1c92da9" alt="First Image" width="25%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/819bdc6a-e16b-4d67-bc0e-b4350280e970" alt="Second Image" width="25%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/00f0cb99-2455-427f-81d9-9e00b423ba58" alt="Third Image" width="25%">
+  <img src="https://github.com/goge1221/Simply-Contacts-App/assets/75140192/d4194413-0a83-41aa-8ebb-e3c8e3997e13" alt="Third Image" width="25%">
 </p>
 
 - **Accessibility and Localization:** Enhanced the app's reach by implementing multi-language support and adapting the UI for both smartphones and tablets as well as a dark mode.
